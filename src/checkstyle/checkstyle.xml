@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This configuration file was written by the eclipse-cs plugin configuration editor
+-->
+<!--
+    Checkstyle-Configuration: Standard Checks
+    Description:
+Standard checks
+-->
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+<module name="Checker">
+    <property name="severity" value="warning"/>
+    <module name="TreeWalker">
+        <property name="tabWidth" value="4"/>
+        <module name="JavadocMethod">
+            <property name="allowUndeclaredRTE" value="true"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Do not enforce java doc"/>
+            <property name="severity" value="ignore"/>            
+        </module>
+        <module name="JavadocType">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Do not enforce java doc"/>        
+            <property name="severity" value="ignore"/>            
+        </module>
+        <module name="JavadocVariable">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Do not enforce java doc"/>
+            <property name="severity" value="ignore"/>            
+        </module>
+        <module name="JavadocStyle">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Do not enforce java doc"/>
+            <property name="severity" value="ignore"/>            
+        </module>
+        <module name="ConstantName">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Allow &quot;log&quot; to be used as a final static member"/>
+            <property name="format" value="^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$|log"/>
+        </module>
+        <module name="LocalFinalVariableName"/>
+        <module name="LocalVariableName"/>
+        <module name="MemberName"/>
+        <module name="MethodName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName"/>
+        <module name="StaticVariableName"/>
+        <module name="TypeName"/>
+        <module name="AvoidStarImport"/>
+        <module name="IllegalImport"/>
+        <module name="RedundantImport"/>
+        <module name="UnusedImports"/>
+        <module name="LineLength">
+            <property name="max" value="120"/>
+			<property name="ignorePattern" value="^\s*\*\s*\{?@"/>
+        </module>
+        <module name="MethodLength"/>
+        <module name="ParameterNumber">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Constructors may have many parameters"/>        
+            <property name="tokens" value="METHOD_DEF"/>
+        </module>        
+        <module name="EmptyForIteratorPad"/>
+        <module name="MethodParamPad"/>
+        <module name="NoWhitespaceAfter"/>
+        <module name="NoWhitespaceAfter">
+            <property name="tokens" value="TYPECAST"/>
+        </module>
+        <module name="NoWhitespaceBefore"/>
+        <module name="OperatorWrap"/>
+        <module name="ParenPad"/>
+        <module name="TypecastParenPad"/>
+        <module name="WhitespaceAfter">
+            <property name="tokens" value="COMMA, SEMI, WILDCARD_TYPE"/>
+        </module>
+        <module name="WhitespaceAround">
+            <property name="tokens" value="ASSIGN,BAND,BAND_ASSIGN,BOR,BOR_ASSIGN,BSR,BSR_ASSIGN,BXOR,BXOR_ASSIGN,COLON,DIV,DIV_ASSIGN,EQUAL,GE,GT,LAND,LCURLY,LE,LITERAL_ASSERT,LITERAL_CATCH,LITERAL_DO,LITERAL_ELSE,LITERAL_FINALLY,LITERAL_FOR,LITERAL_IF,LITERAL_RETURN,LITERAL_SYNCHRONIZED,LITERAL_TRY,LITERAL_WHILE,LOR,LT,MINUS,MINUS_ASSIGN,MOD,MOD_ASSIGN,NOT_EQUAL,PLUS,PLUS_ASSIGN,QUESTION,RCURLY,SL,SLIST,SL_ASSIGN,SR,SR_ASSIGN,STAR,STAR_ASSIGN,LITERAL_ASSERT,TYPE_EXTENSION_AND"/>
+        </module>
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier"/>
+        <module name="AvoidNestedBlocks">
+            <property name="allowInSwitchCase" value="true"/>
+        </module>
+        <module name="EmptyBlock">
+        	<property name="option" value="text"/>
+        </module>
+        <module name="LeftCurly"/>
+        <module name="NeedBraces"/>
+        <module name="RightCurly">
+            <property name="option" value="alone"/>
+        </module>
+        <module name="AvoidInlineConditionals">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Do not enforce this. We want to allow inline conditionals"/>
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="DoubleCheckedLocking">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="EmptyStatement">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="EqualsHashCode"/>
+        <module name="HiddenField">
+            <property name="ignoreConstructorParameter" value="true"/>
+            <property name="ignoreSetter" value="true"/>
+        </module>
+        <module name="IllegalInstantiation"/>
+        <module name="InnerAssignment"/>
+        <module name="MissingSwitchDefault"/>
+        <module name="RedundantThrows">
+            <property name="allowUnchecked" value="true"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="We allow redundant throws for documentation purposes, but mark as info."/>
+            <property name="severity" value="info"/>
+        </module>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="FinalClass"/>
+        <module name="HideUtilityClassConstructor"/>
+        <module name="InterfaceIsType"/>
+        <module name="VisibilityModifier"/>
+        <module name="ArrayTypeStyle"/>
+        <module name="FinalParameters"/>
+        <module name="TodoComment">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="These are informational"/>
+            <property name="severity" value="info"/>
+        </module>
+        <module name="UpperEll"/>
+        <module name="EmptyForInitializerPad"/>
+        <module name="CovariantEquals"/>
+        <module name="ExplicitInitialization"/>
+        <module name="FallThrough"/>
+        <module name="IllegalCatch">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="We do not enforce this since we may have to catch these when using third party code or writing framework code"/>
+            <property name="severity" value="info"/>
+        </module>
+        <module name="IllegalThrows"/>
+        <module name="IllegalType">
+            <property name="tokens" value="METHOD_DEF,PARAMETER_DEF,VARIABLE_DEF"/>
+        </module>
+        <module name="JUnitTestCase"/>
+        <module name="MissingCtor"/>
+        <module name="ModifiedControlVariable"/>
+        <module name="MultipleVariableDeclarations"/>
+        <module name="PackageDeclaration"/>
+        <module name="ReturnCount">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="This may be too onerous. Possibly consider dropping to info or raising the allowed value (or both)"/>
+            <property name="max" value="4"/>
+        </module>
+        <module name="StringLiteralEquality"/>
+        <module name="SuperClone"/>
+        <module name="SuperFinalize"/>
+        <!-- Commented out since GWT doesn't allow final field on serializable objects. -->
+        <!-- module name="MutableException"/-->
+        <module name="Indentation">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Does not allow different indentation for throws or array initialisation."/>
+            <property name="severity" value="ignore"/>            
+        </module>
+        
+        <module name="AbstractClassName">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Do not enforce this"/>
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="ImportOrder">
+            <property name="groups" value="java, javax, junit, org, com"/>
+        </module>
+        <module name="DefaultComesLast">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Do not enforce this - allows designing fall through cases"/>
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="DeclarationOrder">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Do not enforce this"/>
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="FinalLocalVariable">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Not enforced but highlight for information"/>
+            <property name="severity" value="info"/>
+            <property name="tokens" value="PARAMETER_DEF,VARIABLE_DEF"/>
+        </module>
+        <module name="MultipleStringLiterals">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="One should not have duplicate string literals. We only mark for information rather than enforce"/>
+            <property name="severity" value="info"/>
+        </module>
+        <module name="NestedIfDepth">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Should consider refactoring if too deep"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.customMessage" value="Nested if too deep, consider refactoring"/>
+            <property name="severity" value="info"/>
+            <property name="max" value="2"/>
+        </module>
+        <module name="NestedTryDepth">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Should consider refactoring if too deep"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.customMessage" value="Nested if too deep, consider refactoring"/>
+            <property name="severity" value="info"/>
+        </module>
+        <module name="ParameterAssignment">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Shouldn't reassign a parameter"/>
+        </module>
+        <module name="DesignForExtension">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Do not enforce this. Doesn't work for classes such as Hibernate entities"/>
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="ThrowsCount">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Do not enforce this but mark for information purposes."/>
+            <property name="severity" value="info"/>
+            <property name="max" value="3"/>
+        </module>
+        <module name="TrailingComment">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Trailing comments are considered bad practice but we don't enforce"/>
+            <property name="severity" value="info"/>
+        </module>
+        <module name="UncommentedMain">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Do not enforce but we highlight for informational purposes"/>
+            <property name="severity" value="info"/>
+            <property name="excludedClasses" value="^*Main*$"/>
+        </module>
+        <module name="RegexpSinglelineJava">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Do not allow System.out.print"/>
+            <property name="format" value="System\.(out|err)\.print"/>
+            <property name="ignoreComments" value="true"/>
+            <property name="message" value="Use the logging framework instead"/>
+        </module>
+        <module name="DescendantToken">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Assertion may have side effect"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.customMessage" value="Assertion may have side effect"/>
+            <property name="tokens" value="LITERAL_ASSERT"/>
+            <property name="limitedTokens" value="POST_INC,POST_DEC,METHOD_CALL,ASSIGN,PLUS_ASSIGN,MINUS_ASSIGN,STAR_ASSIGN,DIV_ASSIGN,MOD_ASSIGN,SR_ASSIGN,BSR_ASSIGN,SL_ASSIGN,BAND_ASSIGN,BXOR_ASSIGN,BOR_ASSIGN,INC,DEC"/>
+        </module>
+        <module name="DescendantToken">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="For initializer performs no setup (use while instead?)"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.customMessage" value="For initializer performs no setup (use while instead?)"/>
+            <property name="severity" value="info"/>
+            <property name="tokens" value="FOR_INIT"/>
+            <property name="limitedTokens" value="EXPR"/>
+            <property name="minimumNumber" value="1"/>
+        </module>
+        <module name="DescendantToken">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="For condition performs no check"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.customMessage" value="For condition performs no check"/>
+            <property name="severity" value="error"/>
+            <property name="tokens" value="FOR_CONDITION"/>
+            <property name="limitedTokens" value="EXPR"/>
+            <property name="minimumNumber" value="1"/>
+        </module>
+        <module name="DescendantToken">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Return from finally block"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.customMessage" value="Return from finally block"/>
+            <property name="tokens" value="LITERAL_FINALLY"/>
+            <property name="limitedTokens" value="LITERAL_RETURN"/>
+            <property name="maximumNumber" value="0"/>
+        </module>
+    </module>
+    <module name="FileLength"/>
+    <module name="JavadocPackage">
+        <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Do not enforce this."/>
+        <property name="severity" value="ignore"/>
+    </module>
+    <module name="NewlineAtEndOfFile"/>
+    <module name="Translation"/>
+</module>
