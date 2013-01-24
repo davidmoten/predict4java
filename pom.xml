@@ -6,6 +6,14 @@
 	<version>1.2-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 	<description>predicts satellite positions using TLE</description>
+	
+	<licenses>
+		<license>
+			<name>GNU General Public License (GPL) version 2.0</name>
+			<url>http://www.gnu.org/licenses/gpl-2.0.html</url>
+		</license>
+	</licenses>
+	
 	<properties>
 		<compiler.source.version>1.6</compiler.source.version>
 		<cobertura.version>2.5.2</cobertura.version>
