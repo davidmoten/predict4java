@@ -15,7 +15,7 @@ http://www.celestrak.com/
 
 Neoklis Kyriazis, 5B4AZ, later re-wrote Dr. Kelso's code in C, and released it under the GNU GPL in 2002. PREDICT's core is based on 5B4AZ's code translation efforts.
 
-The Author of the pre-mavenized version is: David A. B. Johnson, G4DPZ <dave@g4dpz.me.uk>
+The Author of the pre-mavenized version is: David A. B. Johnson, G4DPZ
 
 Build instructions
 -------------------
