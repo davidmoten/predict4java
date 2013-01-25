@@ -6,20 +6,20 @@
 	<version>1.2-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 	<description>predict4java provides real-time satellite tracking and orbital prediction information</description>
-	
+
 	<licenses>
 		<license>
 			<name>GNU General Public License (GPL) version 2.0</name>
 			<url>http://www.gnu.org/licenses/gpl-2.0.html</url>
 		</license>
 	</licenses>
-	
+
 	<properties>
 		<compiler.source.version>1.6</compiler.source.version>
 		<cobertura.version>2.5.2</cobertura.version>
 		<checkstyle.version>2.9.1</checkstyle.version>
 		<findbugs.version>2.5.2</findbugs.version>
-		<javadoc.version>2.8.1</javadoc.version>
+		<javadoc.version>2.9</javadoc.version>
 		<pmd.version>2.7.1</pmd.version>
 		<jdepend.version>2.0-beta-2</jdepend.version>
 		<javancss.version>2.0</javancss.version>
@@ -146,6 +146,11 @@
 							<groupId>org.codehaus.mojo</groupId>
 							<artifactId>taglist-maven-plugin</artifactId>
 							<version>${taglist.version}</version>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-javadoc-plugin</artifactId>
+							<version>${javadoc.version}</version>
 						</plugin>
 					</reportPlugins>
 				</configuration>
