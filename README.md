@@ -17,6 +17,13 @@ http://www.celestrak.com/
 
 *The Author of the pre-mavenized version is: David A. B. Johnson, G4DPZ*
 
+Notes
+----------
+
+During the mavenizing process the following significant changes to the original project were made:
+* TestUtil dependency is not available in a maven repository so commented out the calls to that library in SatPosTest and SatPassTimeTest.
+* checkstyle configuration is included in the source but is not referenced yet by the maven checkstyle plugin
+
 Build instructions
 -------------------
 
