@@ -32,8 +32,19 @@ Build instructions
     cd predict4java
     mvn clean install
 
-View site reports including code coverage, javadocs
-----------------------------------------------------
+View site reports 
+------------------
+The generated maven site includes these reports:
+* Cobertura coverage
+* Checkstyle
+* PMD
+* CPD
+* FindBugs
+* JDepend
+* JavaNCSS
+* Tag List
+* Javadocs
+
     mvn clean site
 
 Then open *target/site/index.html* in a browser
