@@ -20,7 +20,7 @@ http://www.celestrak.com/
 Notes
 ----------
 
-During the mavenizing process the following significant changes to the original project were made:
+During the mavenizing process the following minor changes to the original project were made:
 * TestUtil dependency is not available in a maven repository so commented out the calls to that library in SatPosTest and SatPassTimeTest.
 * checkstyle configuration is included in the source but is not referenced yet by the maven checkstyle plugin
 
