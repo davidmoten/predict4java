@@ -45,6 +45,7 @@ The generated maven site includes these reports:
 * Tag List
 * Javadocs
 
+To generate:
     mvn clean site
 
 Then open *target/site/index.html* in a browser
