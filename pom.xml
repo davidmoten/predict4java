@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>uk.me.g4dpz</groupId>
 	<artifactId>predict4java</artifactId>
-	<version>1.2-SNAPSHOT</version>
+	<version>1.2</version>
 	<name>${project.artifactId}</name>
 	<description>predict4java provides real-time satellite tracking and orbital prediction information</description>
 
