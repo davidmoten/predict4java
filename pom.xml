@@ -7,14 +7,8 @@
 	<name>${project.artifactId}</name>
 	<description>predict4java provides real-time satellite tracking and orbital prediction information</description>
 
-	<licenses>
-		<license>
-			<name>GNU General Public License (GPL) version 2.0</name>
-			<url>http://www.gnu.org/licenses/gpl-2.0.html</url>
-		</license>
-	</licenses>
-
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<compiler.source.version>1.6</compiler.source.version>
 		<cobertura.version>2.5.2</cobertura.version>
 		<checkstyle.version>2.9.1</checkstyle.version>
@@ -28,6 +22,21 @@
 		<taglist.version>2.4</taglist.version>
 		<m3.site.version>3.2</m3.site.version>
 	</properties>
+
+	<licenses>
+		<license>
+			<name>GNU General Public License (GPL) version 2.0</name>
+			<url>http://www.gnu.org/licenses/gpl-2.0.html</url>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection>scm:git:git@github.com:davidmoten/predict4java.git</connection>
+		<url>scm:git:git@github.com:davidmoten/predict4java.git</url>
+		<developerConnection>scm:git:git@github.com:davidmoten/predict4java.git</developerConnection>
+	</scm>
+
+
 	<dependencies>
 		<dependency>
 			<groupId>commons-lang</groupId>
