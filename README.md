@@ -17,6 +17,8 @@ http://www.celestrak.com/
 
 *The Author of the pre-mavenized version is: David A. B. Johnson, G4DPZ*
 
+Continuous Integration is [here](https://xuml-tools.ci.cloudbees.com/).
+
 Notes
 ----------
 
