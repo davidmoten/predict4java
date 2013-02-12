@@ -17,7 +17,7 @@ http://www.celestrak.com/
 
 *The Author of the pre-mavenized version is: David A. B. Johnson, G4DPZ*
 
-Continuous Integration is [here](https://xuml-tools.ci.cloudbees.com/).
+Continuous integration with Jenkins for this project is [here](https://xuml-tools.ci.cloudbees.com/). <a href="https://xuml-tools.ci.cloudbees.com/"><img  src="http://web-static-cloudfront.s3.amazonaws.com/images/badges/BuiltOnDEV.png"/></a>
 
 Notes
 ----------
