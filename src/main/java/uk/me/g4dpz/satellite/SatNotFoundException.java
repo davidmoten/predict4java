@@ -40,7 +40,7 @@ package uk.me.g4dpz.satellite;
 /**
  * @author David A. B. Johnson, g4dpz
  */
-public class SatNotFoundException extends PredictionException {
+public class SatNotFoundException extends Exception {
 
     private static final long serialVersionUID = 3389434245667560642L;
 
