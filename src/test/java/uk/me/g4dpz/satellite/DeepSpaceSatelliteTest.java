@@ -116,13 +116,6 @@ public class DeepSpaceSatelliteTest extends AbstractSatelliteTestBase {
     }
 
     @Test
-    public void testInitSDP4CodeOnlyRunOnce() {
-        final TLE tle = new TLE(DEEP_SPACE_TLE);
-        DeepSpaceSatellite sat = new DeepSpaceSatellite(tle);
-        sat.calculateSDP4(0);
-    }
-
-    @Test
     public final void testGeoSynchSatellite() {
 
         timeNow = new DateTime(DATE_2009_12_26T00_00_00Z);

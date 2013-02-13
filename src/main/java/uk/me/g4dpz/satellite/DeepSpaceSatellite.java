@@ -58,8 +58,6 @@ public class DeepSpaceSatellite extends AbstractSatellite implements Serializabl
     private double aycof;
     private double x7thm1;
 
-    private boolean sdp4Init;
-
     private final DeepSpaceValueObject dsv;
 
     private final DeepSpaceCalculator deep;
@@ -91,13 +89,6 @@ public class DeepSpaceSatellite extends AbstractSatellite implements Serializabl
     protected synchronized void calculateSDP4(final double tsince) {
 
         final double[] temp = new double[12];
-
-        /* Initialization */
-
-        if (!sdp4Init) {
-
-            initSDP4();
-        }
 
         final double xmdf = getTLE().getXmo() + dsv.xmdot * tsince;
         final double tsq = tsince * tsince;
@@ -187,7 +178,6 @@ public class DeepSpaceSatellite extends AbstractSatellite implements Serializabl
         double temp1;
         double temp2;
         double temp3;
-        sdp4Init = true;
 
         /* Recover original mean motion (xnodp) and */
         /* semimajor axis (aodp) from input elements. */
