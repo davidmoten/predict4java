@@ -45,13 +45,6 @@ public class SatNotFoundException extends Exception {
     private static final long serialVersionUID = 3389434245667560642L;
 
     /**
-	 * 
-	 */
-    public SatNotFoundException() {
-        super();
-    }
-
-    /**
      * @param message
      */
     public SatNotFoundException(final String message) {
