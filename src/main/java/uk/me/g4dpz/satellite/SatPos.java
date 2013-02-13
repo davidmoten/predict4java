@@ -71,7 +71,6 @@ public class SatPos {
 
     private boolean aboveHorizon;
 
-
     /**
      * Default constructor.
      */
@@ -89,8 +88,7 @@ public class SatPos {
     public SatPos(final double azimuth, final double elevation, final Date theTime) {
         this.azimuth = azimuth;
         this.elevation = elevation;
-        this.time = new Date();
-        this.time.setTime(theTime.getTime());
+        this.time = new Date(theTime.getTime());
     }
 
     /**
@@ -360,7 +358,7 @@ public class SatPos {
         final double[][] result = new double[360][2];
 
         for (int azi = 0; azi < 360; azi++) {
-            final double azimuth = (double)(azi / 360.0) * 2.0 * Math.PI;
+            final double azimuth = (azi / 360.0) * 2.0 * Math.PI;
             double rangelat = Math.asin(Math.sin(latitude) * Math.cos(beta) + Math.cos(azimuth) * Math.sin(beta)
                     * Math.cos(latitude));
             final double num = Math.cos(beta) - (Math.sin(latitude) * Math.sin(rangelat));
@@ -396,19 +394,19 @@ public class SatPos {
             rangelat = (rangelat / (2.0 * Math.PI)) * 360.0;
             rangelong = (rangelong / (2.0 * Math.PI)) * 360.0;
 
-//            if (rangelong < 180.0) {
-//                rangelong = -rangelong;
-//            }
-//            else if (rangelong > 180.0) {
-//                rangelong = 360.0 - rangelong;
-//            }
-//
-//            if (rangelat < 90.0) {
-//                rangelat = -rangelat;
-//            }
-//            else if (rangelat > 90.0) {
-//                rangelat = 180.0 - rangelat;
-//            }
+            // if (rangelong < 180.0) {
+            // rangelong = -rangelong;
+            // }
+            // else if (rangelong > 180.0) {
+            // rangelong = 360.0 - rangelong;
+            // }
+            //
+            // if (rangelat < 90.0) {
+            // rangelat = -rangelat;
+            // }
+            // else if (rangelat > 90.0) {
+            // rangelat = 180.0 - rangelat;
+            // }
 
             result[azi][0] = rangelat;
             result[azi][1] = rangelong;
