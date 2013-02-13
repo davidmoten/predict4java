@@ -326,4 +326,5 @@ public class LEOSatellite extends AbstractSatellite implements Serializable {
         throw new RuntimeException("should not be called");
 
     }
+
 }

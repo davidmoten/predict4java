@@ -26,6 +26,10 @@
  */
 package uk.me.g4dpz.satellite;
 
+import static org.junit.Assert.assertEquals;
+
+import java.util.Date;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -34,6 +38,8 @@ import org.junit.Test;
  * 
  */
 public final class SatPosTest {
+
+    private static final double PRECISION = 0.00001;
 
     /**
      * Default Constructor.
@@ -67,5 +73,14 @@ public final class SatPosTest {
         Assert.assertEquals("   9  339", String.format("%4.0f %4.0f", rangeCircle[89][0], rangeCircle[89][1]));
         Assert.assertEquals(" -20    9", String.format("%4.0f %4.0f", rangeCircle[179][0], rangeCircle[179][1]));
         Assert.assertEquals("   8   41", String.format("%4.0f %4.0f", rangeCircle[269][0], rangeCircle[269][1]));
+    }
+
+    @Test
+    public void testSatPosConstructor() {
+        Date now = new Date();
+        SatPos pos = new SatPos(1, 2, now);
+        assertEquals(1.0, pos.getAzimuth(), PRECISION);
+        assertEquals(2.0, pos.getElevation(), PRECISION);
+        assertEquals(now.getTime(), pos.getTime().getTime());
     }
 }
