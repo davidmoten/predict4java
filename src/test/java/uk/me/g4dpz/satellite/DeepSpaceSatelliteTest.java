@@ -26,6 +26,9 @@
  */
 package uk.me.g4dpz.satellite;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -105,6 +108,7 @@ public class DeepSpaceSatelliteTest extends AbstractSatelliteTestBase {
         Assert.assertEquals("-2.7759541", String.format(FORMAT_9_7F, satellitePosition.getEclipseDepth()));
         Assert.assertFalse(satellitePosition.isEclipsed());
         Assert.assertTrue(satellite.willBeSeen(GROUND_STATION));
+        assertTrue(satellitePosition.isAboveHorizon());
 
     }
 
@@ -113,6 +117,22 @@ public class DeepSpaceSatelliteTest extends AbstractSatelliteTestBase {
 
         final TLE tle = new TLE(DEEP_SPACE_TLE);
         new DeepSpaceSatellite(tle).calculateSGP4(0);
+    }
+
+    @Test
+    public void testToStringMethod() {
+        final TLE tle = new TLE(DEEP_SPACE_TLE);
+        final Satellite satellite = SatelliteFactory.createSatellite(tle);
+        final SatPos satellitePosition = satellite.getPosition(GROUND_STATION, timeNow.toDate());
+        assertNotNull(satellitePosition.toString());
+    }
+
+    @Test
+    public void testToShortStringMethod() {
+        final TLE tle = new TLE(DEEP_SPACE_TLE);
+        final Satellite satellite = SatelliteFactory.createSatellite(tle);
+        final SatPos satellitePosition = satellite.getPosition(GROUND_STATION, timeNow.toDate());
+        assertNotNull(satellitePosition.toShortString());
     }
 
     @Test

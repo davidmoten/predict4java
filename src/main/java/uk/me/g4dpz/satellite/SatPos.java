@@ -316,23 +316,6 @@ public class SatPos {
 
     }
 
-    public void copy(final SatPos other) {
-
-        aboveHorizon = other.aboveHorizon;
-        altitude = other.altitude;
-        azimuth = other.azimuth;
-        elevation = other.elevation;
-        latitude = other.latitude;
-        longitude = other.longitude;
-        phase = other.phase;
-        range = other.range;
-        rangeRate = other.rangeRate;
-        theta = other.theta;
-        time = other.time;
-        eclipseDepth = other.eclipseDepth;
-        eclipsed = other.eclipsed;
-    }
-
     /*
      * Gets the range circle as an array of integers representing pairs of latitude and longitude.
      */

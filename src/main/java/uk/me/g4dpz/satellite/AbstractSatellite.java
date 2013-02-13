@@ -397,20 +397,6 @@ public abstract class AbstractSatellite implements Satellite, Serializable {
     }
 
     /**
-     * Get the position of the satellite.
-     * 
-     * @param gsPos the ground station position
-     * @param date the date
-     */
-    @Override
-    @Deprecated
-    public synchronized void getPosition(final GroundStationPosition gsPos,
-            final SatPos satellitePosition, final Date date) {
-
-        satellitePosition.copy(getPosition(gsPos, date));
-    }
-
-    /**
      * Calculate_User_PosVel() passes the user'S observer position and the time of interest and
      * returns the ECI position and velocity of the observer. The velocity calculation assumes the
      * observer position is stationary relative to the earth'S surface.
