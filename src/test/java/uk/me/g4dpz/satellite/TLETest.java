@@ -142,6 +142,11 @@ public final class TLETest extends AbstractSatelliteTestBase {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullArrayPassedToTLEConstructorThrowsIllegalArgumentException() {
+        new TLE((String[])null);
+    }
+
     private void checkData(final TLE tle) {
 
         Assert.assertEquals(AO_51_NAME, tle.getName());
