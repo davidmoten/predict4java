@@ -63,28 +63,28 @@ public class TLE implements Serializable {
     private static final double TWO_THIRDS = 2.0 / 3.0;
     private static final double CK2 = 5.413079E-4;
 
-    private int catnum;
-    private String name;
-    private int setnum;
-    private int year;
-    private double refepoch;
-    private double incl;
-    private double raan;
-    private double eccn;
-    private double argper;
-    private double meanan;
-    private double meanmo;
-    private double drag;
-    private double nddot6;
-    private double bstar;
-    private int orbitnum;
-    private double epoch;
+    private final int catnum;
+    private final String name;
+    private final int setnum;
+    private final int year;
+    private final double refepoch;
+    private final double incl;
+    private final double raan;
+    private final double eccn;
+    private final double argper;
+    private final double meanan;
+    private final double meanmo;
+    private final double drag;
+    private final double nddot6;
+    private final double bstar;
+    private final int orbitnum;
+    private final double epoch;
     private double xndt2o;
-    private double xincl;
-    private double xnodeo;
-    private double eo;
-    private double omegao;
-    private double xmo;
+    private final double xincl;
+    private final double xnodeo;
+    private final double eo;
+    private final double omegao;
+    private final double xmo;
     private double xno;
     private boolean deepspace;
     private java.util.Date createddate;
@@ -248,13 +248,6 @@ public class TLE implements Serializable {
             throw new IllegalArgumentException(
                     createIllegalArgumentMessage(lineCount, "was zero length"));
         }
-    }
-
-    /**
-     * Default constructor cannot be invoked.
-     */
-    @SuppressWarnings("unused")
-    private TLE() {
     }
 
     /**
