@@ -55,9 +55,6 @@ public interface Satellite {
     /** J4 Harmonic (WGS '72). */
     double J4_HARMONIC = -1.65597E-6;
 
-    @Deprecated
-    void getPosition(GroundStationPosition qth, SatPos satPos, Date time);
-
     boolean willBeSeen(GroundStationPosition qth);
 
     void calculateSatelliteVectors(Date time);
