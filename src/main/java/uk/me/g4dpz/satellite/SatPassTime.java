@@ -46,13 +46,13 @@ public class SatPassTime implements Serializable {
 
     private static final long serialVersionUID = -6408342316986801301L;
 
-    private Date startTime;
-    private Date endTime;
-    private Date tca;
-    private String polePassed;
-    private int aos;
-    private int los;
-    private double maxEl;
+    private final Date startTime;
+    private final Date endTime;
+    private final Date tca;
+    private final String polePassed;
+    private final int aos;
+    private final int los;
+    private final double maxEl;
 
     private static final String NEW_LINE = "\n";
     private static final String DEG_NL = " deg.\n";
@@ -68,7 +68,7 @@ public class SatPassTime implements Serializable {
 
     public SatPassTime(final Date startTime, final Date endTime, final String polePassed,
             final int aos, final int los, final double maxEl) {
-        new SatPassTime(
+        this(
                 startTime,
                 endTime,
                 new Date((startTime.getTime() + endTime.getTime()) / 2),
@@ -78,13 +78,9 @@ public class SatPassTime implements Serializable {
                 maxEl);
     }
 
-    public SatPassTime() {
-    }
-
     public SatPassTime(final Date startTime, final Date endTime, final Date tca, final String polePassed,
             final int aosAzimuth, final int losAzimuth,
             final double maxEl) {
-        // TODO Auto-generated constructor stub
         this.startTime = new Date(startTime.getTime());
         this.endTime = new Date(endTime.getTime());
         this.polePassed = polePassed;
@@ -104,10 +100,6 @@ public class SatPassTime implements Serializable {
 
     public final Date getTCA() {
         return new Date(tca.getTime());
-    }
-
-    public final void setTCA(final Date theTCA) {
-        this.tca = theTCA;
     }
 
     public final String getPolePassed() {
