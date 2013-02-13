@@ -26,6 +26,8 @@
  */
 package uk.me.g4dpz.satellite;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -39,6 +41,7 @@ public final class GroundStationPositionTest {
     private static final double LONGITUDE = 2.0;
     private static final double LATITUDE = 1.0;
     private static final double THETA = 4.0;
+    private static final double PRECISION = 0.00001;
 
     /**
      * Default Constructor.
@@ -94,5 +97,14 @@ public final class GroundStationPositionTest {
                     iae.getMessage());
         }
 
+    }
+
+    @Test
+    public void testConstructor() {
+        GroundStationPosition g = new GroundStationPosition(10, 11, 12, "boo");
+        assertEquals(10.0, g.getLatitude(), PRECISION);
+        assertEquals(11.0, g.getLongitude(), PRECISION);
+        assertEquals(12.0, g.getHeightAMSL(), PRECISION);
+        assertEquals("boo", g.getName());
     }
 }
