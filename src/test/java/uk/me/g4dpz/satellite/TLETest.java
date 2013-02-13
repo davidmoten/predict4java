@@ -26,8 +26,11 @@
  */
 package uk.me.g4dpz.satellite;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
@@ -174,5 +177,13 @@ public final class TLETest extends AbstractSatelliteTestBase {
         Assert.assertEquals("0.7617385", String.format(FORMAT_9_7F, tle.getXmo()));
         Assert.assertEquals("0.062860", String.format("%8.6f", tle.getXno()));
         Assert.assertFalse(tle.isDeepspace());
+    }
+
+    @Test
+    public void testCreatedDateSetterAndGetter() {
+
+        TLE tle = new TLE(DEEP_SPACE_TLE);
+        tle.setCreateddate(new Date());
+        assertNotNull(tle.getCreateddate());
     }
 }
