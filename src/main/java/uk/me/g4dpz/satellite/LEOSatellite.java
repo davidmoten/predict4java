@@ -320,4 +320,10 @@ public class LEOSatellite extends AbstractSatellite implements Serializable {
 
         sgp4Init = true;
     }
+
+    @Override
+    protected void calculateSDP4(double tsince) {
+        throw new RuntimeException("should not be called");
+
+    }
 }

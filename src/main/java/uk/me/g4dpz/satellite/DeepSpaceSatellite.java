@@ -1206,4 +1206,9 @@ public class DeepSpaceSatellite extends AbstractSatellite implements Serializabl
         }
     }
 
+    @Override
+    protected void calculateSGP4(double tsince) {
+        throw new RuntimeException("should not be called");
+    }
+
 }

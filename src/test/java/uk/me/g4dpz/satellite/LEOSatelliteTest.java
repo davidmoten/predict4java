@@ -131,12 +131,19 @@ public class LEOSatelliteTest extends AbstractSatelliteTestBase {
         Assert.assertEquals("-0.7307717", String.format(FORMAT_9_7F, satellitePosition.getEclipseDepth()));
         Assert.assertFalse(satellitePosition.isEclipsed());
         Assert.assertTrue(satellite.willBeSeen(GROUND_STATION));
-        
+
         double[][] rangeCircle = satellitePosition.getRangeCircle();
         Assert.assertEquals("  59.9  355.6", String.format("%6.1f %6.1f", rangeCircle[0][0], rangeCircle[0][1]));
         Assert.assertEquals("  28.8  323.8", String.format("%6.1f %6.1f", rangeCircle[89][0], rangeCircle[89][1]));
         Assert.assertEquals("   4.8  355.2", String.format("%6.1f %6.1f", rangeCircle[179][0], rangeCircle[179][1]));
         Assert.assertEquals("  27.9   27.2", String.format("%6.1f %6.1f", rangeCircle[269][0], rangeCircle[269][1]));
+    }
+
+    @Test(expected = RuntimeException.class)
+    public final void testDeepSpaceSatelliteThrowsExceptionOnCallOfCalculateSDP4Method() {
+
+        final TLE tle = new TLE(LEO_TLE);
+        new LEOSatellite(tle).calculateSDP4(0);
     }
 
     @Test
@@ -164,7 +171,7 @@ public class LEOSatelliteTest extends AbstractSatelliteTestBase {
         Assert.assertEquals(ECLIPSE_DEPTH, String.format(FORMAT_9_7F, satellitePosition.getEclipseDepth()));
         Assert.assertFalse(satellitePosition.isEclipsed());
         Assert.assertTrue(satellite.willBeSeen(GROUND_STATION));
-        
+
     }
 
     @Test

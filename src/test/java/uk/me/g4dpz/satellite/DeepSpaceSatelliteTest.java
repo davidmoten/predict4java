@@ -105,7 +105,21 @@ public class DeepSpaceSatelliteTest extends AbstractSatelliteTestBase {
         Assert.assertEquals("-2.7759541", String.format(FORMAT_9_7F, satellitePosition.getEclipseDepth()));
         Assert.assertFalse(satellitePosition.isEclipsed());
         Assert.assertTrue(satellite.willBeSeen(GROUND_STATION));
-        
+
+    }
+
+    @Test(expected = RuntimeException.class)
+    public final void testDeepSpaceSatelliteThrowsExceptionOnCallOfCalculateSGP4Method() {
+
+        final TLE tle = new TLE(DEEP_SPACE_TLE);
+        new DeepSpaceSatellite(tle).calculateSGP4(0);
+    }
+
+    @Test
+    public void testInitSDP4CodeOnlyRunOnce() {
+        final TLE tle = new TLE(DEEP_SPACE_TLE);
+        DeepSpaceSatellite sat = new DeepSpaceSatellite(tle);
+        sat.calculateSDP4(0);
     }
 
     @Test

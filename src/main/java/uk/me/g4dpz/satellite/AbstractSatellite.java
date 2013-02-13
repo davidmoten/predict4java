@@ -99,11 +99,9 @@ public abstract class AbstractSatellite implements Satellite, Serializable {
         julEpoch = AbstractSatellite.juliandDateOfEpoch(tle.getEpoch());
     }
 
-    protected void calculateSGP4(final double tsince) {
-    }
+    abstract protected void calculateSGP4(final double tsince);
 
-    protected void calculateSDP4(final double tsince) {
-    }
+    abstract protected void calculateSDP4(final double tsince);
 
     @Override
     public final synchronized TLE getTLE() {
@@ -145,7 +143,7 @@ public abstract class AbstractSatellite implements Satellite, Serializable {
      * @param epoch the Epoch
      * @return The Julian date of the Epoch
      */
-    private static double juliandDateOfEpoch(final double epoch) {
+    static double juliandDateOfEpoch(final double epoch) {
 
         /* Modification to support Y2K */
         /* Valid 1957 through 2056 */
@@ -220,7 +218,7 @@ public abstract class AbstractSatellite implements Satellite, Serializable {
      * @param arg2 the divisor
      * @return the remainder
      */
-    private static double modulus(final double arg1, final double arg2) {
+    static double modulus(final double arg1, final double arg2) {
         /* Returns arg1 mod arg2 */
 
         double returnValue = arg1;
