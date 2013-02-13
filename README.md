@@ -3,6 +3,8 @@ predict4java
 
 mavenized fork of http://code.google.com/p/predict4java/
 
+Status: production
+
 Quoting from above site:
 
 *This is a Java port of the core elements of the Open Source (GPL v2) Predict program, Copyright John A. Magliacane, KD2BD 1991-2003:*
