@@ -26,6 +26,11 @@
  */
 package uk.me.g4dpz.satellite;
 
+import static org.junit.Assert.assertFalse;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -86,5 +91,14 @@ public class SatelliteFactoryTest extends AbstractSatelliteTestBase {
         catch (final IllegalArgumentException iae) {
             // we expected this
         }
+    }
+
+    @Test
+    public void testPrivateConstructorForCoverage() throws NoSuchMethodException, SecurityException,
+            InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+        Constructor<SatelliteFactory> constructor = SatelliteFactory.class.getDeclaredConstructor();
+        assertFalse(constructor.isAccessible());
+        constructor.setAccessible(true);
+        constructor.newInstance();
     }
 }
