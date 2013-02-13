@@ -20,12 +20,15 @@ http://www.celestrak.com/
 Continuous integration with Jenkins for this project is [here](https://xuml-tools.ci.cloudbees.com/). <a href="https://xuml-tools.ci.cloudbees.com/"><img  src="http://web-static-cloudfront.s3.amazonaws.com/images/badges/BuiltOnDEV.png"/></a>
 
 Project reports including Javadocs are [here](https://xuml-tools.ci.cloudbees.com/job/predict4java%20site/site/project-reports.html).
+
 Notes
 ----------
 
 During the mavenizing process the following minor changes to the original project were made:
 * TestUtil dependency is not available in a maven repository so commented out the calls to that library in SatPosTest and SatPassTimeTest.
 * checkstyle configuration is included in the source but is not referenced yet by the maven checkstyle plugin
+
+More enhancements to the original codebase have been performed since the original mavenization and are indicated in the commit history.
 
 Build instructions
 -------------------
