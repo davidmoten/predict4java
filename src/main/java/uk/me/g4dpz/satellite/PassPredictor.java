@@ -84,10 +84,9 @@ public class PassPredictor {
      * @param qth the ground station position
      * @throws IllegalArgumentException bad argument passed in
      * @throws SatNotFoundException
-     * @throws InvalidTleException
      */
     public PassPredictor(final TLE theTLE, final GroundStationPosition theQTH)
-            throws IllegalArgumentException, InvalidTleException, SatNotFoundException {
+            throws IllegalArgumentException, SatNotFoundException {
 
         if (null == theTLE) {
             throw new IllegalArgumentException("TLE has not been set");
@@ -114,7 +113,7 @@ public class PassPredictor {
      * @throws InvalidTleException bad TLE passed in
      * @throws SatNotFoundException
      */
-    public Long getDownlinkFreq(final Long freq, final Date date) throws InvalidTleException,
+    public Long getDownlinkFreq(final Long freq, final Date date) throws
             SatNotFoundException {
         validateData();
         // get the current position
@@ -126,13 +125,13 @@ public class PassPredictor {
         return (long)((double)freq * (SPEED_OF_LIGHT - rangeRate * 1000.0) / SPEED_OF_LIGHT);
     }
 
-    private SatPos getSatPos(final Date time) throws InvalidTleException,
+    private SatPos getSatPos(final Date time) throws
             SatNotFoundException {
         this.iterationCount++;
         return sat.getPosition(qth, time);
     }
 
-    public Long getUplinkFreq(final Long freq, final Date date) throws InvalidTleException,
+    public Long getUplinkFreq(final Long freq, final Date date) throws
             SatNotFoundException {
         validateData();
         final Calendar cal = Calendar.getInstance(TZ);
@@ -143,12 +142,12 @@ public class PassPredictor {
         return (long)((double)freq * (SPEED_OF_LIGHT + rangeRate * 1000.0) / SPEED_OF_LIGHT);
     }
 
-    public SatPassTime nextSatPass(final Date date) throws InvalidTleException, SatNotFoundException {
+    public SatPassTime nextSatPass(final Date date) throws SatNotFoundException {
         return nextSatPass(date, false);
     }
 
     public SatPassTime nextSatPass(final Date date, final boolean windBack)
-            throws InvalidTleException, SatNotFoundException {
+            throws SatNotFoundException {
 
         int aosAzimuth = 0;
         int losAzimuth = 0;
@@ -266,7 +265,7 @@ public class PassPredictor {
      * @throws SatNotFoundException
      */
     private SatPos getPosition(final Calendar cal, final int offSet)
-            throws InvalidTleException, SatNotFoundException {
+            throws SatNotFoundException {
         SatPos satPos;
         cal.add(Calendar.SECOND, offSet);
         satPos = getSatPos(cal.getTime());
@@ -286,7 +285,7 @@ public class PassPredictor {
      * @throws InvalidTleException
      */
     public List<SatPassTime> getPasses(final Date start, final int hoursAhead, final boolean windBack)
-            throws InvalidTleException, SatNotFoundException {
+            throws SatNotFoundException {
 
         this.iterationCount = 0;
 
@@ -323,7 +322,7 @@ public class PassPredictor {
         return iterationCount;
     }
 
-    private void validateData() throws InvalidTleException,
+    private void validateData() throws
             SatNotFoundException {
 
         if (newTLE) {
@@ -397,7 +396,7 @@ public class PassPredictor {
             final int incrementSeconds,
             final int minutesBefore,
             final int minutesAfter)
-            throws InvalidTleException, SatNotFoundException {
+            throws SatNotFoundException {
 
         Date trackDate = new Date(referenceDate.getTime() - (minutesBefore * 60L * 1000L));
         final Date endDateDate = new Date(referenceDate.getTime() + (minutesAfter * 60L * 1000L));

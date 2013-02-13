@@ -94,9 +94,6 @@ public class PassPredictorTest extends AbstractSatelliteTestBase {
         catch (final IllegalArgumentException e) {
             // we expected this
         }
-        catch (final InvalidTleException e) {
-            Assert.fail(e.getMessage());
-        }
         catch (final SatNotFoundException e) {
             Assert.fail(e.getMessage());
         }
@@ -107,9 +104,6 @@ public class PassPredictorTest extends AbstractSatelliteTestBase {
         }
         catch (final IllegalArgumentException e) {
             // we expected this
-        }
-        catch (final InvalidTleException e) {
-            Assert.fail(e.getMessage());
         }
         catch (final SatNotFoundException e) {
             Assert.fail(e.getMessage());
@@ -174,9 +168,6 @@ public class PassPredictorTest extends AbstractSatelliteTestBase {
             Assert.assertEquals(312, passTime.getLosAzimuth());
             Assert.assertEquals(1.8, passTime.getMaxEl(), 0.05);
         }
-        catch (final InvalidTleException e) {
-            Assert.fail(INVALID_TLE_EXCEPTION_WAS_THROWN);
-        }
         catch (final SatNotFoundException snfe) {
             Assert.fail(SAT_NOT_FOUND_EXCEPTION_WAS_THROWN);
         }
@@ -207,9 +198,6 @@ public class PassPredictorTest extends AbstractSatelliteTestBase {
             Assert.assertEquals(Long.valueOf(145800719L),
                     passPredictor.getUplinkFreq(145800000L, passTime.getEndTime()));
         }
-        catch (final InvalidTleException e) {
-            Assert.fail(INVALID_TLE_EXCEPTION_WAS_THROWN);
-        }
         catch (final SatNotFoundException snfe) {
             Assert.fail(SAT_NOT_FOUND_EXCEPTION_WAS_THROWN);
         }
@@ -227,14 +215,11 @@ public class PassPredictorTest extends AbstractSatelliteTestBase {
             final SatPassTime passTime = passPredictor.nextSatPass(cal.toDate(), true);
 
             Assert.assertEquals("Date: January 5, 2009\n"
-                        + "Start Time: 4:28 AM\n"
-                        + "Duration:  4.1 min.\n"
-                        + "AOS Azimuth: 52 deg.\n"
-                        + "Max Elevation:  0.9 deg.\n"
-                        + "LOS Azimuth: 84 deg.", passTime.toString());
-        }
-        catch (final InvalidTleException e) {
-            Assert.fail(INVALID_TLE_EXCEPTION_WAS_THROWN);
+                    + "Start Time: 4:28 AM\n"
+                    + "Duration:  4.1 min.\n"
+                    + "AOS Azimuth: 52 deg.\n"
+                    + "Max Elevation:  0.9 deg.\n"
+                    + "LOS Azimuth: 84 deg.", passTime.toString());
         }
         catch (final SatNotFoundException snfe) {
             Assert.fail(SAT_NOT_FOUND_EXCEPTION_WAS_THROWN);
@@ -285,16 +270,13 @@ public class PassPredictorTest extends AbstractSatelliteTestBase {
                 cal = cal.plusMinutes(minute);
             }
         }
-        catch (final InvalidTleException e) {
-            Assert.fail(INVALID_TLE_EXCEPTION_WAS_THROWN);
-        }
         catch (final SatNotFoundException snfe) {
             Assert.fail(SAT_NOT_FOUND_EXCEPTION_WAS_THROWN);
         }
     }
 
     @Test
-    public void testGetPassList() throws InvalidTleException, SatNotFoundException {
+    public void testGetPassList() throws SatNotFoundException {
 
         final TLE tle = new TLE(LEO_TLE);
 
@@ -308,7 +290,7 @@ public class PassPredictorTest extends AbstractSatelliteTestBase {
     }
 
     @Test
-    public void testGetPassListWithWindBack() throws InvalidTleException, SatNotFoundException {
+    public void testGetPassListWithWindBack() throws SatNotFoundException {
 
         final TLE tle = new TLE(LEO_TLE);
 
