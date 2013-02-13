@@ -58,19 +58,4 @@ public class SatNotFoundException extends Exception {
         super(message);
     }
 
-    /**
-     * @param cause
-     */
-    public SatNotFoundException(final Throwable cause) {
-        super(cause);
-    }
-
-    /**
-     * @param message
-     * @param cause
-     */
-    public SatNotFoundException(final String message, final Throwable cause) {
-        super(message, cause);
-    }
-
 }
