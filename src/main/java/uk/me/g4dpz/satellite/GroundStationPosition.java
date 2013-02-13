@@ -38,7 +38,7 @@
 package uk.me.g4dpz.satellite;
 
 /**
- * The location of the Satellite Grund Station.
+ * The location of the Satellite Ground Station.
  * 
  * @author g4dpz
  */
