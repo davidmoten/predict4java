@@ -1,7 +1,7 @@
 predict4java
 ============
 
-mavenized version of http://code.google.com/p/predict4java/
+mavenized fork of http://code.google.com/p/predict4java/
 
 Quoting from above site:
 
