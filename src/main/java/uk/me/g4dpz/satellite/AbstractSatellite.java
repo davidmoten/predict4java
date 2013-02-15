@@ -37,7 +37,6 @@
  */
 package uk.me.g4dpz.satellite;
 
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -45,9 +44,7 @@ import java.util.TimeZone;
 /**
  * Not thread safe!
  */
-public abstract class AbstractSatellite implements Satellite, Serializable {
-
-    private static final long serialVersionUID = 1156988980297227860L;
+public abstract class AbstractSatellite implements Satellite {
 
     private static final double MINS_PER_DAY = 1.44E3;
     private static final double PI_OVER_TWO = Math.PI / 2.0;
@@ -590,7 +587,7 @@ public abstract class AbstractSatellite implements Satellite, Serializable {
         this.perigee = perigee;
     }
 
-    static class Vector4 extends Object implements Serializable {
+    static class Vector4 {
 
         /** serialized id. */
         private static final long serialVersionUID = -8804649332186066551L;

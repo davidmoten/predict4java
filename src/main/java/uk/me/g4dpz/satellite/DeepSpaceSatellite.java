@@ -37,17 +37,14 @@
  */
 package uk.me.g4dpz.satellite;
 
-import java.io.Serializable;
-
 /**
  * DeepSpaceSatellite.
  * 
  * @author g4dpz
  * 
  */
-public class DeepSpaceSatellite extends AbstractSatellite implements Serializable {
+public class DeepSpaceSatellite extends AbstractSatellite {
 
-    private static final long serialVersionUID = -9151311937099118037L;
     private double c1;
     private double c4;
     private double x1mth2;
@@ -271,11 +268,10 @@ public class DeepSpaceSatellite extends AbstractSatellite implements Serializabl
         dsv.aodp = ao / (1.0 - delo);
     }
 
-    final class DeepSpaceCalculator implements Serializable {
+    final class DeepSpaceCalculator {
         /* This function is used by SDP4 to add lunar and solar */
         /* perturbation effects to deep-space orbit objects. */
 
-        private static final long serialVersionUID = -1154274461279090353L;
         static final double ZSINIS = 3.9785416E-1;
         static final double ZSINGS = -9.8088458E-1;
         static final double ZNS = 1.19459E-5;
@@ -1159,9 +1155,8 @@ public class DeepSpaceSatellite extends AbstractSatellite implements Serializabl
         }
     }
 
-    private static final class DeepSpaceValueObject implements Serializable {
+    private static final class DeepSpaceValueObject {
 
-        private static final long serialVersionUID = 5230929750062183569L;
         private double eosq;
         private double sinio;
         private double cosio;
@@ -1197,7 +1192,7 @@ public class DeepSpaceSatellite extends AbstractSatellite implements Serializabl
     }
 
     @Override
-    protected void calculateSGP4(double tsince) {
+    protected synchronized void calculateSGP4(double tsince) {
         throw new RuntimeException("should not be called");
     }
 

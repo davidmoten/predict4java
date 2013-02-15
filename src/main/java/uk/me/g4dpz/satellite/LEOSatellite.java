@@ -37,16 +37,13 @@
  */
 package uk.me.g4dpz.satellite;
 
-import java.io.Serializable;
-
 /**
  * 
  * @author g4dpz
  * 
  */
-public class LEOSatellite extends AbstractSatellite implements Serializable {
+public class LEOSatellite extends AbstractSatellite {
 
-    private static final long serialVersionUID = 1206152575764077691L;
     private double aodp;
     private double aycof;
     private double c1;
@@ -322,7 +319,7 @@ public class LEOSatellite extends AbstractSatellite implements Serializable {
     }
 
     @Override
-    protected void calculateSDP4(double tsince) {
+    protected synchronized void calculateSDP4(double tsince) {
         throw new RuntimeException("should not be called");
 
     }

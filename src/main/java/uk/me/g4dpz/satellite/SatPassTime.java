@@ -37,14 +37,11 @@
  */
 package uk.me.g4dpz.satellite;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class SatPassTime implements Serializable {
-
-    private static final long serialVersionUID = -6408342316986801301L;
+public class SatPassTime {
 
     private final Date startTime;
     private final Date endTime;
