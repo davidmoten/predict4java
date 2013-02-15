@@ -503,10 +503,8 @@ public abstract class AbstractSatellite implements Satellite {
 
         double elevation = (satPos.getElevation() / Satellite.TWO_PI) * 360.0;
 
-        if (elevation > 0.0) {
-            if (elevation > 90) {
-                elevation = 180 - elevation;
-            }
+        if (elevation > 90) {
+            elevation = 180 - elevation;
         }
 
         satPos.setAboveHorizon((elevation - gsPos.getHorizonElevations()[sector]) > EPSILON);
