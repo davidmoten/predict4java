@@ -147,9 +147,9 @@ public class SatPassTime {
                 + NEW_LINE
                 +
                 // "End Time: " + mTimeFormatter.format(endDate_time) + "\n" +
-                String.format("Duration: %4.1f min.\n", duration)
+                String.format("Duration: %4.1f min.%n", duration)
                 + "AOS Azimuth: " + aos + DEG_NL
-                + String.format("Max Elevation: %4.1f deg.\n", maxEl)
+                + String.format("Max Elevation: %4.1f deg.%n", maxEl)
                 + "LOS Azimuth: " + los + " deg.";
     }
 }

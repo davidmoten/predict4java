@@ -83,51 +83,52 @@ public class DeepSpaceSatellite extends AbstractSatellite {
      * @param satPos the position of the satellite
      */
     @Override
-    protected synchronized void calculateSDP4(final double tsince) {
+    protected void calculateSDP4(final double tsince) {
+        synchronized (this) {
+            final double[] temp = new double[12];
 
-        final double[] temp = new double[12];
+            final double xmdf = getTLE().getXmo() + dsv.xmdot * tsince;
+            final double tsq = tsince * tsince;
+            final double templ = t2cof * tsq;
+            dsv.xll = xmdf + dsv.xnodp * templ;
 
-        final double xmdf = getTLE().getXmo() + dsv.xmdot * tsince;
-        final double tsq = tsince * tsince;
-        final double templ = t2cof * tsq;
-        dsv.xll = xmdf + dsv.xnodp * templ;
+            dsv.omgadf = getTLE().getOmegao() + dsv.omgdot * tsince;
+            final double xnoddf = getTLE().getXnodeo() + dsv.xnodot * tsince;
+            dsv.xnode = xnoddf + xnodcf * tsq;
+            final double tempa = 1.0 - c1 * tsince;
+            final double tempe = getTLE().getBstar() * c4 * tsince;
+            dsv.xn = dsv.xnodp;
 
-        dsv.omgadf = getTLE().getOmegao() + dsv.omgdot * tsince;
-        final double xnoddf = getTLE().getXnodeo() + dsv.xnodot * tsince;
-        dsv.xnode = xnoddf + xnodcf * tsq;
-        final double tempa = 1.0 - c1 * tsince;
-        final double tempe = getTLE().getBstar() * c4 * tsince;
-        dsv.xn = dsv.xnodp;
+            dsv.t = tsince;
 
-        dsv.t = tsince;
+            deep.dpsec(getTLE());
 
-        deep.dpsec(getTLE());
+            final double a = Math.pow(XKE / dsv.xn, TWO_THIRDS) * tempa * tempa;
+            dsv.em = dsv.em - tempe;
+            deep.dpper(getTLE());
 
-        final double a = Math.pow(XKE / dsv.xn, TWO_THIRDS) * tempa * tempa;
-        dsv.em = dsv.em - tempe;
-        deep.dpper(getTLE());
+            final double xl = dsv.xll + dsv.omgadf + dsv.xnode;
+            final double beta = Math.sqrt(1.0 - dsv.em * dsv.em);
+            dsv.xn = XKE / Math.pow(a, 1.5);
 
-        final double xl = dsv.xll + dsv.omgadf + dsv.xnode;
-        final double beta = Math.sqrt(1.0 - dsv.em * dsv.em);
-        dsv.xn = XKE / Math.pow(a, 1.5);
+            /* Long period periodics */
+            final double axn = dsv.em * Math.cos(dsv.omgadf);
+            temp[0] = AbstractSatellite.invert(a * beta * beta);
+            final double xll = temp[0] * xlcof * axn;
+            final double aynl = temp[0] * aycof;
+            final double xlt = xl + xll;
+            final double ayn = dsv.em * Math.sin(dsv.omgadf) + aynl;
 
-        /* Long period periodics */
-        final double axn = dsv.em * Math.cos(dsv.omgadf);
-        temp[0] = AbstractSatellite.invert(a * beta * beta);
-        final double xll = temp[0] * xlcof * axn;
-        final double aynl = temp[0] * aycof;
-        final double xlt = xl + xll;
-        final double ayn = dsv.em * Math.sin(dsv.omgadf) + aynl;
+            /* Solve Kepler'S Equation */
+            final double capu = AbstractSatellite.mod2PI(xlt - dsv.xnode);
+            temp[2] = capu;
 
-        /* Solve Kepler'S Equation */
-        final double capu = AbstractSatellite.mod2PI(xlt - dsv.xnode);
-        temp[2] = capu;
+            AbstractSatellite.converge(temp, axn, ayn, capu);
 
-        AbstractSatellite.converge(temp, axn, ayn, capu);
+            calculatePositionAndVelocity(temp, a, axn, ayn);
 
-        calculatePositionAndVelocity(temp, a, axn, ayn);
-
-        calculatePhase(xlt, dsv.xnode, dsv.omgadf);
+            calculatePhase(xlt, dsv.xnode, dsv.omgadf);
+        }
     }
 
     private void calculatePositionAndVelocity(final double[] temp, final double a, final double axn, final double ayn) {
@@ -1192,8 +1193,10 @@ public class DeepSpaceSatellite extends AbstractSatellite {
     }
 
     @Override
-    protected synchronized void calculateSGP4(double tsince) {
-        throw new RuntimeException("should not be called");
+    protected void calculateSGP4(double tsince) {
+        synchronized (this) {
+            throw new RuntimeException("should not be called");
+        }
     }
 
 }
