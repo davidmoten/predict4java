@@ -291,11 +291,8 @@ public abstract class AbstractSatellite implements Satellite {
      * Reference: The 1992 Astronomical Almanac, page K12.
      * 
      * @param time the time
-     * @param position the position
-     * @param satPos the satellite position
      */
-    private void calculateLatLonAlt(final double time,
-            final Vector4 positionVector, final SatPos satellitePosition) {
+    private void calculateLatLonAlt(final double time) {
 
         satPos.setTheta(Math.atan2(position.getY(), position.getX()));
         satPos.setLongitude(AbstractSatellite.mod2PI(satPos.getTheta() - AbstractSatellite.thetaGJD(time)));
@@ -386,7 +383,7 @@ public abstract class AbstractSatellite implements Satellite {
         //
         /* Calculate satellite Lat North, Lon East and Alt. */
 
-        calculateLatLonAlt(julUTC, position, satPos);
+        calculateLatLonAlt(julUTC);
 
         satPos.setTime(date);
 
@@ -820,7 +817,7 @@ public abstract class AbstractSatellite implements Satellite {
      */
     @Override
     public synchronized SatPos calculateSatelliteGroundTrack() {
-        calculateLatLonAlt(julUTC, position, this.satPos);
+        calculateLatLonAlt(julUTC);
 
         return this.satPos;
     }
