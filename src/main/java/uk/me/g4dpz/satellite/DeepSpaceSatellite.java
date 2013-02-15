@@ -105,7 +105,7 @@ public class DeepSpaceSatellite extends AbstractSatellite {
 
             final double a = Math.pow(XKE / dsv.xn, TWO_THIRDS) * tempa * tempa;
             dsv.em = dsv.em - tempe;
-            deep.dpper(getTLE());
+            deep.dpper();
 
             final double xl = dsv.xll + dsv.omgadf + dsv.xnode;
             final double beta = Math.sqrt(1.0 - dsv.em * dsv.em);
@@ -1030,7 +1030,7 @@ public class DeepSpaceSatellite extends AbstractSatellite {
          * @param tle the three line elements
          * @param dsv the deep space values
          */
-        private void dpper(final TLE tle) {
+        private void dpper() {
             sinis = Math.sin(dsv.xinc);
             cosis = Math.cos(dsv.xinc);
 
@@ -1094,7 +1094,6 @@ public class DeepSpaceSatellite extends AbstractSatellite {
                 dsv.xll = dsv.xll + pl;
                 dsv.omgadf = xls - dsv.xll - Math.cos(dsv.xinc) * dsv.xnode;
             }
-            return;
         }
 
         /**
