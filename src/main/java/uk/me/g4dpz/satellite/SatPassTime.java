@@ -124,6 +124,14 @@ public class SatPassTime {
         return maxEl;
     }
 
+    private synchronized static String formatDate(Date date) {
+        return DATE_FORMAT.format(date);
+    }
+
+    private synchronized static String formatTime(Date date) {
+        return TIME_FORMAT.format(date);
+    }
+
     /**
      * Returns a string representing the contents of the object.
      */
@@ -132,10 +140,10 @@ public class SatPassTime {
 
         final double duration = (endTime.getTime() - startTime.getTime()) / 60000.0;
 
-        return "Date: " + DATE_FORMAT.format(startTime)
+        return "Date: " + formatDate(startTime)
                 + NEW_LINE
                 + "Start Time: "
-                + TIME_FORMAT.format(startTime)
+                + formatTime(startTime)
                 + NEW_LINE
                 +
                 // "End Time: " + mTimeFormatter.format(endDate_time) + "\n" +
