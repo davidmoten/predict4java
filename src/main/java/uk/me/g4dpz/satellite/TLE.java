@@ -42,6 +42,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -446,7 +447,7 @@ public class TLE implements Serializable {
 
         final List<TLE> importedSats = new ArrayList<TLE>();
 
-        final BufferedReader buf = new BufferedReader(new InputStreamReader(fileIS));
+        final BufferedReader buf = new BufferedReader(new InputStreamReader(fileIS, Charset.forName("UTF-8")));
         String readString;
 
         int j = 0;

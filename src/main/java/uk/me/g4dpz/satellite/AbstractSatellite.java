@@ -589,9 +589,6 @@ public abstract class AbstractSatellite implements Satellite {
 
     static class Vector4 {
 
-        /** serialized id. */
-        private static final long serialVersionUID = -8804649332186066551L;
-
         /** the w part of the vector. ` */
         private double w;
         /** the x part of the vector. ` */
