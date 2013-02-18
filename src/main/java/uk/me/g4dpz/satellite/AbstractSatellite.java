@@ -340,13 +340,6 @@ public abstract class AbstractSatellite implements Satellite {
         AbstractSatellite.scaleVector(EARTH_RADIUS_KM * MINS_PER_DAY / SECS_PER_DAY, vel);
     }
 
-    /**
-     * Get the position of the satellite.
-     * 
-     * @param gsPos the ground station position
-     * @param satPos the position of the satellite
-     * @param date the date
-     */
     @Override
     public synchronized SatPos getPosition(final GroundStationPosition gsPos, final Date date) {
 
@@ -510,13 +503,6 @@ public abstract class AbstractSatellite implements Satellite {
         satPos.setAboveHorizon((elevation - gsPos.getHorizonElevations()[sector]) > EPSILON);
     }
 
-    /**
-     * This function returns true if the satellite can ever rise above the horizon of the ground
-     * station.
-     * 
-     * @param qth the ground station position
-     * @return boolean whether or not the satellite will be seen
-     */
     @Override
     public boolean willBeSeen(final GroundStationPosition qth) {
 
@@ -767,14 +753,6 @@ public abstract class AbstractSatellite implements Satellite {
         while (i++ < 10 && !converged);
     }
 
-    /**
-     * Calculates the position and velocity vectors of the satellite. When observations for many
-     * ground stations have to be made for one satellite, this method can be used together with the
-     * calculateSatPosForGroundStation(..) method. This gives a performance improvement relative to
-     * using the all-in-one method getPosition(..).
-     * 
-     * @param date The date for the calculation the position and velocity vectors of the satellite.
-     */
     @Override
     public synchronized void calculateSatelliteVectors(final Date date) {
         // Re-initialize, object can contain data from previous calculations
@@ -807,12 +785,6 @@ public abstract class AbstractSatellite implements Satellite {
         satPos.setTime(date);
     }
 
-    /**
-     * Calculates the ground track (sub satellite point) of the satellite, for the already
-     * determined position of the satellite.
-     * 
-     * @return satPos The SatPos object in which the ground track of the satellite is stored.
-     */
     @Override
     public synchronized SatPos calculateSatelliteGroundTrack() {
         calculateLatLonAlt(julUTC);
@@ -820,16 +792,6 @@ public abstract class AbstractSatellite implements Satellite {
         return this.satPos;
     }
 
-    /**
-     * Calculates the position of the satellite from the perspective of a ground station. The
-     * position and velocity of the satellite must have been determined before (by
-     * calculateSatelliteVectors(..)). The ground track (sub satellite point) is not calculated,
-     * this should be done by calculateSatelliteGroundTrack(..).
-     * 
-     * @param gsPos The position of the ground station to perform the calculations for.
-     * @return satPos The SatPos object where the position of the satellite is stored, as seen from
-     *         a ground station.
-     */
     @Override
     public synchronized SatPos calculateSatPosForGroundStation(final GroundStationPosition gsPos) {
         final Vector4 squintVector = new Vector4();

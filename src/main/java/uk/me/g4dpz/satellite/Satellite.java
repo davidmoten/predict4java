@@ -55,15 +55,58 @@ public interface Satellite {
     /** J4 Harmonic (WGS '72). */
     double J4_HARMONIC = -1.65597E-6;
 
+    /**
+     * This function returns true if the satellite can ever rise above the horizon of the ground
+     * station.
+     * 
+     * @param qth the ground station position
+     * @return boolean whether or not the satellite will be seen
+     */
     boolean willBeSeen(GroundStationPosition qth);
 
+    /**
+     * Calculates the position and velocity vectors of the satellite. When observations for many
+     * ground stations have to be made for one satellite, this method can be used together with the
+     * calculateSatPosForGroundStation(..) method. This gives a performance improvement relative to
+     * using the all-in-one method getPosition(..).
+     * 
+     * @param date The date for the calculation the position and velocity vectors of the satellite.
+     */
     void calculateSatelliteVectors(Date time);
 
+    /**
+     * Calculates the ground track (sub satellite point) of the satellite, for the already
+     * determined position of the satellite.
+     * 
+     * @return satPos The SatPos object in which the ground track of the satellite is stored.
+     */
     SatPos calculateSatelliteGroundTrack();
 
+    /**
+     * Calculates the position of the satellite from the perspective of a ground station. The
+     * position and velocity of the satellite must have been determined before (by
+     * calculateSatelliteVectors(..)). The ground track (sub satellite point) is not calculated,
+     * this should be done by calculateSatelliteGroundTrack(..).
+     * 
+     * @param gsPos The position of the ground station to perform the calculations for.
+     * @return satPos The SatPos object where the position of the satellite is stored, as seen from
+     *         a ground station.
+     */
     SatPos calculateSatPosForGroundStation(GroundStationPosition gsPos);
 
+    /**
+     * Returns the currently assigned TLE for the satellite.
+     * 
+     * @return
+     */
     TLE getTLE();
 
+    /**
+     * Get the position of the satellite.
+     * 
+     * @param gsPos the ground station position
+     * @param satPos the position of the satellite
+     * @param date the date
+     */
     SatPos getPosition(GroundStationPosition qth, Date time);
 }
