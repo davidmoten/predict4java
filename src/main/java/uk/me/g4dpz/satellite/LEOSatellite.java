@@ -50,9 +50,9 @@ public class LEOSatellite extends AbstractSatellite {
     private final double c4;
     private final double c5;
     private final double cosio;
-    private double d2;
-    private double d3;
-    private double d4;
+    private final double d2;
+    private final double d3;
+    private final double d4;
     private final double delmo;
     private final double omgcof;
     private final double eta;
@@ -61,9 +61,9 @@ public class LEOSatellite extends AbstractSatellite {
     private final double xnodp;
     private final double sinmo;
     private final double t2cof;
-    private double t3cof;
-    private double t4cof;
-    private double t5cof;
+    private final double t3cof;
+    private final double t4cof;
+    private final double t5cof;
     private final double x1mth2;
     private final double x3thm1;
     private final double x7thm1;
@@ -82,6 +82,7 @@ public class LEOSatellite extends AbstractSatellite {
      */
     public LEOSatellite(final TLE tle) {
         super(tle);
+
         /* Recover original mean motion (xnodp) and */
         /* semimajor axis (aodp) from input elements. */
 
@@ -199,6 +200,14 @@ public class LEOSatellite extends AbstractSatellite {
             t4cof = 0.25 * (3.0 * d3 + c1 * (12 * d2 + 10 * c1sq));
             t5cof = 0.2 * (3.0 * d4 + 12 * c1 * d3 + 6 * d2 * d2 + 15 * c1sq
                     * (2.0 * d2 + c1sq));
+        }
+        else {
+            d2 = 0;
+            d3 = 0;
+            d4 = 0;
+            t3cof = 0;
+            t4cof = 0;
+            t5cof = 0;
         }
     }
 
