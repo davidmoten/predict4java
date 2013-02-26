@@ -44,36 +44,36 @@ package uk.me.g4dpz.satellite;
  */
 public class LEOSatellite extends AbstractSatellite {
 
-    private double aodp;
-    private double aycof;
-    private double c1;
-    private double c4;
-    private double c5;
-    private double cosio;
+    private final double aodp;
+    private final double aycof;
+    private final double c1;
+    private final double c4;
+    private final double c5;
+    private final double cosio;
     private double d2;
     private double d3;
     private double d4;
-    private double delmo;
-    private double omgcof;
-    private double eta;
-    private double omgdot;
-    private double sinio;
-    private double xnodp;
-    private double sinmo;
-    private double t2cof;
+    private final double delmo;
+    private final double omgcof;
+    private final double eta;
+    private final double omgdot;
+    private final double sinio;
+    private final double xnodp;
+    private final double sinmo;
+    private final double t2cof;
     private double t3cof;
     private double t4cof;
     private double t5cof;
-    private double x1mth2;
-    private double x3thm1;
-    private double x7thm1;
-    private double xmcof;
-    private double xmdot;
-    private double xnodcf;
-    private double xnodot;
-    private double xlcof;
+    private final double x1mth2;
+    private final double x3thm1;
+    private final double x7thm1;
+    private final double xmcof;
+    private final double xmdot;
+    private final double xnodcf;
+    private final double xnodot;
+    private final double xlcof;
 
-    private boolean sgp4Simple;
+    private final boolean sgp4Simple;
 
     /**
      * Creates a Low Earth Orbit Satellite.
@@ -82,115 +82,6 @@ public class LEOSatellite extends AbstractSatellite {
      */
     public LEOSatellite(final TLE tle) {
         super(tle);
-        sgp4Init();
-    }
-
-    @Override
-    protected void calculateSGP4(final double tsince) {
-
-        synchronized (this) {
-
-            final double[] temp = new double[9];
-
-            /* Update for secular gravity and atmospheric drag. */
-            final double xmdf = getTLE().getXmo() + xmdot * tsince;
-            final double omgadf = getTLE().getOmegao() + omgdot
-                    * tsince;
-            final double xnoddf = getTLE().getXnodeo() + xnodot
-                    * tsince;
-            double omega = omgadf;
-            double xmp = xmdf;
-            final double tsq = AbstractSatellite.sqr(tsince);
-            final double xnode = xnoddf + xnodcf * tsq;
-            final double bstar = getTLE().getBstar();
-            double tempa = 1.0 - c1 * tsince;
-            double tempe = bstar * c4 * tsince;
-            double templ = t2cof * tsq;
-
-            if (!sgp4Simple) {
-                final double delomg = omgcof * tsince;
-                final double delm = xmcof
-                        * (Math.pow(1.0 + eta * Math.cos(xmdf), 3) - delmo);
-                temp[0] = delomg + delm;
-                xmp = xmdf + temp[0];
-                omega = omgadf - temp[0];
-                final double tcube = tsq * tsince;
-                final double tfour = tsince * tcube;
-                tempa = tempa - d2 * tsq - d3 * tcube - d4 * tfour;
-                tempe = tempe + bstar * c5
-                        * (Math.sin(xmp) - sinmo);
-                templ = templ + t3cof * tcube + tfour * (t4cof + tsince * t5cof);
-            }
-
-            final double a = aodp * Math.pow(tempa, 2);
-            final double eo = getTLE().getEo();
-            final double e = eo - tempe;
-            final double xl = xmp + omega + xnode + xnodp * templ;
-            final double beta = Math.sqrt(1.0 - e * e);
-            final double xn = XKE / Math.pow(a, 1.5);
-
-            /* Long period periodics */
-            final double axn = e * Math.cos(omega);
-            temp[0] = AbstractSatellite.invert(a * AbstractSatellite.sqr(beta));
-            final double xll = temp[0] * xlcof * axn;
-            final double aynl = temp[0] * aycof;
-            final double xlt = xl + xll;
-            final double ayn = e * Math.sin(omega) + aynl;
-
-            /* Solve Kepler'S Equation */
-            final double capu = AbstractSatellite.mod2PI(xlt - xnode);
-            temp[2] = capu;
-
-            AbstractSatellite.converge(temp, axn, ayn, capu);
-
-            calculatePositionAndVelocity(temp, xnode, a, xn, axn, ayn);
-
-            calculatePhase(xlt, xnode, omgadf);
-        }
-    }
-
-    private void calculatePositionAndVelocity(final double[] temp, final double xnode, final double a, final double xn,
-            final double axn, final double ayn) {
-        final double ecose = temp[5] + temp[6];
-        final double esine = temp[3] - temp[4];
-        final double elsq = AbstractSatellite.sqr(axn) + AbstractSatellite.sqr(ayn);
-        temp[0] = 1.0 - elsq;
-        final double pl = a * temp[0];
-        final double r = a * (1.0 - ecose);
-        temp[1] = AbstractSatellite.invert(r);
-        final double rdot = XKE * Math.sqrt(a) * esine * temp[1];
-        final double rfdot = XKE * Math.sqrt(pl) * temp[1];
-        temp[2] = a * temp[1];
-        final double betal = Math.sqrt(temp[0]);
-        temp[3] = AbstractSatellite.invert(1.0 + betal);
-        final double cosu = temp[2] * (temp[8] - axn + ayn * esine * temp[3]);
-        final double sinu = temp[2] * (temp[7] - ayn - axn * esine * temp[3]);
-        final double u = Math.atan2(sinu, cosu);
-        final double sin2u = 2.0 * sinu * cosu;
-        final double cos2u = 2.0 * cosu * cosu - 1;
-        temp[0] = AbstractSatellite.invert(pl);
-        temp[1] = CK2 * temp[0];
-        temp[2] = temp[1] * temp[0];
-
-        /* Update for short periodics */
-        final double rk = r * (1.0 - 1.5 * temp[2] * betal * x3thm1) + 0.5 * temp[1]
-                * x1mth2 * cos2u;
-        final double uk = u - 0.25 * temp[2] * x7thm1 * sin2u;
-        final double xnodek = xnode + 1.5 * temp[2] * cosio * sin2u;
-        final double xinck = getTLE().getXincl() + 1.5 * temp[2]
-                * cosio * sinio * cos2u;
-        final double rdotk = rdot - xn * temp[1] * x1mth2 * sin2u;
-        final double rfdotk = rfdot + xn * temp[1]
-                * (x1mth2 * cos2u + 1.5 * x3thm1);
-
-        super.calculatePositionAndVelocity(rk, uk, xnodek, xinck, rdotk, rfdotk);
-    }
-
-    /**
-     * 
-     */
-    private void sgp4Init() {
-
         /* Recover original mean motion (xnodp) and */
         /* semimajor axis (aodp) from input elements. */
 
@@ -309,8 +200,107 @@ public class LEOSatellite extends AbstractSatellite {
             t5cof = 0.2 * (3.0 * d4 + 12 * c1 * d3 + 6 * d2 * d2 + 15 * c1sq
                     * (2.0 * d2 + c1sq));
         }
+    }
 
-        sgp4Init = true;
+    @Override
+    protected void calculateSGP4(final double tsince) {
+
+        synchronized (this) {
+
+            final double[] temp = new double[9];
+
+            /* Update for secular gravity and atmospheric drag. */
+            final double xmdf = getTLE().getXmo() + xmdot * tsince;
+            final double omgadf = getTLE().getOmegao() + omgdot
+                    * tsince;
+            final double xnoddf = getTLE().getXnodeo() + xnodot
+                    * tsince;
+            double omega = omgadf;
+            double xmp = xmdf;
+            final double tsq = AbstractSatellite.sqr(tsince);
+            final double xnode = xnoddf + xnodcf * tsq;
+            final double bstar = getTLE().getBstar();
+            double tempa = 1.0 - c1 * tsince;
+            double tempe = bstar * c4 * tsince;
+            double templ = t2cof * tsq;
+
+            if (!sgp4Simple) {
+                final double delomg = omgcof * tsince;
+                final double delm = xmcof
+                        * (Math.pow(1.0 + eta * Math.cos(xmdf), 3) - delmo);
+                temp[0] = delomg + delm;
+                xmp = xmdf + temp[0];
+                omega = omgadf - temp[0];
+                final double tcube = tsq * tsince;
+                final double tfour = tsince * tcube;
+                tempa = tempa - d2 * tsq - d3 * tcube - d4 * tfour;
+                tempe = tempe + bstar * c5
+                        * (Math.sin(xmp) - sinmo);
+                templ = templ + t3cof * tcube + tfour * (t4cof + tsince * t5cof);
+            }
+
+            final double a = aodp * Math.pow(tempa, 2);
+            final double eo = getTLE().getEo();
+            final double e = eo - tempe;
+            final double xl = xmp + omega + xnode + xnodp * templ;
+            final double beta = Math.sqrt(1.0 - e * e);
+            final double xn = XKE / Math.pow(a, 1.5);
+
+            /* Long period periodics */
+            final double axn = e * Math.cos(omega);
+            temp[0] = AbstractSatellite.invert(a * AbstractSatellite.sqr(beta));
+            final double xll = temp[0] * xlcof * axn;
+            final double aynl = temp[0] * aycof;
+            final double xlt = xl + xll;
+            final double ayn = e * Math.sin(omega) + aynl;
+
+            /* Solve Kepler'S Equation */
+            final double capu = AbstractSatellite.mod2PI(xlt - xnode);
+            temp[2] = capu;
+
+            AbstractSatellite.converge(temp, axn, ayn, capu);
+
+            calculatePositionAndVelocity(temp, xnode, a, xn, axn, ayn);
+
+            calculatePhase(xlt, xnode, omgadf);
+        }
+    }
+
+    private void calculatePositionAndVelocity(final double[] temp, final double xnode, final double a, final double xn,
+            final double axn, final double ayn) {
+        final double ecose = temp[5] + temp[6];
+        final double esine = temp[3] - temp[4];
+        final double elsq = AbstractSatellite.sqr(axn) + AbstractSatellite.sqr(ayn);
+        temp[0] = 1.0 - elsq;
+        final double pl = a * temp[0];
+        final double r = a * (1.0 - ecose);
+        temp[1] = AbstractSatellite.invert(r);
+        final double rdot = XKE * Math.sqrt(a) * esine * temp[1];
+        final double rfdot = XKE * Math.sqrt(pl) * temp[1];
+        temp[2] = a * temp[1];
+        final double betal = Math.sqrt(temp[0]);
+        temp[3] = AbstractSatellite.invert(1.0 + betal);
+        final double cosu = temp[2] * (temp[8] - axn + ayn * esine * temp[3]);
+        final double sinu = temp[2] * (temp[7] - ayn - axn * esine * temp[3]);
+        final double u = Math.atan2(sinu, cosu);
+        final double sin2u = 2.0 * sinu * cosu;
+        final double cos2u = 2.0 * cosu * cosu - 1;
+        temp[0] = AbstractSatellite.invert(pl);
+        temp[1] = CK2 * temp[0];
+        temp[2] = temp[1] * temp[0];
+
+        /* Update for short periodics */
+        final double rk = r * (1.0 - 1.5 * temp[2] * betal * x3thm1) + 0.5 * temp[1]
+                * x1mth2 * cos2u;
+        final double uk = u - 0.25 * temp[2] * x7thm1 * sin2u;
+        final double xnodek = xnode + 1.5 * temp[2] * cosio * sin2u;
+        final double xinck = getTLE().getXincl() + 1.5 * temp[2]
+                * cosio * sinio * cos2u;
+        final double rdotk = rdot - xn * temp[1] * x1mth2 * sin2u;
+        final double rfdotk = rfdot + xn * temp[1]
+                * (x1mth2 * cos2u + 1.5 * x3thm1);
+
+        super.calculatePositionAndVelocity(rk, uk, xnodek, xinck, rdotk, rfdotk);
     }
 
     @Override
