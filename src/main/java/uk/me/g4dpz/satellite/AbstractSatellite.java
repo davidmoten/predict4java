@@ -294,6 +294,10 @@ public abstract class AbstractSatellite implements Satellite {
      */
     private void calculateLatLonAlt(final double time) {
 
+        calculateLatLonAlt(time, satPos, position);
+    }
+
+    private void calculateLatLonAlt(final double time, SatPos satPos, Vector4 position) {
         satPos.setTheta(Math.atan2(position.getY(), position.getX()));
         satPos.setLongitude(AbstractSatellite.mod2PI(satPos.getTheta() - AbstractSatellite.thetaGJD(time)));
         final double r = Math.sqrt(AbstractSatellite.sqr(position.getX()) + AbstractSatellite.sqr(position.getY()));
