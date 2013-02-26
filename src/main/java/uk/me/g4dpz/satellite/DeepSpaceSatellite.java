@@ -67,7 +67,6 @@ public class DeepSpaceSatellite extends AbstractSatellite {
     public DeepSpaceSatellite(final TLE tle) {
         super(tle);
         this.dsv = new DeepSpaceValueObject();
-        this.deep = new DeepSpaceCalculator();
 
         // ////////////////////////////
         // initSDP4
@@ -160,8 +159,8 @@ public class DeepSpaceSatellite extends AbstractSatellite {
         x7thm1 = 7.0 * dsv.theta2 - 1;
 
         /* initialize Deep() */
+        this.deep = new DeepSpaceCalculator(tle, dsv);
 
-        deep.init(getTLE());
     }
 
     /**
@@ -262,7 +261,7 @@ public class DeepSpaceSatellite extends AbstractSatellite {
         super.calculatePositionAndVelocity(rk, uk, xnodek, xinck, rdotk, rfdotk);
     }
 
-    final class DeepSpaceCalculator {
+    final static class DeepSpaceCalculator {
         /* This function is used by SDP4 to add lunar and solar */
         /* perturbation effects to deep-space orbit objects. */
 
@@ -500,16 +499,10 @@ public class DeepSpaceSatellite extends AbstractSatellite {
         private boolean synchronous;
         private boolean doLoop;
         private boolean epochRestart;
+        private DeepSpaceValueObject dsv;
 
-        private DeepSpaceCalculator() {
-        }
-
-        /**
-         * Entrance for deep space initialization.
-         * 
-         * @param tle the three line elements
-         */
-        private void init(final TLE tle) {
+        private DeepSpaceCalculator(TLE tle, DeepSpaceValueObject dsv) {
+            this.dsv = dsv;
             thgr = thetaG(tle.getRefepoch());
             eq = tle.getEo();
             xnq = dsv.xnodp;
