@@ -720,20 +720,13 @@ public class DeepSpaceSatellite extends AbstractSatellite {
             ze = ZES;
             xnoi = AbstractSatellite.invert(xnq);
 
-            /* Loop breaks when Solar terms are done a second */
-            /* time, after Lunar terms are initialized */
+            /* Solar terms done again after Lunar terms are done */
+            calculateSolarTerms();
 
-            while (true) {
-                /* Solar terms done again after Lunar terms are done */
-                calculateSolarTerms();
+            /* Do lunar terms */
+            calculateLunarTerms();
 
-                if (lunarTermsDone) {
-                    break;
-                }
-
-                /* Do lunar terms */
-                calculateLunarTerms();
-            }
+            calculateSolarTerms();
 
             sse = sse + se;
             ssi = ssi + si;
