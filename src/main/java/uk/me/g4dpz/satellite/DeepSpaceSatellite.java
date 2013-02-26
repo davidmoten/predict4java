@@ -72,10 +72,6 @@ public class DeepSpaceSatellite extends AbstractSatellite {
         // initSDP4
         // ////////////////////////////
 
-        double temp1;
-        double temp2;
-        double temp3;
-
         /* Recover original mean motion (xnodp) and */
         /* semimajor axis (aodp) from input elements. */
 
@@ -138,9 +134,9 @@ public class DeepSpaceSatellite extends AbstractSatellite {
                                 * (2.0 * etasq - eeta * (1.0 + etasq))
                                 * Math.cos(2.0 * getTLE().getOmegao())));
         final double theta4 = dsv.theta2 * dsv.theta2;
-        temp1 = 3.0 * CK2 * pinvsq * dsv.xnodp;
-        temp2 = temp1 * CK2 * pinvsq;
-        temp3 = 1.25 * CK4 * pinvsq * pinvsq * dsv.xnodp;
+        double temp1 = 3.0 * CK2 * pinvsq * dsv.xnodp;
+        double temp2 = temp1 * CK2 * pinvsq;
+        double temp3 = 1.25 * CK4 * pinvsq * pinvsq * dsv.xnodp;
         dsv.xmdot = dsv.xnodp + 0.5 * temp1 * dsv.betao * x3thm1 + 0.0625
                 * temp2 * dsv.betao * (13 - 78 * dsv.theta2 + 137 * theta4);
         final double x1m5th = 1.0 - 5 * dsv.theta2;
