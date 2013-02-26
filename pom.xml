@@ -6,7 +6,9 @@
 	<version>1.2.0.4-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 	<description>predict4java provides real-time satellite tracking and orbital prediction information</description>
-
+	<prerequisites>
+		<maven>3.0.1</maven>
+	</prerequisites>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<compiler.source.version>1.6</compiler.source.version>
@@ -66,7 +68,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
+				<version>3.0</version>
 				<configuration>
 					<verbose>true</verbose>
 					<fork>true</fork>
