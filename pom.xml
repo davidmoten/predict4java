@@ -38,7 +38,6 @@
 		<developerConnection>scm:git:git@github.com:davidmoten/predict4java.git</developerConnection>
 	</scm>
 
-
 	<dependencies>
 		<dependency>
 			<groupId>commons-lang</groupId>
