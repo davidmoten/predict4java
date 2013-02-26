@@ -45,15 +45,15 @@ package uk.me.g4dpz.satellite;
  */
 public class DeepSpaceSatellite extends AbstractSatellite {
 
-    private double c1;
-    private double c4;
-    private double x1mth2;
-    private double x3thm1;
-    private double xlcof;
-    private double xnodcf;
-    private double t2cof;
-    private double aycof;
-    private double x7thm1;
+    private final double c1;
+    private final double c4;
+    private final double x1mth2;
+    private final double x3thm1;
+    private final double xlcof;
+    private final double xnodcf;
+    private final double t2cof;
+    private final double aycof;
+    private final double x7thm1;
 
     private final DeepSpaceValueObject dsv;
 
@@ -68,7 +68,100 @@ public class DeepSpaceSatellite extends AbstractSatellite {
         super(tle);
         this.dsv = new DeepSpaceValueObject();
         this.deep = new DeepSpaceCalculator();
-        initSDP4();
+
+        // ////////////////////////////
+        // initSDP4
+        // ////////////////////////////
+
+        double temp1;
+        double temp2;
+        double temp3;
+
+        /* Recover original mean motion (xnodp) and */
+        /* semimajor axis (aodp) from input elements. */
+
+        // recoverMeanMotionAndSemiMajorAxis
+
+        final double a1 = Math.pow(XKE / getTLE().getXno(), TWO_THIRDS);
+        dsv.cosio = Math.cos(getTLE().getXincl());
+        dsv.theta2 = dsv.cosio * dsv.cosio;
+        x3thm1 = 3.0 * dsv.theta2 - 1;
+        dsv.eosq = getTLE().getEo() * getTLE().getEo();
+        dsv.betao2 = 1.0 - dsv.eosq;
+        dsv.betao = Math.sqrt(dsv.betao2);
+        final double del1 = 1.5 * CK2 * x3thm1
+                / (a1 * a1 * dsv.betao * dsv.betao2);
+        final double ao = a1
+                * (1.0 - del1 * (0.5 * TWO_THIRDS + del1 * (1.0 + 134 / 81 * del1)));
+        final double delo = 1.5 * CK2 * x3thm1
+                / (ao * ao * dsv.betao * dsv.betao2);
+        dsv.xnodp = getTLE().getXno() / (1.0 + delo);
+        dsv.aodp = ao / (1.0 - delo);
+
+        /* For perigee below 156 km, the values */
+        /* of S and QOMS2T are altered. */
+        setPerigee((dsv.aodp * (1.0 - getTLE().getEo()) - 1.0) * EARTH_RADIUS_KM);
+
+        checkPerigee();
+
+        final double pinvsq = AbstractSatellite.invert(dsv.aodp * dsv.aodp * dsv.betao2 * dsv.betao2);
+        dsv.sing = Math.sin(getTLE().getOmegao());
+        dsv.cosg = Math.cos(getTLE().getOmegao());
+        final double tsi = AbstractSatellite.invert(dsv.aodp - getS4());
+        final double eta = dsv.aodp * getTLE().getEo() * tsi;
+        final double etasq = eta * eta;
+        final double eeta = getTLE().getEo() * eta;
+        final double psisq = Math.abs(1.0 - etasq);
+        final double coef = getQoms24() * Math.pow(tsi, 4);
+        final double coef1 = coef / Math.pow(psisq, 3.5);
+        final double c2 = coef1
+                * dsv.xnodp
+                * (dsv.aodp * (1.0 + 1.5 * etasq + eeta * (4.0 + etasq)) + 0.75
+                        * CK2 * tsi / psisq * x3thm1
+                        * (8.0 + 3.0 * etasq * (8.0 + etasq)));
+        c1 = getTLE().getBstar() * c2;
+        dsv.sinio = Math.sin(getTLE().getXincl());
+        final double a3ovk2 = -J3_HARMONIC / CK2;
+        x1mth2 = 1.0 - dsv.theta2;
+        c4 = 2
+                * dsv.xnodp
+                * coef1
+                * dsv.aodp
+                * dsv.betao2
+                * (eta * (2.0 + 0.5 * etasq) + getTLE().getEo()
+                        * (0.5 + 2 * etasq) - 2
+                        * CK2
+                        * tsi
+                        / (dsv.aodp * psisq)
+                        * (-3 * x3thm1
+                                * (1.0 - 2 * eeta + etasq * (1.5 - 0.5 * eeta)) + 0.75
+                                * x1mth2
+                                * (2.0 * etasq - eeta * (1.0 + etasq))
+                                * Math.cos(2.0 * getTLE().getOmegao())));
+        final double theta4 = dsv.theta2 * dsv.theta2;
+        temp1 = 3.0 * CK2 * pinvsq * dsv.xnodp;
+        temp2 = temp1 * CK2 * pinvsq;
+        temp3 = 1.25 * CK4 * pinvsq * pinvsq * dsv.xnodp;
+        dsv.xmdot = dsv.xnodp + 0.5 * temp1 * dsv.betao * x3thm1 + 0.0625
+                * temp2 * dsv.betao * (13 - 78 * dsv.theta2 + 137 * theta4);
+        final double x1m5th = 1.0 - 5 * dsv.theta2;
+        dsv.omgdot = -0.5 * temp1 * x1m5th + 0.0625 * temp2
+                * (7.0 - 114 * dsv.theta2 + 395 * theta4) + temp3
+                * (3.0 - 36 * dsv.theta2 + 49 * theta4);
+        final double xhdot1 = -temp1 * dsv.cosio;
+        dsv.xnodot = xhdot1
+                + (0.5 * temp2 * (4.0 - 19 * dsv.theta2) + 2 * temp3
+                        * (3.0 - 7 * dsv.theta2)) * dsv.cosio;
+        xnodcf = 3.5 * dsv.betao2 * xhdot1 * c1;
+        t2cof = 1.5 * c1;
+        xlcof = 0.125 * a3ovk2 * dsv.sinio * (3.0 + 5 * dsv.cosio)
+                / (1.0 + dsv.cosio);
+        aycof = 0.25 * a3ovk2 * dsv.sinio;
+        x7thm1 = 7.0 * dsv.theta2 - 1;
+
+        /* initialize Deep() */
+
+        deep.init(getTLE());
     }
 
     /**
@@ -167,106 +260,6 @@ public class DeepSpaceSatellite extends AbstractSatellite {
                 * (x1mth2 * cos2u + 1.5 * x3thm1);
 
         super.calculatePositionAndVelocity(rk, uk, xnodek, xinck, rdotk, rfdotk);
-    }
-
-    /**
-     * 
-     */
-    private void initSDP4() {
-        double temp1;
-        double temp2;
-        double temp3;
-
-        /* Recover original mean motion (xnodp) and */
-        /* semimajor axis (aodp) from input elements. */
-
-        recoverMeanMotionAndSemiMajorAxis();
-
-        /* For perigee below 156 km, the values */
-        /* of S and QOMS2T are altered. */
-        setPerigee((dsv.aodp * (1.0 - getTLE().getEo()) - 1.0) * EARTH_RADIUS_KM);
-
-        checkPerigee();
-
-        final double pinvsq = AbstractSatellite.invert(dsv.aodp * dsv.aodp * dsv.betao2 * dsv.betao2);
-        dsv.sing = Math.sin(getTLE().getOmegao());
-        dsv.cosg = Math.cos(getTLE().getOmegao());
-        final double tsi = AbstractSatellite.invert(dsv.aodp - getS4());
-        final double eta = dsv.aodp * getTLE().getEo() * tsi;
-        final double etasq = eta * eta;
-        final double eeta = getTLE().getEo() * eta;
-        final double psisq = Math.abs(1.0 - etasq);
-        final double coef = getQoms24() * Math.pow(tsi, 4);
-        final double coef1 = coef / Math.pow(psisq, 3.5);
-        final double c2 = coef1
-                * dsv.xnodp
-                * (dsv.aodp * (1.0 + 1.5 * etasq + eeta * (4.0 + etasq)) + 0.75
-                        * CK2 * tsi / psisq * x3thm1
-                        * (8.0 + 3.0 * etasq * (8.0 + etasq)));
-        c1 = getTLE().getBstar() * c2;
-        dsv.sinio = Math.sin(getTLE().getXincl());
-        final double a3ovk2 = -J3_HARMONIC / CK2;
-        x1mth2 = 1.0 - dsv.theta2;
-        c4 = 2
-                * dsv.xnodp
-                * coef1
-                * dsv.aodp
-                * dsv.betao2
-                * (eta * (2.0 + 0.5 * etasq) + getTLE().getEo()
-                        * (0.5 + 2 * etasq) - 2
-                        * CK2
-                        * tsi
-                        / (dsv.aodp * psisq)
-                        * (-3 * x3thm1
-                                * (1.0 - 2 * eeta + etasq * (1.5 - 0.5 * eeta)) + 0.75
-                                * x1mth2
-                                * (2.0 * etasq - eeta * (1.0 + etasq))
-                                * Math.cos(2.0 * getTLE().getOmegao())));
-        final double theta4 = dsv.theta2 * dsv.theta2;
-        temp1 = 3.0 * CK2 * pinvsq * dsv.xnodp;
-        temp2 = temp1 * CK2 * pinvsq;
-        temp3 = 1.25 * CK4 * pinvsq * pinvsq * dsv.xnodp;
-        dsv.xmdot = dsv.xnodp + 0.5 * temp1 * dsv.betao * x3thm1 + 0.0625
-                * temp2 * dsv.betao * (13 - 78 * dsv.theta2 + 137 * theta4);
-        final double x1m5th = 1.0 - 5 * dsv.theta2;
-        dsv.omgdot = -0.5 * temp1 * x1m5th + 0.0625 * temp2
-                * (7.0 - 114 * dsv.theta2 + 395 * theta4) + temp3
-                * (3.0 - 36 * dsv.theta2 + 49 * theta4);
-        final double xhdot1 = -temp1 * dsv.cosio;
-        dsv.xnodot = xhdot1
-                + (0.5 * temp2 * (4.0 - 19 * dsv.theta2) + 2 * temp3
-                        * (3.0 - 7 * dsv.theta2)) * dsv.cosio;
-        xnodcf = 3.5 * dsv.betao2 * xhdot1 * c1;
-        t2cof = 1.5 * c1;
-        xlcof = 0.125 * a3ovk2 * dsv.sinio * (3.0 + 5 * dsv.cosio)
-                / (1.0 + dsv.cosio);
-        aycof = 0.25 * a3ovk2 * dsv.sinio;
-        x7thm1 = 7.0 * dsv.theta2 - 1;
-
-        /* initialize Deep() */
-
-        deep.init(getTLE());
-    }
-
-    /**
-     * 
-     */
-    private void recoverMeanMotionAndSemiMajorAxis() {
-        final double a1 = Math.pow(XKE / getTLE().getXno(), TWO_THIRDS);
-        dsv.cosio = Math.cos(getTLE().getXincl());
-        dsv.theta2 = dsv.cosio * dsv.cosio;
-        x3thm1 = 3.0 * dsv.theta2 - 1;
-        dsv.eosq = getTLE().getEo() * getTLE().getEo();
-        dsv.betao2 = 1.0 - dsv.eosq;
-        dsv.betao = Math.sqrt(dsv.betao2);
-        final double del1 = 1.5 * CK2 * x3thm1
-                / (a1 * a1 * dsv.betao * dsv.betao2);
-        final double ao = a1
-                * (1.0 - del1 * (0.5 * TWO_THIRDS + del1 * (1.0 + 134 / 81 * del1)));
-        final double delo = 1.5 * CK2 * x3thm1
-                / (ao * ao * dsv.betao * dsv.betao2);
-        dsv.xnodp = getTLE().getXno() / (1.0 + delo);
-        dsv.aodp = ao / (1.0 - delo);
     }
 
     final class DeepSpaceCalculator {
