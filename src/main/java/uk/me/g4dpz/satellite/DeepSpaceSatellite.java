@@ -288,11 +288,11 @@ public class DeepSpaceSatellite extends AbstractSatellite {
         static final double G52 = 1.0508330;
         static final double G54 = 4.4108898;
 
-        private double thgr;
-        private double xnq;
-        private double xqncl;
-        private double omegaq;
-        private double zmol;
+        private final double thgr;
+        private final double xnq;
+        private final double xqncl;
+        private final double omegaq;
+        private final double zmol;
         private double zmos;
         private double savtsn;
         private double ee2;
@@ -516,7 +516,31 @@ public class DeepSpaceSatellite extends AbstractSatellite {
 
             /* Initialize lunar solar terms */
             /* Days since 1900 Jan 0.5 */
-            initLunarSolarTerms();
+            day = dsv.ds50 + 18261.5;
+
+            if (Math.abs(day - preep) > 1.0E-6) {
+                preep = day;
+                xnodce = 4.5236020 - 9.2422029E-4 * day;
+                stem = Math.sin(xnodce);
+                ctem = Math.cos(xnodce);
+                zcosil = 0.91375164 - 0.03568096 * ctem;
+                zsinil = Math.sqrt(1.0 - zcosil * zcosil);
+                zsinhl = 0.089683511 * stem / zsinil;
+                zcoshl = Math.sqrt(1.0 - zsinhl * zsinhl);
+                c = 4.7199672 + 0.22997150 * day;
+                gam = 5.8351514 + 0.0019443680 * day;
+                zmol = AbstractSatellite.mod2PI(c - gam);
+                zx = 0.39785416 * stem / zsinil;
+                zy = zcoshl * ctem + 0.91744867 * zsinhl * stem;
+                zx = Math.atan2(zx, zy);
+                zx = gam + zx - xnodce;
+                zcosgl = Math.cos(zx);
+                zsingl = Math.sin(zx);
+                zmos = 6.2565837 + 0.017201977 * day;
+                zmos = AbstractSatellite.mod2PI(zmos);
+            }
+            else
+                zmol = 0;
 
             /* Do solar terms */
             doSolarTerms();
@@ -799,35 +823,6 @@ public class DeepSpaceSatellite extends AbstractSatellite {
             xgh4 = -18 * s4 * ze;
             xh2 = -2 * s2 * z22;
             xh3 = -2 * s2 * (z23 - z21);
-        }
-
-        /**
-         * 
-         */
-        private void initLunarSolarTerms() {
-            day = dsv.ds50 + 18261.5;
-
-            if (Math.abs(day - preep) > 1.0E-6) {
-                preep = day;
-                xnodce = 4.5236020 - 9.2422029E-4 * day;
-                stem = Math.sin(xnodce);
-                ctem = Math.cos(xnodce);
-                zcosil = 0.91375164 - 0.03568096 * ctem;
-                zsinil = Math.sqrt(1.0 - zcosil * zcosil);
-                zsinhl = 0.089683511 * stem / zsinil;
-                zcoshl = Math.sqrt(1.0 - zsinhl * zsinhl);
-                c = 4.7199672 + 0.22997150 * day;
-                gam = 5.8351514 + 0.0019443680 * day;
-                zmol = AbstractSatellite.mod2PI(c - gam);
-                zx = 0.39785416 * stem / zsinil;
-                zy = zcoshl * ctem + 0.91744867 * zsinhl * stem;
-                zx = Math.atan2(zx, zy);
-                zx = gam + zx - xnodce;
-                zcosgl = Math.cos(zx);
-                zsingl = Math.sin(zx);
-                zmos = 6.2565837 + 0.017201977 * day;
-                zmos = AbstractSatellite.mod2PI(zmos);
-            }
         }
 
         /**
