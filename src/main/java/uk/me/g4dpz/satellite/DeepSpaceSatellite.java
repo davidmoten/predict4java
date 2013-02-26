@@ -546,6 +546,7 @@ public class DeepSpaceSatellite extends AbstractSatellite {
             }
 
             /* Do solar terms */
+
             doSolarTerms();
 
             /* Geopotential resonance initialization for 12 hour orbits */
@@ -705,10 +706,8 @@ public class DeepSpaceSatellite extends AbstractSatellite {
 
         }
 
-        /**
-         * 
-         */
         private void doSolarTerms() {
+
             savtsn = 1E20;
             zcosg = 1.945905E-1;
             zsing = ZSINGS;
