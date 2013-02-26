@@ -293,7 +293,9 @@ public class DeepSpaceSatellite extends AbstractSatellite {
         private final double xqncl;
         private final double omegaq;
         private final double zmol;
-        private double zmos;
+        private final double zmos;
+
+        // many fields below cannot be final because they are iteratively refined
         private double savtsn;
         private double ee2;
         private double e3;
@@ -536,11 +538,12 @@ public class DeepSpaceSatellite extends AbstractSatellite {
                 zx = gam + zx - xnodce;
                 zcosgl = Math.cos(zx);
                 zsingl = Math.sin(zx);
-                zmos = 6.2565837 + 0.017201977 * day;
-                zmos = AbstractSatellite.mod2PI(zmos);
+                zmos = AbstractSatellite.mod2PI(6.2565837 + 0.017201977 * day);
             }
-            else
+            else {
                 zmol = 0;
+                zmos = 0;
+            }
 
             /* Do solar terms */
             doSolarTerms();
@@ -558,10 +561,136 @@ public class DeepSpaceSatellite extends AbstractSatellite {
                     return;
                 }
 
-                calculateResonance(tle);
+                // calculateResonance
+
+                resonance = true;
+                eoc = eq * dsv.eosq;
+                g201 = -0.306 - (eq - 0.64) * 0.440;
+
+                if (eq <= 0.65) {
+                    g211 = 3.616 - 13.247 * eq + 16.290 * dsv.eosq;
+                    g310 = -19.302 + 117.390 * eq - 228.419 * dsv.eosq + 156.591
+                            * eoc;
+                    g322 = -18.9068 + 109.7927 * eq - 214.6334 * dsv.eosq
+                            + 146.5816 * eoc;
+                    g410 = -41.122 + 242.694 * eq - 471.094 * dsv.eosq + 313.953
+                            * eoc;
+                    g422 = -146.407 + 841.880 * eq - 1629.014 * dsv.eosq + 1083.435
+                            * eoc;
+                    g520 = -532.114 + 3017.977 * eq - 5740 * dsv.eosq + 3708.276
+                            * eoc;
+                }
+                else {
+                    g211 = -72.099 + 331.819 * eq - 508.738 * dsv.eosq + 266.724
+                            * eoc;
+                    g310 = -346.844 + 1582.851 * eq - 2415.925 * dsv.eosq
+                            + 1246.113 * eoc;
+                    g322 = -342.585 + 1554.908 * eq - 2366.899 * dsv.eosq
+                            + 1215.972 * eoc;
+                    g410 = -1052.797 + 4758.686 * eq - 7193.992 * dsv.eosq
+                            + 3651.957 * eoc;
+                    g422 = -3581.69 + 16178.11 * eq - 24462.77 * dsv.eosq
+                            + 12422.52 * eoc;
+
+                    if (eq <= 0.715) {
+                        g520 = 1464.74 - 4664.75 * eq + 3763.64 * dsv.eosq;
+                    }
+                    else {
+                        g520 = -5149.66 + 29936.92 * eq - 54087.36 * dsv.eosq
+                                + 31324.56 * eoc;
+                    }
+                }
+
+                if (eq < 0.7) {
+                    g533 = -919.2277 + 4988.61 * eq - 9064.77 * dsv.eosq + 5542.21
+                            * eoc;
+                    g521 = -822.71072 + 4568.6173 * eq - 8491.4146 * dsv.eosq
+                            + 5337.524 * eoc;
+                    g532 = -853.666 + 4690.25 * eq - 8624.77 * dsv.eosq + 5341.4
+                            * eoc;
+                }
+                else {
+                    g533 = -37995.78 + 161616.52 * eq - 229838.2 * dsv.eosq
+                            + 109377.94 * eoc;
+                    g521 = -51752.104 + 218913.95 * eq - 309468.16 * dsv.eosq
+                            + 146349.42 * eoc;
+                    g532 = -40023.88 + 170470.89 * eq - 242699.48 * dsv.eosq
+                            + 115605.82 * eoc;
+                }
+
+                sini2 = dsv.sinio * dsv.sinio;
+                f220 = 0.75 * (1.0 + 2 * dsv.cosio + dsv.theta2);
+                f221 = 1.5 * sini2;
+                f321 = 1.875 * dsv.sinio * (1.0 - 2 * dsv.cosio - 3.0 * dsv.theta2);
+                f322 = -1.875 * dsv.sinio * (1.0 + 2 * dsv.cosio - 3.0 * dsv.theta2);
+                f441 = 35 * sini2 * f220;
+                f442 = 39.3750 * sini2 * sini2;
+                f522 = 9.84375
+                        * dsv.sinio
+                        * (sini2 * (1.0 - 2 * dsv.cosio - 5 * dsv.theta2) + 0.33333333 * (-2
+                                + 4 * dsv.cosio + 6 * dsv.theta2));
+                f523 = dsv.sinio
+                        * (4.92187512 * sini2
+                                * (-2 - 4 * dsv.cosio + 10 * dsv.theta2) + 6.56250012
+                        * (1.0 + 2 * dsv.cosio - 3.0 * dsv.theta2));
+                f542 = 29.53125
+                        * dsv.sinio
+                        * (2.0 - 8 * dsv.cosio + dsv.theta2
+                                * (-12 + 8 * dsv.cosio + 10 * dsv.theta2));
+                f543 = 29.53125
+                        * dsv.sinio
+                        * (-2 - 8 * dsv.cosio + dsv.theta2
+                                * (12 + 8 * dsv.cosio - 10 * dsv.theta2));
+                xno2 = xnq * xnq;
+                ainv2 = aqnv * aqnv;
+                temp1 = 3.0 * xno2 * ainv2;
+                temp = temp1 * ROOT22;
+                d2201 = temp * f220 * g201;
+                d2211 = temp * f221 * g211;
+                temp1 = temp1 * aqnv;
+                temp = temp1 * ROOT32;
+                d3210 = temp * f321 * g310;
+                d3222 = temp * f322 * g322;
+                temp1 = temp1 * aqnv;
+                temp = 2.0 * temp1 * ROOT44;
+                d4410 = temp * f441 * g410;
+                d4422 = temp * f442 * g422;
+                temp1 = temp1 * aqnv;
+                temp = temp1 * ROOT52;
+                d5220 = temp * f522 * g520;
+                d5232 = temp * f523 * g532;
+                temp = 2.0 * temp1 * ROOT54;
+                d5421 = temp * f542 * g521;
+                d5433 = temp * f543 * g533;
+                xlamo = xmao + tle.getXnodeo() + tle.getXnodeo() - thgr - thgr;
+                bfact = dsv.xmdot + dsv.xnodot + dsv.xnodot - THDT - THDT;
+                bfact = bfact + ssl + ssh + ssh;
             }
             else {
-                initSynchronousResonanceTerms(tle);
+
+                // initSynchronousResonanceTerms
+
+                resonance = true;
+                synchronous = true;
+
+                g200 = 1.0 + dsv.eosq * (-2.5 + 0.8125 * dsv.eosq);
+                g310 = 1.0 + 2 * dsv.eosq;
+                g300 = 1.0 + dsv.eosq * (-6 + 6.60937 * dsv.eosq);
+                f220 = 0.75 * (1.0 + dsv.cosio) * (1.0 + dsv.cosio);
+                f311 = 0.9375 * dsv.sinio * dsv.sinio * (1.0 + 3.0 * dsv.cosio) - 0.75
+                        * (1.0 + dsv.cosio);
+                f330 = 1.0 + dsv.cosio;
+                f330 = 1.875 * f330 * f330 * f330;
+                del1 = 3.0 * xnq * xnq * aqnv * aqnv;
+                del2 = 2.0 * del1 * f220 * g200 * Q22;
+                del3 = 3.0 * del1 * f330 * g300 * Q33 * aqnv;
+                del1 = del1 * f311 * g310 * Q31 * aqnv;
+                fasx2 = 0.13130908;
+                fasx4 = 2.8843198;
+                fasx6 = 0.37448087;
+                xlamo = xmao + tle.getXnodeo() + tle.getOmegao() - thgr;
+                bfact = dsv.xmdot + xpidot - THDT;
+                bfact = bfact + ssl + ssg + ssh;
             }
 
             xfact = bfact - xnq;
@@ -574,114 +703,6 @@ public class DeepSpaceSatellite extends AbstractSatellite {
             stepn = -720;
             step2 = 259200;
 
-        }
-
-        /**
-         * @param tle
-         */
-        private void calculateResonance(final TLE tle) {
-            resonance = true;
-            eoc = eq * dsv.eosq;
-            g201 = -0.306 - (eq - 0.64) * 0.440;
-
-            if (eq <= 0.65) {
-                g211 = 3.616 - 13.247 * eq + 16.290 * dsv.eosq;
-                g310 = -19.302 + 117.390 * eq - 228.419 * dsv.eosq + 156.591
-                        * eoc;
-                g322 = -18.9068 + 109.7927 * eq - 214.6334 * dsv.eosq
-                        + 146.5816 * eoc;
-                g410 = -41.122 + 242.694 * eq - 471.094 * dsv.eosq + 313.953
-                        * eoc;
-                g422 = -146.407 + 841.880 * eq - 1629.014 * dsv.eosq + 1083.435
-                        * eoc;
-                g520 = -532.114 + 3017.977 * eq - 5740 * dsv.eosq + 3708.276
-                        * eoc;
-            }
-            else {
-                g211 = -72.099 + 331.819 * eq - 508.738 * dsv.eosq + 266.724
-                        * eoc;
-                g310 = -346.844 + 1582.851 * eq - 2415.925 * dsv.eosq
-                        + 1246.113 * eoc;
-                g322 = -342.585 + 1554.908 * eq - 2366.899 * dsv.eosq
-                        + 1215.972 * eoc;
-                g410 = -1052.797 + 4758.686 * eq - 7193.992 * dsv.eosq
-                        + 3651.957 * eoc;
-                g422 = -3581.69 + 16178.11 * eq - 24462.77 * dsv.eosq
-                        + 12422.52 * eoc;
-
-                if (eq <= 0.715) {
-                    g520 = 1464.74 - 4664.75 * eq + 3763.64 * dsv.eosq;
-                }
-                else {
-                    g520 = -5149.66 + 29936.92 * eq - 54087.36 * dsv.eosq
-                            + 31324.56 * eoc;
-                }
-            }
-
-            if (eq < 0.7) {
-                g533 = -919.2277 + 4988.61 * eq - 9064.77 * dsv.eosq + 5542.21
-                        * eoc;
-                g521 = -822.71072 + 4568.6173 * eq - 8491.4146 * dsv.eosq
-                        + 5337.524 * eoc;
-                g532 = -853.666 + 4690.25 * eq - 8624.77 * dsv.eosq + 5341.4
-                        * eoc;
-            }
-            else {
-                g533 = -37995.78 + 161616.52 * eq - 229838.2 * dsv.eosq
-                        + 109377.94 * eoc;
-                g521 = -51752.104 + 218913.95 * eq - 309468.16 * dsv.eosq
-                        + 146349.42 * eoc;
-                g532 = -40023.88 + 170470.89 * eq - 242699.48 * dsv.eosq
-                        + 115605.82 * eoc;
-            }
-
-            sini2 = dsv.sinio * dsv.sinio;
-            f220 = 0.75 * (1.0 + 2 * dsv.cosio + dsv.theta2);
-            f221 = 1.5 * sini2;
-            f321 = 1.875 * dsv.sinio * (1.0 - 2 * dsv.cosio - 3.0 * dsv.theta2);
-            f322 = -1.875 * dsv.sinio * (1.0 + 2 * dsv.cosio - 3.0 * dsv.theta2);
-            f441 = 35 * sini2 * f220;
-            f442 = 39.3750 * sini2 * sini2;
-            f522 = 9.84375
-                    * dsv.sinio
-                    * (sini2 * (1.0 - 2 * dsv.cosio - 5 * dsv.theta2) + 0.33333333 * (-2
-                            + 4 * dsv.cosio + 6 * dsv.theta2));
-            f523 = dsv.sinio
-                    * (4.92187512 * sini2
-                            * (-2 - 4 * dsv.cosio + 10 * dsv.theta2) + 6.56250012
-                    * (1.0 + 2 * dsv.cosio - 3.0 * dsv.theta2));
-            f542 = 29.53125
-                    * dsv.sinio
-                    * (2.0 - 8 * dsv.cosio + dsv.theta2
-                            * (-12 + 8 * dsv.cosio + 10 * dsv.theta2));
-            f543 = 29.53125
-                    * dsv.sinio
-                    * (-2 - 8 * dsv.cosio + dsv.theta2
-                            * (12 + 8 * dsv.cosio - 10 * dsv.theta2));
-            xno2 = xnq * xnq;
-            ainv2 = aqnv * aqnv;
-            temp1 = 3.0 * xno2 * ainv2;
-            temp = temp1 * ROOT22;
-            d2201 = temp * f220 * g201;
-            d2211 = temp * f221 * g211;
-            temp1 = temp1 * aqnv;
-            temp = temp1 * ROOT32;
-            d3210 = temp * f321 * g310;
-            d3222 = temp * f322 * g322;
-            temp1 = temp1 * aqnv;
-            temp = 2.0 * temp1 * ROOT44;
-            d4410 = temp * f441 * g410;
-            d4422 = temp * f442 * g422;
-            temp1 = temp1 * aqnv;
-            temp = temp1 * ROOT52;
-            d5220 = temp * f522 * g520;
-            d5232 = temp * f523 * g532;
-            temp = 2.0 * temp1 * ROOT54;
-            d5421 = temp * f542 * g521;
-            d5433 = temp * f543 * g533;
-            xlamo = xmao + tle.getXnodeo() + tle.getXnodeo() - thgr - thgr;
-            bfact = dsv.xmdot + dsv.xnodot + dsv.xnodot - THDT - THDT;
-            bfact = bfact + ssl + ssh + ssh;
         }
 
         /**
@@ -823,36 +844,6 @@ public class DeepSpaceSatellite extends AbstractSatellite {
             xgh4 = -18 * s4 * ze;
             xh2 = -2 * s2 * z22;
             xh3 = -2 * s2 * (z23 - z21);
-        }
-
-        /**
-         * Initialises the Synchronous resonance terms.
-         * 
-         * @param tle The <code>TLE</code>
-         * @param dsv The <code>DeepSpaceValueObject</code>
-         */
-        private void initSynchronousResonanceTerms(final TLE tle) {
-            resonance = true;
-            synchronous = true;
-
-            g200 = 1.0 + dsv.eosq * (-2.5 + 0.8125 * dsv.eosq);
-            g310 = 1.0 + 2 * dsv.eosq;
-            g300 = 1.0 + dsv.eosq * (-6 + 6.60937 * dsv.eosq);
-            f220 = 0.75 * (1.0 + dsv.cosio) * (1.0 + dsv.cosio);
-            f311 = 0.9375 * dsv.sinio * dsv.sinio * (1.0 + 3.0 * dsv.cosio) - 0.75
-                    * (1.0 + dsv.cosio);
-            f330 = 1.0 + dsv.cosio;
-            f330 = 1.875 * f330 * f330 * f330;
-            del1 = 3.0 * xnq * xnq * aqnv * aqnv;
-            del2 = 2.0 * del1 * f220 * g200 * Q22;
-            del3 = 3.0 * del1 * f330 * g300 * Q33 * aqnv;
-            del1 = del1 * f311 * g310 * Q31 * aqnv;
-            fasx2 = 0.13130908;
-            fasx4 = 2.8843198;
-            fasx6 = 0.37448087;
-            xlamo = xmao + tle.getXnodeo() + tle.getOmegao() - thgr;
-            bfact = dsv.xmdot + xpidot - THDT;
-            bfact = bfact + ssl + ssg + ssh;
         }
 
         /**
