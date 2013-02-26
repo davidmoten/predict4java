@@ -73,7 +73,6 @@ public class LEOSatellite extends AbstractSatellite {
     private double xnodot;
     private double xlcof;
 
-    private boolean sgp4Init;
     private boolean sgp4Simple;
 
     /**
@@ -92,13 +91,6 @@ public class LEOSatellite extends AbstractSatellite {
         synchronized (this) {
 
             final double[] temp = new double[9];
-
-            /* Initialization */
-
-            if (!sgp4Init) {
-
-                sgp4Init();
-            }
 
             /* Update for secular gravity and atmospheric drag. */
             final double xmdf = getTLE().getXmo() + xmdot * tsince;
