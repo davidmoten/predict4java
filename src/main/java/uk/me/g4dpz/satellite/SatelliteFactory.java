@@ -46,7 +46,7 @@ package uk.me.g4dpz.satellite;
 public final class SatelliteFactory {
 
     /**
-     * Default constructor.
+     * Default constructor is private so cannot be instantiated.
      */
     private SatelliteFactory() {
 
