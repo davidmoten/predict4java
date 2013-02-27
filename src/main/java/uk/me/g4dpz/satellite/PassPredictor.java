@@ -71,8 +71,8 @@ public class PassPredictor {
 	private final GroundStationPosition qth;
 	private final Satellite sat;
 	private final double meanMotion;
+	
 	private int iterationCount;
-	private Date tca;
 
 	/**
 	 * Constructor.
@@ -186,6 +186,8 @@ public class PassPredictor {
 			// move time forward 3/4 orbit
 			cal.add(Calendar.MINUTE, threeQuarterOrbitMinutes());
 		}
+
+		Date tca = null;
 
 		// now find the next time it comes above the horizon
 		do {
@@ -303,8 +305,7 @@ public class PassPredictor {
 			if (count > 0) {
 				windBackTime = false;
 			}
-			final SatPassTime pass = nextSatPass(trackStartDate,
-					windBackTime);
+			final SatPassTime pass = nextSatPass(trackStartDate, windBackTime);
 			lastAOS = pass.getStartTime();
 			passes.add(pass);
 			trackStartDate = new Date(pass.getEndTime().getTime()
@@ -316,9 +317,11 @@ public class PassPredictor {
 	}
 
 	/**
+	 * Returns the iterationCount. @VisibleForTesting
+	 * 
 	 * @return the iterationCount
 	 */
-	public final int getIterationCount() {
+	final int getIterationCount() {
 		return iterationCount;
 	}
 
