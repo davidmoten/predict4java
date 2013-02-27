@@ -87,7 +87,7 @@ public class TLE implements Serializable {
 	private final double omegao;
 	private final double xmo;
 	private final double xno;
-	private boolean deepspace;
+	private final boolean deepspace;
 	private java.util.Date createddate;
 
 	// Constructors
@@ -187,8 +187,6 @@ public class TLE implements Serializable {
 			/* reassign the values to thse which get used in calculations */
 			epoch = (1000.0 * getYear()) + getRefepoch();
 
-			
-
 			double temp = incl;
 			temp *= DEG2RAD;
 			xincl = temp;
@@ -211,27 +209,27 @@ public class TLE implements Serializable {
 
 		/* Preprocess tle set */
 		{
-		double temp;
-		temp = TWO_PI / MINS_PERDAY / MINS_PERDAY;
-		xno = meanmo * temp * MINS_PERDAY;
-		xndt2o = drag * temp;
+			double temp;
+			temp = TWO_PI / MINS_PERDAY / MINS_PERDAY;
+			xno = meanmo * temp * MINS_PERDAY;
+			xndt2o = drag * temp;
 
-		double dd1 = XKE / xno;
-		final double a1 = Math.pow(dd1, TWO_THIRDS);
-		final double r1 = Math.cos(xincl);
-		dd1 = 1.0 - eo * eo;
-		temp = CK2 * 1.5f * (r1 * r1 * 3.0 - 1.0) / Math.pow(dd1, 1.5);
-		final double del1 = temp / (a1 * a1);
-		final double ao = a1
-				* (1.0 - del1
-						* (TWO_THIRDS * .5 + del1
-								* (del1 * 1.654320987654321 + 1.0)));
-		final double delo = temp / (ao * ao);
-		final double xnodp = xno / (delo + 1.0);
+			double dd1 = XKE / xno;
+			final double a1 = Math.pow(dd1, TWO_THIRDS);
+			final double r1 = Math.cos(xincl);
+			dd1 = 1.0 - eo * eo;
+			temp = CK2 * 1.5f * (r1 * r1 * 3.0 - 1.0) / Math.pow(dd1, 1.5);
+			final double del1 = temp / (a1 * a1);
+			final double ao = a1
+					* (1.0 - del1
+							* (TWO_THIRDS * .5 + del1
+									* (del1 * 1.654320987654321 + 1.0)));
+			final double delo = temp / (ao * ao);
+			final double xnodp = xno / (delo + 1.0);
 
-		/* Select a deep-space/near-earth ephemeris */
+			/* Select a deep-space/near-earth ephemeris */
 
-		deepspace = TWO_PI / xnodp / MINS_PERDAY >= 0.15625;
+			deepspace = TWO_PI / xnodp / MINS_PERDAY >= 0.15625;
 		}
 	}
 
