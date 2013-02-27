@@ -50,7 +50,8 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * TLE representation to aid SGP4 calculations.
+ * TLE representation to aid SGP4 calculations. Instances of this class are
+ * immutable.
  */
 public class TLE implements Serializable {
 
@@ -88,7 +89,6 @@ public class TLE implements Serializable {
 	private final double xmo;
 	private final double xno;
 	private final boolean deepspace;
-	private final java.util.Date createddate;
 
 	// Constructors
 
@@ -122,7 +122,6 @@ public class TLE implements Serializable {
 		this.xmo = tle.xmo;
 		this.xno = tle.xno;
 		this.deepspace = tle.deepspace;
-		this.createddate = tle.createddate;
 	}
 
 	/**
@@ -231,8 +230,7 @@ public class TLE implements Serializable {
 
 			deepspace = TWO_PI / xnodp / MINS_PERDAY >= 0.15625;
 		}
-		
-		createddate=null;
+
 	}
 
 	/**
@@ -422,13 +420,6 @@ public class TLE implements Serializable {
 	 */
 	public double getXnodeo() {
 		return xnodeo;
-	}
-
-	/**
-	 * @return the createddate
-	 */
-	public Date getCreateddate() {
-		return new Date(createddate.getTime());
 	}
 
 	/**
