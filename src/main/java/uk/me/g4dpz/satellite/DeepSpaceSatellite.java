@@ -760,7 +760,6 @@ public class DeepSpaceSatellite extends AbstractSatellite {
             zn = ZNL;
             cc = C1L;
             ze = ZEL;
-            lunarTermsDone = true;
         }
 
         /**
