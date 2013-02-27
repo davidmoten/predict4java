@@ -70,7 +70,6 @@ public class PassPredictor {
 	private final TLE tle;
 	private final GroundStationPosition qth;
 	private final Satellite sat;
-	private final double meanMotion;
 	
 	private int iterationCount;
 
@@ -108,7 +107,6 @@ public class PassPredictor {
 					"Satellite will never appear above the horizon");
 		}
 
-		meanMotion = theTLE.getMeanmo();
 	}
 
 	/**
@@ -168,6 +166,7 @@ public class PassPredictor {
 
 		// wind back time 1/4 of an orbit
 		if (windBack) {
+			double meanMotion = tle.getMeanmo();
 			cal.add(Calendar.MINUTE, (int) (-24.0 * 60.0 / meanMotion / 4.0));
 		}
 
