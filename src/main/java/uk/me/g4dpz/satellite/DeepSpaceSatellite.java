@@ -492,7 +492,6 @@ public class DeepSpaceSatellite extends AbstractSatellite {
         private double delt;
         private double ft;
 
-        private boolean lunarTermsDone;
         private boolean resonance;
         private boolean synchronous;
         private boolean doLoop;
