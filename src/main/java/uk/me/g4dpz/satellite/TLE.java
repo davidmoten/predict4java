@@ -88,7 +88,7 @@ public class TLE implements Serializable {
 	private final double xmo;
 	private final double xno;
 	private final boolean deepspace;
-	private java.util.Date createddate;
+	private final java.util.Date createddate;
 
 	// Constructors
 
@@ -231,6 +231,8 @@ public class TLE implements Serializable {
 
 			deepspace = TWO_PI / xnodp / MINS_PERDAY >= 0.15625;
 		}
+		
+		createddate=null;
 	}
 
 	/**
@@ -427,14 +429,6 @@ public class TLE implements Serializable {
 	 */
 	public Date getCreateddate() {
 		return new Date(createddate.getTime());
-	}
-
-	/**
-	 * @param createddate
-	 *            the createddate to set
-	 */
-	public void setCreateddate(final Date createddate) {
-		this.createddate = new Date(createddate.getTime());
 	}
 
 	/**

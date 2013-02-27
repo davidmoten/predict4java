@@ -179,11 +179,4 @@ public final class TLETest extends AbstractSatelliteTestBase {
         Assert.assertFalse(tle.isDeepspace());
     }
 
-    @Test
-    public void testCreatedDateSetterAndGetter() {
-
-        TLE tle = new TLE(DEEP_SPACE_TLE);
-        tle.setCreateddate(new Date());
-        assertNotNull(tle.getCreateddate());
-    }
 }
