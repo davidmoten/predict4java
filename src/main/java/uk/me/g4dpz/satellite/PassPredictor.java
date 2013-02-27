@@ -70,7 +70,6 @@ public class PassPredictor {
 	private final TLE tle;
 	private final GroundStationPosition qth;
 	private final Satellite sat;
-	private boolean windBackTime;
 	private final double meanMotion;
 	private int iterationCount;
 	private Date tca;
@@ -288,7 +287,7 @@ public class PassPredictor {
 
 		this.iterationCount = 0;
 
-		this.windBackTime = windBack;
+		boolean windBackTime = windBack;
 
 		final List<SatPassTime> passes = new ArrayList<SatPassTime>();
 
@@ -302,10 +301,10 @@ public class PassPredictor {
 
 		do {
 			if (count > 0) {
-				this.windBackTime = false;
+				windBackTime = false;
 			}
 			final SatPassTime pass = nextSatPass(trackStartDate,
-					this.windBackTime);
+					windBackTime);
 			lastAOS = pass.getStartTime();
 			passes.add(pass);
 			trackStartDate = new Date(pass.getEndTime().getTime()
