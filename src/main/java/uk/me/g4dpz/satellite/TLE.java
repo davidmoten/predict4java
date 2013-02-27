@@ -86,7 +86,7 @@ public class TLE implements Serializable {
 	private final double eo;
 	private final double omegao;
 	private final double xmo;
-	private double xno;
+	private final double xno;
 	private boolean deepspace;
 	private java.util.Date createddate;
 
@@ -207,14 +207,13 @@ public class TLE implements Serializable {
 			temp *= DEG2RAD;
 			xmo = temp;
 
-			xno = meanmo;
 		}
 
 		/* Preprocess tle set */
 		{
 		double temp;
 		temp = TWO_PI / MINS_PERDAY / MINS_PERDAY;
-		xno = xno * temp * MINS_PERDAY;
+		xno = meanmo * temp * MINS_PERDAY;
 		xndt2o = drag * temp;
 
 		double dd1 = XKE / xno;
