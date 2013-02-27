@@ -40,6 +40,7 @@ package uk.me.g4dpz.satellite;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Not thread safe!
@@ -403,17 +404,17 @@ public abstract class AbstractSatellite implements Satellite {
      * @param obsVel the velocity of the observer
      */
     private static void calculateUserPosVel(final double time,
-            final GroundStationPosition gsPos, final Vector4 obsPos, final Vector4 obsVel) {
+            final GroundStationPosition gsPos,AtomicReference<Double> gsPosTheta, final Vector4 obsPos, final Vector4 obsVel) {
 
-        gsPos.setTheta(AbstractSatellite.mod2PI(AbstractSatellite.thetaGJD(time) + DEG2RAD
+        gsPosTheta.set(AbstractSatellite.mod2PI(AbstractSatellite.thetaGJD(time) + DEG2RAD
                 * gsPos.getLongitude()));
         final double c = AbstractSatellite.invert(Math.sqrt(1.0 + FLATTENING_FACTOR * (FLATTENING_FACTOR - 2)
                 * AbstractSatellite.sqr(Math.sin(DEG2RAD * gsPos.getLatitude()))));
         final double sq = AbstractSatellite.sqr(1.0 - FLATTENING_FACTOR) * c;
         final double achcp = (EARTH_RADIUS_KM * c + (gsPos.getHeightAMSL() / 1000.0))
                 * Math.cos(DEG2RAD * gsPos.getLatitude());
-        obsPos.setXYZ(achcp * Math.cos(gsPos.getTheta()),
-                achcp * Math.sin(gsPos.getTheta()),
+        obsPos.setXYZ(achcp * Math.cos(gsPosTheta.get()),
+                achcp * Math.sin(gsPosTheta.get()),
                 (EARTH_RADIUS_KM * sq + (gsPos.getHeightAMSL() / 1000.0))
                         * Math.sin(DEG2RAD * gsPos.getLatitude()));
         obsVel.setXYZ(-MFACTOR * obsPos.getY(),
@@ -453,7 +454,8 @@ public abstract class AbstractSatellite implements Satellite {
         final Vector4 range = new Vector4();
         final Vector4 rgvel = new Vector4();
 
-        AbstractSatellite.calculateUserPosVel(julianUTC, gsPos, obsPos, obsVel);
+        AtomicReference<Double> gsPosTheta = new AtomicReference<Double>();
+        AbstractSatellite.calculateUserPosVel(julianUTC, gsPos,gsPosTheta, obsPos, obsVel);
 
         range.setXYZ(positionVector.getX() - obsPos.getX(),
                 positionVector.getY() - obsPos.getY(),
@@ -473,8 +475,8 @@ public abstract class AbstractSatellite implements Satellite {
 
         final double sinLat = Math.sin(DEG2RAD * gsPos.getLatitude());
         final double cosLat = Math.cos(DEG2RAD * gsPos.getLatitude());
-        final double sinTheta = Math.sin(gsPos.getTheta());
-        final double cosTheta = Math.cos(gsPos.getTheta());
+        final double sinTheta = Math.sin(gsPosTheta.get());
+        final double cosTheta = Math.cos(gsPosTheta.get());
         final double topS = sinLat * cosTheta * range.getX() + sinLat * sinTheta
                 * range.getY() - cosLat * range.getZ();
         final double topE = -sinTheta * range.getX() + cosTheta * range.getY();

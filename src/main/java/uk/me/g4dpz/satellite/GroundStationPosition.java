@@ -43,110 +43,83 @@ package uk.me.g4dpz.satellite;
  * @author g4dpz
  */
 public class GroundStationPosition {
-    private double latitude;
-    private double longitude;
-    private double heightAMSL;
-    private double theta;
-    private final int[] horizonElevations = new int[36];
-    private String name;
+	private double latitude;
+	private double longitude;
+	private double heightAMSL;
+	private final int[] horizonElevations = new int[36];
+	private final String name;
 
-    /**
-     * @param latitude the latitue of the ground station in degrees, North: positive
-     * @param longitude the longitude of the ground station in degrees, East: positive
-     * @param heightAMSL the height of te ground station above mean sea level, in metres
-     */
-    public GroundStationPosition(final double latitude, final double longitude,
-            final double heightAMSL) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.heightAMSL = heightAMSL;
-        this.name = "";
-    }
+	/**
+	 * @param latitude
+	 *            the latitue of the ground station in degrees, North: positive
+	 * @param longitude
+	 *            the longitude of the ground station in degrees, East: positive
+	 * @param heightAMSL
+	 *            the height of te ground station above mean sea level, in
+	 *            metres
+	 */
+	public GroundStationPosition(final double latitude, final double longitude,
+			final double heightAMSL) {
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.heightAMSL = heightAMSL;
+		this.name = "";
+	}
 
-    /**
-     * @param latitude the latitue of the ground station in degrees, North: positive
-     * @param longitude the longitude of the ground station in degrees, East: positive
-     * @param heightAMSL the height of te ground station above mean sea level, in metres
-     */
-    public GroundStationPosition(final double latitude, final double longitude,
-            final double heightAMSL, String name) {
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.heightAMSL = heightAMSL;
-        this.name = name;
-    }
+	/**
+	 * @param latitude
+	 *            the latitue of the ground station in degrees, North: positive
+	 * @param longitude
+	 *            the longitude of the ground station in degrees, East: positive
+	 * @param heightAMSL
+	 *            the height of te ground station above mean sea level, in
+	 *            metres
+	 */
+	public GroundStationPosition(final double latitude, final double longitude,
+			final double heightAMSL, String name) {
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.heightAMSL = heightAMSL;
+		this.name = name;
+	}
 
-    /**
-     * Default constructor.
-     */
-    public GroundStationPosition() {
-    }
+	/**
+	 * @return latitude
+	 */
+	public double getLatitude() {
+		return latitude;
+	}
 
-    /**
-     * @return latitude
-     */
-    public double getLatitude() {
-        return latitude;
-    }
+	/**
+	 * @return longitude
+	 */
+	public double getLongitude() {
+		return longitude;
+	}
 
-    /**
-     * @return longitude
-     */
-    public double getLongitude() {
-        return longitude;
-    }
+	/**
+	 * @return elevation
+	 */
+	public double getHeightAMSL() {
+		return heightAMSL;
+	}
 
-    /**
-     * @return elevation
-     */
-    public double getHeightAMSL() {
-        return heightAMSL;
-    }
+	/**
+	 * Returns a copy of the horizon elevations.
+	 * 
+	 * @return the horizonElevations
+	 */
+	public final int[] getHorizonElevations() {
+		final int[] horizonElevationsCopy = new int[horizonElevations.length];
 
-    /**
-     * @return the theta
-     */
-    public final double getTheta() {
-        return theta;
-    }
+		System.arraycopy(horizonElevationsCopy, 0, horizonElevations, 0,
+				horizonElevations.length);
 
-    /**
-     * @param theta the theta to set
-     */
-    public final void setTheta(final double theta) {
-        this.theta = theta;
-    }
+		return horizonElevationsCopy;
+	}
 
-    /**
-     * @return the horizonElevations
-     */
-    public final int[] getHorizonElevations() {
-        final int[] horizonElevationsCopy = new int[horizonElevations.length];
-
-        System.arraycopy(horizonElevationsCopy, 0, horizonElevations, 0, horizonElevations.length);
-
-        return horizonElevationsCopy;
-    }
-
-    /**
-     * The horizonElevations to set.
-     * 
-     * @param horizonElevations the list of horizontal elevations
-     * @throws IllegalArgumentException the input arguments were incorrect
-     */
-    public final void setHorizonElevations(final int[] theHorizonElevations)
-            throws IllegalArgumentException {
-
-        if (36 != theHorizonElevations.length) {
-            throw new IllegalArgumentException(
-                    "Expected 36 Horizon Elevations, got: " + theHorizonElevations.length);
-        }
-
-        System.arraycopy(this.horizonElevations, 0, theHorizonElevations, 0, theHorizonElevations.length);
-    }
-
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
 }

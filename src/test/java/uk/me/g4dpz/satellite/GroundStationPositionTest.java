@@ -43,34 +43,6 @@ public final class GroundStationPositionTest {
     private static final double THETA = 4.0;
     private static final double PRECISION = 0.00001;
 
-    /**
-     * Default Constructor.
-     */
-    public GroundStationPositionTest() {
-    }
-
-    @Test
-    public void testDefaultConstructorAndSetters() {
-
-        final GroundStationPosition groundStationPosition = new GroundStationPosition();
-
-        final int[] elevations = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1,
-                2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2,
-                3, 4, 5};
-        groundStationPosition.setHorizonElevations(elevations);
-        groundStationPosition.setTheta(4.0);
-
-        final int[] oElevations = groundStationPosition.getHorizonElevations();
-
-        Assert.assertEquals(elevations.length, oElevations.length);
-
-        for (int i = 0; i < elevations.length; i++) {
-            Assert.assertEquals(elevations[i], oElevations[i]);
-        }
-
-        Assert.assertTrue(Math.abs(THETA - groundStationPosition.getTheta()) < 0.000001);
-    }
-
     @Test
     public void testConstructionUsingAttributes() {
 
@@ -81,23 +53,6 @@ public final class GroundStationPositionTest {
 
     }
 
-    @Test
-    public void testSettingWrongNumberOfElevationsCausesException() {
-
-        final GroundStationPosition groundStationPosition = new GroundStationPosition();
-
-        final int[] elevations = new int[] {0, 1};
-
-        try {
-            groundStationPosition.setHorizonElevations(elevations);
-            Assert.fail("IllegalArgumentException expected");
-        }
-        catch (final IllegalArgumentException iae) {
-            Assert.assertEquals(String.format("Expected 36 Horizon Elevations, got: %d", elevations.length),
-                    iae.getMessage());
-        }
-
-    }
 
     @Test
     public void testConstructor() {
