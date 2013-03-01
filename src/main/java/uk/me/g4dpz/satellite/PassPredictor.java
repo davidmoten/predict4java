@@ -70,7 +70,7 @@ public class PassPredictor {
 	private final TLE tle;
 	private final GroundStationPosition qth;
 	private final Satellite sat;
-	
+
 	private int iterationCount;
 
 	/**

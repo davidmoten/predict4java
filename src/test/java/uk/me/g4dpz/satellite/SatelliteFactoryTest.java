@@ -40,65 +40,65 @@ import org.junit.Test;
  */
 public class SatelliteFactoryTest extends AbstractSatelliteTestBase {
 
-    private static final String SHOULD_HAVE_THROWN_ILLEGAL_ARGUMENT_EXCEPTION =
-            "Should have thrown IllegalArgument Exception";
+	private static final String SHOULD_HAVE_THROWN_ILLEGAL_ARGUMENT_EXCEPTION = "Should have thrown IllegalArgument Exception";
 
-    public SatelliteFactoryTest() {
-    }
+	public SatelliteFactoryTest() {
+	}
 
-    @Test
-    public void testCreateLEOSatellite() {
+	@Test
+	public void testCreateLEOSatellite() {
 
-        final TLE tle = new TLE(LEO_TLE);
+		final TLE tle = new TLE(LEO_TLE);
 
-        final Satellite satellite = SatelliteFactory.createSatellite(tle);
+		final Satellite satellite = SatelliteFactory.createSatellite(tle);
 
-        Assert.assertTrue(satellite instanceof LEOSatellite);
-    }
+		Assert.assertTrue(satellite instanceof LEOSatellite);
+	}
 
-    @Test
-    public void testCreateDeepSpaceSatellite() {
+	@Test
+	public void testCreateDeepSpaceSatellite() {
 
-        final TLE tle = new TLE(DEEP_SPACE_TLE);
+		final TLE tle = new TLE(DEEP_SPACE_TLE);
 
-        final Satellite satellite = SatelliteFactory.createSatellite(tle);
+		final Satellite satellite = SatelliteFactory.createSatellite(tle);
 
-        Assert.assertTrue(satellite instanceof DeepSpaceSatellite);
-    }
+		Assert.assertTrue(satellite instanceof DeepSpaceSatellite);
+	}
 
-    @Test
-    public void testNullTLE() {
-        try {
-            SatelliteFactory.createSatellite(null);
-            Assert.fail(SHOULD_HAVE_THROWN_ILLEGAL_ARGUMENT_EXCEPTION);
-        }
-        catch (final IllegalArgumentException iae) {
-            // we expected this
-        }
-    }
+	@Test
+	public void testNullTLE() {
+		try {
+			SatelliteFactory.createSatellite(null);
+			Assert.fail(SHOULD_HAVE_THROWN_ILLEGAL_ARGUMENT_EXCEPTION);
+		} catch (final IllegalArgumentException iae) {
+			// we expected this
+		}
+	}
 
-    @Test
-    public void testTLEWithWrongNumberOfRows() {
-        try {
-            final String[] theTLE = new String[0];
+	@Test
+	public void testTLEWithWrongNumberOfRows() {
+		try {
+			final String[] theTLE = new String[0];
 
-            final TLE tle = new TLE(theTLE);
+			final TLE tle = new TLE(theTLE);
 
-            SatelliteFactory.createSatellite(tle);
+			SatelliteFactory.createSatellite(tle);
 
-            Assert.fail(SHOULD_HAVE_THROWN_ILLEGAL_ARGUMENT_EXCEPTION);
-        }
-        catch (final IllegalArgumentException iae) {
-            // we expected this
-        }
-    }
+			Assert.fail(SHOULD_HAVE_THROWN_ILLEGAL_ARGUMENT_EXCEPTION);
+		} catch (final IllegalArgumentException iae) {
+			// we expected this
+		}
+	}
 
-    @Test
-    public void testPrivateConstructorForCoverage() throws NoSuchMethodException, SecurityException,
-            InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        Constructor<SatelliteFactory> constructor = SatelliteFactory.class.getDeclaredConstructor();
-        assertFalse(constructor.isAccessible());
-        constructor.setAccessible(true);
-        constructor.newInstance();
-    }
+	@Test
+	public void testPrivateConstructorForCoverage()
+			throws NoSuchMethodException, SecurityException,
+			InstantiationException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException {
+		Constructor<SatelliteFactory> constructor = SatelliteFactory.class
+				.getDeclaredConstructor();
+		assertFalse(constructor.isAccessible());
+		constructor.setAccessible(true);
+		constructor.newInstance();
+	}
 }

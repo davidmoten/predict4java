@@ -46,357 +46,374 @@ import java.util.Date;
  * 
  */
 public class SatPos {
-    private static final String NL = "\n";
-    private static final String DEG_CR = " deg.\n";
+	private static final String NL = "\n";
+	private static final String DEG_CR = " deg.\n";
 
-    /* WGS 84 Earth radius km */
-    private static final double EARTH_RADIUS = 6.378137E3;
-    private static final double R0 = 6378.16;
+	/* WGS 84 Earth radius km */
+	private static final double EARTH_RADIUS = 6.378137E3;
+	private static final double R0 = 6378.16;
 
-    // the internal representation will be in radians
-    private double azimuth;
-    private double elevation;
-    private double latitude;
-    private double longitude;
+	// the internal representation will be in radians
+	private double azimuth;
+	private double elevation;
+	private double latitude;
+	private double longitude;
 
-    private Date time;
-    private double range;
-    private double rangeRate;
-    private double phase;
-    private double altitude;
-    private double theta;
+	private Date time;
+	private double range;
+	private double rangeRate;
+	private double phase;
+	private double altitude;
+	private double theta;
 
-    private double eclipseDepth;
-    private boolean eclipsed;
+	private double eclipseDepth;
+	private boolean eclipsed;
 
-    private boolean aboveHorizon;
+	private boolean aboveHorizon;
 
-    /**
-     * Default constructor.
-     */
-    public SatPos() {
+	/**
+	 * Default constructor.
+	 */
+	public SatPos() {
 
-    }
+	}
 
-    /**
-     * Constructs a Satellite Position.
-     * 
-     * @param azimuth the Azimuth
-     * @param elevation the Elevation
-     * @param theTime the Time
-     */
-    public SatPos(final double azimuth, final double elevation, final Date theTime) {
-        this.azimuth = azimuth;
-        this.elevation = elevation;
-        this.time = new Date(theTime.getTime());
-    }
+	/**
+	 * Constructs a Satellite Position.
+	 * 
+	 * @param azimuth
+	 *            the Azimuth
+	 * @param elevation
+	 *            the Elevation
+	 * @param theTime
+	 *            the Time
+	 */
+	public SatPos(final double azimuth, final double elevation,
+			final Date theTime) {
+		this.azimuth = azimuth;
+		this.elevation = elevation;
+		this.time = new Date(theTime.getTime());
+	}
 
-    /**
-     * @return the azimuth
-     */
-    public double getAzimuth() {
-        return azimuth;
-    }
+	/**
+	 * @return the azimuth
+	 */
+	public double getAzimuth() {
+		return azimuth;
+	}
 
-    /**
-     * @return the elevation
-     */
-    public double getElevation() {
-        return elevation;
-    }
+	/**
+	 * @return the elevation
+	 */
+	public double getElevation() {
+		return elevation;
+	}
 
-    /**
-     * @return time for the SatPos
-     */
-    public Date getTime() {
-        return new Date(time.getTime());
-    }
+	/**
+	 * @return time for the SatPos
+	 */
+	public Date getTime() {
+		return new Date(time.getTime());
+	}
 
-    /**
-     * @return the range
-     */
-    public final double getRange() {
-        return range;
-    }
+	/**
+	 * @return the range
+	 */
+	public final double getRange() {
+		return range;
+	}
 
-    /**
-     * @param range the range to set
-     */
-    public final void setRange(final double range) {
-        this.range = range;
-    }
+	/**
+	 * @param range
+	 *            the range to set
+	 */
+	public final void setRange(final double range) {
+		this.range = range;
+	}
 
-    /**
-     * @return the rangeRate
-     */
-    public final double getRangeRate() {
-        return rangeRate;
-    }
+	/**
+	 * @return the rangeRate
+	 */
+	public final double getRangeRate() {
+		return rangeRate;
+	}
 
-    /**
-     * @param rangeRate the rangeRate to set
-     */
-    public final void setRangeRate(final double rangeRate) {
-        this.rangeRate = rangeRate;
-    }
+	/**
+	 * @param rangeRate
+	 *            the rangeRate to set
+	 */
+	public final void setRangeRate(final double rangeRate) {
+		this.rangeRate = rangeRate;
+	}
 
-    /**
-     * @return the phase
-     */
-    public final double getPhase() {
-        return phase;
-    }
+	/**
+	 * @return the phase
+	 */
+	public final double getPhase() {
+		return phase;
+	}
 
-    /**
-     * @param phase the phase to set
-     */
-    public final void setPhase(final double phase) {
-        this.phase = phase;
-    }
+	/**
+	 * @param phase
+	 *            the phase to set
+	 */
+	public final void setPhase(final double phase) {
+		this.phase = phase;
+	}
 
-    /**
-     * @return the latitude
-     */
-    public final double getLatitude() {
-        return latitude;
-    }
+	/**
+	 * @return the latitude
+	 */
+	public final double getLatitude() {
+		return latitude;
+	}
 
-    /**
-     * @param latitude the latitude to set
-     */
-    public final void setLatitude(final double latitude) {
-        this.latitude = latitude;
-    }
+	/**
+	 * @param latitude
+	 *            the latitude to set
+	 */
+	public final void setLatitude(final double latitude) {
+		this.latitude = latitude;
+	}
 
-    /**
-     * @return the longitude
-     */
-    public final double getLongitude() {
-        return longitude;
-    }
+	/**
+	 * @return the longitude
+	 */
+	public final double getLongitude() {
+		return longitude;
+	}
 
-    /**
-     * @param longitude the longitude to set
-     */
-    public final void setLongitude(final double longitude) {
-        this.longitude = longitude;
-    }
+	/**
+	 * @param longitude
+	 *            the longitude to set
+	 */
+	public final void setLongitude(final double longitude) {
+		this.longitude = longitude;
+	}
 
-    /**
-     * @return the altitude
-     */
-    public final double getAltitude() {
-        return altitude;
-    }
+	/**
+	 * @return the altitude
+	 */
+	public final double getAltitude() {
+		return altitude;
+	}
 
-    /**
-     * @param altitude the altitude to set
-     */
-    public final void setAltitude(final double altitude) {
-        this.altitude = altitude;
-    }
+	/**
+	 * @param altitude
+	 *            the altitude to set
+	 */
+	public final void setAltitude(final double altitude) {
+		this.altitude = altitude;
+	}
 
-    /**
-     * @return the theta
-     */
-    public final double getTheta() {
-        return theta;
-    }
+	/**
+	 * @return the theta
+	 */
+	public final double getTheta() {
+		return theta;
+	}
 
-    /**
-     * @param theta the theta to set
-     */
-    public final void setTheta(final double theta) {
-        this.theta = theta;
-    }
+	/**
+	 * @param theta
+	 *            the theta to set
+	 */
+	public final void setTheta(final double theta) {
+		this.theta = theta;
+	}
 
-    /**
-     * @param azimuth the azimuth to set
-     */
-    public final void setAzimuth(final double azimuth) {
-        this.azimuth = azimuth;
-    }
+	/**
+	 * @param azimuth
+	 *            the azimuth to set
+	 */
+	public final void setAzimuth(final double azimuth) {
+		this.azimuth = azimuth;
+	}
 
-    /**
-     * @param elevation the elevation to set
-     */
-    public final void setElevation(final double elevation) {
-        this.elevation = elevation;
-    }
+	/**
+	 * @param elevation
+	 *            the elevation to set
+	 */
+	public final void setElevation(final double elevation) {
+		this.elevation = elevation;
+	}
 
-    /**
-     * @param time the time to set
-     */
-    public final void setTime(final Date time) {
-        this.time = new Date(time.getTime());
-    }
+	/**
+	 * @param time
+	 *            the time to set
+	 */
+	public final void setTime(final Date time) {
+		this.time = new Date(time.getTime());
+	}
 
-    /**
-     * @return the aboveHorizon
-     */
-    public final boolean isAboveHorizon() {
-        return aboveHorizon;
-    }
+	/**
+	 * @return the aboveHorizon
+	 */
+	public final boolean isAboveHorizon() {
+		return aboveHorizon;
+	}
 
-    /**
-     * @param aboveHorizon the aboveHorizon to set
-     */
-    public final void setAboveHorizon(final boolean aboveHorizon) {
-        this.aboveHorizon = aboveHorizon;
-    }
+	/**
+	 * @param aboveHorizon
+	 *            the aboveHorizon to set
+	 */
+	public final void setAboveHorizon(final boolean aboveHorizon) {
+		this.aboveHorizon = aboveHorizon;
+	}
 
-    /**
-     * @return the eclipseDepth
-     */
-    protected final double getEclipseDepth() {
-        return eclipseDepth;
-    }
+	/**
+	 * @return the eclipseDepth
+	 */
+	protected final double getEclipseDepth() {
+		return eclipseDepth;
+	}
 
-    /**
-     * @param eclipseDepth the eclipseDepth to set
-     */
-    protected final void setEclipseDepth(final double eclipseDepth) {
-        this.eclipseDepth = eclipseDepth;
-    }
+	/**
+	 * @param eclipseDepth
+	 *            the eclipseDepth to set
+	 */
+	protected final void setEclipseDepth(final double eclipseDepth) {
+		this.eclipseDepth = eclipseDepth;
+	}
 
-    /**
-     * @return the eclipsed
-     */
-    protected final boolean isEclipsed() {
-        return eclipsed;
-    }
+	/**
+	 * @return the eclipsed
+	 */
+	protected final boolean isEclipsed() {
+		return eclipsed;
+	}
 
-    /**
-     * @param eclipsed the eclipsed to set
-     */
-    protected final void setEclipsed(final boolean eclipsed) {
-        this.eclipsed = eclipsed;
-    }
+	/**
+	 * @param eclipsed
+	 *            the eclipsed to set
+	 */
+	protected final void setEclipsed(final boolean eclipsed) {
+		this.eclipsed = eclipsed;
+	}
 
-    /**
-     * @return a pretty printed version of the Satellite Position
-     */
-    @Override
-    public String toString() {
-        return "Azimuth:    " + azimuth / (Math.PI * 2.0) * 360 + DEG_CR
-                + "Elevation:  " + elevation / (Math.PI * 2.0) * 360 + DEG_CR
-                + "Latitude:   " + latitude / (Math.PI * 2.0) * 360 + DEG_CR
-                + "Longitude:  " + longitude / (Math.PI * 2.0) * 360 + DEG_CR
+	/**
+	 * @return a pretty printed version of the Satellite Position
+	 */
+	@Override
+	public String toString() {
+		return "Azimuth:    " + azimuth / (Math.PI * 2.0) * 360 + DEG_CR
+				+ "Elevation:  " + elevation / (Math.PI * 2.0) * 360 + DEG_CR
+				+ "Latitude:   " + latitude / (Math.PI * 2.0) * 360 + DEG_CR
+				+ "Longitude:  " + longitude / (Math.PI * 2.0) * 360 + DEG_CR
 
-                + "Date:       " + time + NL
-                + "Range:        " + range + " km.\n"
-                + "Range rate:   " + rangeRate + " m/S.\n"
-                + "Phase:        " + phase + " /(256)\n"
-                + "Altitude:     " + altitude + " km\n"
-                + "Theta:        " + theta + " rad/sec\n"
-                + "Eclipsed:     " + eclipsed + NL
-                + "Eclipse depth:" + eclipseDepth + " radians\n";
-    }
+				+ "Date:       " + time + NL + "Range:        " + range
+				+ " km.\n" + "Range rate:   " + rangeRate + " m/S.\n"
+				+ "Phase:        " + phase + " /(256)\n" + "Altitude:     "
+				+ altitude + " km\n" + "Theta:        " + theta + " rad/sec\n"
+				+ "Eclipsed:     " + eclipsed + NL + "Eclipse depth:"
+				+ eclipseDepth + " radians\n";
+	}
 
-    public String toShortString() {
-        String returnString = "";
+	public String toShortString() {
+		String returnString = "";
 
-        final NumberFormat numberFormat = NumberFormat.getNumberInstance();
+		final NumberFormat numberFormat = NumberFormat.getNumberInstance();
 
-        numberFormat.setMaximumFractionDigits(0);
-        returnString = returnString
-                + "Elevation: " + numberFormat.format(elevation / (Math.PI * 2.0) * 360) + DEG_CR
-                + "Azimuth: " + numberFormat.format(azimuth / (Math.PI * 2.0) * 360) + DEG_CR;
+		numberFormat.setMaximumFractionDigits(0);
+		returnString = returnString + "Elevation: "
+				+ numberFormat.format(elevation / (Math.PI * 2.0) * 360)
+				+ DEG_CR + "Azimuth: "
+				+ numberFormat.format(azimuth / (Math.PI * 2.0) * 360) + DEG_CR;
 
-        numberFormat.setMaximumFractionDigits(2);
-        returnString = returnString
-                + "Latitude: " + numberFormat.format(latitude / (Math.PI * 2.0) * 360) + DEG_CR
-                + "Longitude: " + numberFormat.format(longitude / (Math.PI * 2.0) * 360) + DEG_CR;
+		numberFormat.setMaximumFractionDigits(2);
+		returnString = returnString + "Latitude: "
+				+ numberFormat.format(latitude / (Math.PI * 2.0) * 360)
+				+ DEG_CR + "Longitude: "
+				+ numberFormat.format(longitude / (Math.PI * 2.0) * 360)
+				+ DEG_CR;
 
-        numberFormat.setMaximumFractionDigits(0);
-        returnString = returnString
-                + "Range: " + numberFormat.format(range) + " Km";
+		numberFormat.setMaximumFractionDigits(0);
+		returnString = returnString + "Range: " + numberFormat.format(range)
+				+ " Km";
 
-        return returnString;
+		return returnString;
 
-    }
+	}
 
-    /*
-     * Gets the range circle as an array of integers representing pairs of latitude and longitude.
-     */
-    public final double[][] getRangeCircle() {
+	/*
+	 * Gets the range circle as an array of integers representing pairs of
+	 * latitude and longitude.
+	 */
+	public final double[][] getRangeCircle() {
 
-        return calculateRangeCirclePoints(this);
+		return calculateRangeCirclePoints(this);
 
-    }
+	}
 
-    /**
-     * Calculates the footprint range circle.
-     * 
-     * @param pos
-     * @return double array of lat/long
-     */
-    private static double[][] calculateRangeCirclePoints(final SatPos pos) {
+	/**
+	 * Calculates the footprint range circle.
+	 * 
+	 * @param pos
+	 * @return double array of lat/long
+	 */
+	private static double[][] calculateRangeCirclePoints(final SatPos pos) {
 
-        final int dia = (int)(12756.33 * Math.acos(EARTH_RADIUS / (EARTH_RADIUS + pos.altitude)));
+		final int dia = (int) (12756.33 * Math.acos(EARTH_RADIUS
+				/ (EARTH_RADIUS + pos.altitude)));
 
-        final double latitude = pos.latitude;
-        final double longitude = pos.longitude;
-        final double beta = (0.5 * dia) / R0;
-        final double[][] result = new double[360][2];
+		final double latitude = pos.latitude;
+		final double longitude = pos.longitude;
+		final double beta = (0.5 * dia) / R0;
+		final double[][] result = new double[360][2];
 
-        for (int azi = 0; azi < 360; azi++) {
-            final double azimuth = (azi / 360.0) * 2.0 * Math.PI;
-            double rangelat = Math.asin(Math.sin(latitude) * Math.cos(beta) + Math.cos(azimuth) * Math.sin(beta)
-                    * Math.cos(latitude));
-            final double num = Math.cos(beta) - (Math.sin(latitude) * Math.sin(rangelat));
-            final double den = Math.cos(latitude) * Math.cos(rangelat);
-            double rangelong;
+		for (int azi = 0; azi < 360; azi++) {
+			final double azimuth = (azi / 360.0) * 2.0 * Math.PI;
+			double rangelat = Math.asin(Math.sin(latitude) * Math.cos(beta)
+					+ Math.cos(azimuth) * Math.sin(beta) * Math.cos(latitude));
+			final double num = Math.cos(beta)
+					- (Math.sin(latitude) * Math.sin(rangelat));
+			final double den = Math.cos(latitude) * Math.cos(rangelat);
+			double rangelong;
 
-            if (azi == 0 && (beta > ((Math.PI / 2.0) - latitude))) {
-                rangelong = longitude + Math.PI;
-            }
-            else if (azi == 180 && (beta > ((Math.PI / 2.0) - latitude))) {
-                rangelong = longitude + Math.PI;
-            }
-            else if (Math.abs(num / den) > 1.0) {
-                rangelong = longitude;
-            }
-            else {
-                if ((180 - azi) >= 0) {
-                    rangelong = longitude - Math.acos(num / den);
-                }
-                else {
-                    rangelong = longitude + Math.acos(num / den);
-                }
-            }
+			if (azi == 0 && (beta > ((Math.PI / 2.0) - latitude))) {
+				rangelong = longitude + Math.PI;
+			} else if (azi == 180 && (beta > ((Math.PI / 2.0) - latitude))) {
+				rangelong = longitude + Math.PI;
+			} else if (Math.abs(num / den) > 1.0) {
+				rangelong = longitude;
+			} else {
+				if ((180 - azi) >= 0) {
+					rangelong = longitude - Math.acos(num / den);
+				} else {
+					rangelong = longitude + Math.acos(num / den);
+				}
+			}
 
-            while (rangelong < 0.0) {
-                rangelong += Math.PI * 2.0;
-            }
+			while (rangelong < 0.0) {
+				rangelong += Math.PI * 2.0;
+			}
 
-            while (rangelong > Math.PI * 2.0) {
-                rangelong -= Math.PI * 2.0;
-            }
+			while (rangelong > Math.PI * 2.0) {
+				rangelong -= Math.PI * 2.0;
+			}
 
-            rangelat = (rangelat / (2.0 * Math.PI)) * 360.0;
-            rangelong = (rangelong / (2.0 * Math.PI)) * 360.0;
+			rangelat = (rangelat / (2.0 * Math.PI)) * 360.0;
+			rangelong = (rangelong / (2.0 * Math.PI)) * 360.0;
 
-            // if (rangelong < 180.0) {
-            // rangelong = -rangelong;
-            // }
-            // else if (rangelong > 180.0) {
-            // rangelong = 360.0 - rangelong;
-            // }
-            //
-            // if (rangelat < 90.0) {
-            // rangelat = -rangelat;
-            // }
-            // else if (rangelat > 90.0) {
-            // rangelat = 180.0 - rangelat;
-            // }
+			// if (rangelong < 180.0) {
+			// rangelong = -rangelong;
+			// }
+			// else if (rangelong > 180.0) {
+			// rangelong = 360.0 - rangelong;
+			// }
+			//
+			// if (rangelat < 90.0) {
+			// rangelat = -rangelat;
+			// }
+			// else if (rangelat > 90.0) {
+			// rangelat = 180.0 - rangelat;
+			// }
 
-            result[azi][0] = rangelat;
-            result[azi][1] = rangelong;
+			result[azi][0] = rangelat;
+			result[azi][1] = rangelong;
 
-        }
+		}
 
-        return result;
-    }
+		return result;
+	}
 
 }

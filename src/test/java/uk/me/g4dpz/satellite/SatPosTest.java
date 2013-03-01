@@ -39,48 +39,56 @@ import org.junit.Test;
  */
 public final class SatPosTest {
 
-    private static final double PRECISION = 0.00001;
+	private static final double PRECISION = 0.00001;
 
-    /**
-     * Default Constructor.
-     */
-    public SatPosTest() {
-    }
+	/**
+	 * Default Constructor.
+	 */
+	public SatPosTest() {
+	}
 
-    @Test
-    public void testSatPos() {
-        // Assert.assertTrue(TestUtil.verifyMutable(new SatPos(),
-        // "./src/uk/me/g4dpz/satellite/SatPos.java", 0));
-    }
+	@Test
+	public void testSatPos() {
+		// Assert.assertTrue(TestUtil.verifyMutable(new SatPos(),
+		// "./src/uk/me/g4dpz/satellite/SatPos.java", 0));
+	}
 
-    @Test
-    public void footprintCalculatedCorrectly() {
-        final SatPos pos = new SatPos();
-        pos.setLatitude(0);
-        pos.setLongitude(0);
-        pos.setAltitude(1000);
-        double[][] rangeCircle = pos.getRangeCircle();
-        Assert.assertEquals("  30    0", String.format("%4.0f %4.0f", rangeCircle[0][0], rangeCircle[0][1]));
-        Assert.assertEquals("   1  330", String.format("%4.0f %4.0f", rangeCircle[89][0], rangeCircle[89][1]));
-        Assert.assertEquals(" -30  359", String.format("%4.0f %4.0f", rangeCircle[179][0], rangeCircle[179][1]));
-        Assert.assertEquals("  -1   30", String.format("%4.0f %4.0f", rangeCircle[269][0], rangeCircle[269][1]));
+	@Test
+	public void footprintCalculatedCorrectly() {
+		final SatPos pos = new SatPos();
+		pos.setLatitude(0);
+		pos.setLongitude(0);
+		pos.setAltitude(1000);
+		double[][] rangeCircle = pos.getRangeCircle();
+		Assert.assertEquals("  30    0", String.format("%4.0f %4.0f",
+				rangeCircle[0][0], rangeCircle[0][1]));
+		Assert.assertEquals("   1  330", String.format("%4.0f %4.0f",
+				rangeCircle[89][0], rangeCircle[89][1]));
+		Assert.assertEquals(" -30  359", String.format("%4.0f %4.0f",
+				rangeCircle[179][0], rangeCircle[179][1]));
+		Assert.assertEquals("  -1   30", String.format("%4.0f %4.0f",
+				rangeCircle[269][0], rangeCircle[269][1]));
 
-        pos.setLatitude(10.0 / 360.0 * 2.0 * Math.PI);
-        pos.setLongitude(10.0 / 360.0 * 2.0 * Math.PI);
-        pos.setAltitude(1000);
-        rangeCircle = pos.getRangeCircle();
-        Assert.assertEquals("  40   10", String.format("%4.0f %4.0f", rangeCircle[0][0], rangeCircle[0][1]));
-        Assert.assertEquals("   9  339", String.format("%4.0f %4.0f", rangeCircle[89][0], rangeCircle[89][1]));
-        Assert.assertEquals(" -20    9", String.format("%4.0f %4.0f", rangeCircle[179][0], rangeCircle[179][1]));
-        Assert.assertEquals("   8   41", String.format("%4.0f %4.0f", rangeCircle[269][0], rangeCircle[269][1]));
-    }
+		pos.setLatitude(10.0 / 360.0 * 2.0 * Math.PI);
+		pos.setLongitude(10.0 / 360.0 * 2.0 * Math.PI);
+		pos.setAltitude(1000);
+		rangeCircle = pos.getRangeCircle();
+		Assert.assertEquals("  40   10", String.format("%4.0f %4.0f",
+				rangeCircle[0][0], rangeCircle[0][1]));
+		Assert.assertEquals("   9  339", String.format("%4.0f %4.0f",
+				rangeCircle[89][0], rangeCircle[89][1]));
+		Assert.assertEquals(" -20    9", String.format("%4.0f %4.0f",
+				rangeCircle[179][0], rangeCircle[179][1]));
+		Assert.assertEquals("   8   41", String.format("%4.0f %4.0f",
+				rangeCircle[269][0], rangeCircle[269][1]));
+	}
 
-    @Test
-    public void testSatPosConstructor() {
-        Date now = new Date();
-        SatPos pos = new SatPos(1, 2, now);
-        assertEquals(1.0, pos.getAzimuth(), PRECISION);
-        assertEquals(2.0, pos.getElevation(), PRECISION);
-        assertEquals(now.getTime(), pos.getTime().getTime());
-    }
+	@Test
+	public void testSatPosConstructor() {
+		Date now = new Date();
+		SatPos pos = new SatPos(1, 2, now);
+		assertEquals(1.0, pos.getAzimuth(), PRECISION);
+		assertEquals(2.0, pos.getElevation(), PRECISION);
+		assertEquals(now.getTime(), pos.getTime().getTime());
+	}
 }

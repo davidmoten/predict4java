@@ -23,15 +23,16 @@
 
  You should have received a copy of the GNU General Public License
  along with this program; if not, visit http://www.fsf.org/
- */package uk.me.g4dpz.satellite;
+ */
+package uk.me.g4dpz.satellite;
 
 import org.junit.Test;
 
 public class SatNotFoundExceptionTest {
 
-    @Test
-    public void testInstantiation() {
-        new SatNotFoundException("boo");
-    }
+	@Test
+	public void testInstantiation() {
+		new SatNotFoundException("boo");
+	}
 
 }

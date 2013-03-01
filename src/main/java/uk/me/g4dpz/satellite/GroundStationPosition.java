@@ -38,8 +38,8 @@
 package uk.me.g4dpz.satellite;
 
 /**
- * The location of the Satellite Ground Station. Instances of this class are immutable and
- * thus thread safe.
+ * The location of the Satellite Ground Station. Instances of this class are
+ * immutable and thus thread safe.
  * 
  * @author g4dpz
  */

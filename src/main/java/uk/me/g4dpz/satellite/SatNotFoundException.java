@@ -42,13 +42,13 @@ package uk.me.g4dpz.satellite;
  */
 public class SatNotFoundException extends Exception {
 
-    private static final long serialVersionUID = 3389434245667560642L;
+	private static final long serialVersionUID = 3389434245667560642L;
 
-    /**
-     * @param message
-     */
-    public SatNotFoundException(final String message) {
-        super(message);
-    }
+	/**
+	 * @param message
+	 */
+	public SatNotFoundException(final String message) {
+		super(message);
+	}
 
 }

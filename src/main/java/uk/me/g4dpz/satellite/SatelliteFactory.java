@@ -45,35 +45,36 @@ package uk.me.g4dpz.satellite;
  */
 public final class SatelliteFactory {
 
-    /**
-     * Default constructor is private so cannot be instantiated.
-     */
-    private SatelliteFactory() {
+	/**
+	 * Default constructor is private so cannot be instantiated.
+	 */
+	private SatelliteFactory() {
 
-    }
+	}
 
-    /**
-     * Creates a <code>Satellite</code> from a <code>TLE</code>.
-     * 
-     * @param tle The 'Three Line Elements'
-     * @return <code>Satellite</code>
-     * @throws IllegalArgumentException when the given TLE is null or the data is incorrect
-     */
-    public static synchronized Satellite createSatellite(final TLE tle)
-            throws IllegalArgumentException {
+	/**
+	 * Creates a <code>Satellite</code> from a <code>TLE</code>.
+	 * 
+	 * @param tle
+	 *            The 'Three Line Elements'
+	 * @return <code>Satellite</code>
+	 * @throws IllegalArgumentException
+	 *             when the given TLE is null or the data is incorrect
+	 */
+	public static synchronized Satellite createSatellite(final TLE tle)
+			throws IllegalArgumentException {
 
-        if (null == tle) {
-            throw new IllegalArgumentException("TLE was null");
-        }
+		if (null == tle) {
+			throw new IllegalArgumentException("TLE was null");
+		}
 
-        Satellite satellite = null;
+		Satellite satellite = null;
 
-        if (tle.isDeepspace()) {
-            satellite = new DeepSpaceSatellite(tle);
-        }
-        else {
-            satellite = new LEOSatellite(tle);
-        }
-        return satellite;
-    }
+		if (tle.isDeepspace()) {
+			satellite = new DeepSpaceSatellite(tle);
+		} else {
+			satellite = new LEOSatellite(tle);
+		}
+		return satellite;
+	}
 }

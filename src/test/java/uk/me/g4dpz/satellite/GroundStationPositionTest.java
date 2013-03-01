@@ -37,28 +37,31 @@ import org.junit.Test;
  */
 public final class GroundStationPositionTest {
 
-    private static final double HEIGHT_AMSL = 3.0;
-    private static final double LONGITUDE = 2.0;
-    private static final double LATITUDE = 1.0;
-    private static final double PRECISION = 0.00001;
+	private static final double HEIGHT_AMSL = 3.0;
+	private static final double LONGITUDE = 2.0;
+	private static final double LATITUDE = 1.0;
+	private static final double PRECISION = 0.00001;
 
-    @Test
-    public void testConstructionUsingAttributes() {
+	@Test
+	public void testConstructionUsingAttributes() {
 
-        final GroundStationPosition groundStationPosition = new GroundStationPosition(LATITUDE, LONGITUDE, HEIGHT_AMSL);
-        Assert.assertTrue(Math.abs(LATITUDE - groundStationPosition.getLatitude()) < 0.000001);
-        Assert.assertTrue(Math.abs(LONGITUDE - groundStationPosition.getLongitude()) < 0.000001);
-        Assert.assertTrue(Math.abs(HEIGHT_AMSL - groundStationPosition.getHeightAMSL()) < 0.000001);
+		final GroundStationPosition groundStationPosition = new GroundStationPosition(
+				LATITUDE, LONGITUDE, HEIGHT_AMSL);
+		Assert.assertTrue(Math.abs(LATITUDE
+				- groundStationPosition.getLatitude()) < 0.000001);
+		Assert.assertTrue(Math.abs(LONGITUDE
+				- groundStationPosition.getLongitude()) < 0.000001);
+		Assert.assertTrue(Math.abs(HEIGHT_AMSL
+				- groundStationPosition.getHeightAMSL()) < 0.000001);
 
-    }
+	}
 
-
-    @Test
-    public void testConstructor() {
-        GroundStationPosition g = new GroundStationPosition(10, 11, 12, "boo");
-        assertEquals(10.0, g.getLatitude(), PRECISION);
-        assertEquals(11.0, g.getLongitude(), PRECISION);
-        assertEquals(12.0, g.getHeightAMSL(), PRECISION);
-        assertEquals("boo", g.getName());
-    }
+	@Test
+	public void testConstructor() {
+		GroundStationPosition g = new GroundStationPosition(10, 11, 12, "boo");
+		assertEquals(10.0, g.getLatitude(), PRECISION);
+		assertEquals(11.0, g.getLongitude(), PRECISION);
+		assertEquals(12.0, g.getHeightAMSL(), PRECISION);
+		assertEquals("boo", g.getName());
+	}
 }

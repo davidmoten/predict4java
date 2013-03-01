@@ -32,38 +32,42 @@ import org.junit.Test;
 
 public class IlluminationTest extends AbstractSatelliteTestBase {
 
-    public IlluminationTest() {
-    }
+	public IlluminationTest() {
+	}
 
-    @Test
-    public void testCalculateSunVector() {
+	@Test
+	public void testCalculateSunVector() {
 
-        final TLE tle = new TLE(LEO_TLE);
+		final TLE tle = new TLE(LEO_TLE);
 
-        Assert.assertFalse(tle.isDeepspace());
+		Assert.assertFalse(tle.isDeepspace());
 
-        final Satellite satellite = SatelliteFactory.createSatellite(tle);
+		final Satellite satellite = SatelliteFactory.createSatellite(tle);
 
-        DateTime timeNow = new DateTime("2009-06-01T00:00:00Z");
+		DateTime timeNow = new DateTime("2009-06-01T00:00:00Z");
 
-        for (int day = 0; day < 30; day++) {
-            final SatPos satPos = satellite.getPosition(GROUND_STATION, timeNow.toDate());
+		for (int day = 0; day < 30; day++) {
+			final SatPos satPos = satellite.getPosition(GROUND_STATION,
+					timeNow.toDate());
 
-            switch (day) {
-                case 4:
-                case 9:
-                case 14:
-                case 19:
-                case 24:
-                case 29:
-                    Assert.assertTrue("Satellite should have been eclipsed on day " + day, satPos.isEclipsed());
-                    break;
-                default:
-                    Assert.assertFalse("Satellite should not have been eclipsed on day " + day, satPos.isEclipsed());
-                    break;
-            }
-            timeNow = timeNow.plusDays(1);
-        }
-    }
+			switch (day) {
+			case 4:
+			case 9:
+			case 14:
+			case 19:
+			case 24:
+			case 29:
+				Assert.assertTrue("Satellite should have been eclipsed on day "
+						+ day, satPos.isEclipsed());
+				break;
+			default:
+				Assert.assertFalse(
+						"Satellite should not have been eclipsed on day " + day,
+						satPos.isEclipsed());
+				break;
+			}
+			timeNow = timeNow.plusDays(1);
+		}
+	}
 
 }

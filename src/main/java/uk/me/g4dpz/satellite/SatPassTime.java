@@ -43,113 +43,108 @@ import java.util.TimeZone;
 
 public class SatPassTime {
 
-    private final Date startTime;
-    private final Date endTime;
-    private final Date tca;
-    private final String polePassed;
-    private final int aos;
-    private final int los;
-    private final double maxEl;
+	private final Date startTime;
+	private final Date endTime;
+	private final Date tca;
+	private final String polePassed;
+	private final int aos;
+	private final int los;
+	private final double maxEl;
 
-    private static final String NEW_LINE = "\n";
-    private static final String DEG_NL = " deg.\n";
+	private static final String NEW_LINE = "\n";
+	private static final String DEG_NL = " deg.\n";
 
-    private static final SimpleDateFormat TIME_FORMAT;
-    private static final SimpleDateFormat DATE_FORMAT;
-    static {
-        TIME_FORMAT = new SimpleDateFormat("h:mm a");
-        TIME_FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
-        DATE_FORMAT = new SimpleDateFormat("MMMMMM d, yyyy");
-        DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
-    }
+	private static final SimpleDateFormat TIME_FORMAT;
+	private static final SimpleDateFormat DATE_FORMAT;
+	static {
+		TIME_FORMAT = new SimpleDateFormat("h:mm a");
+		TIME_FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
+		DATE_FORMAT = new SimpleDateFormat("MMMMMM d, yyyy");
+		DATE_FORMAT.setTimeZone(TimeZone.getTimeZone("UTC"));
+	}
 
-    public SatPassTime(final Date startTime, final Date endTime, final String polePassed,
-            final int aos, final int los, final double maxEl) {
-        this(
-                startTime,
-                endTime,
-                new Date((startTime.getTime() + endTime.getTime()) / 2),
-                polePassed,
-                aos,
-                los,
-                maxEl);
-    }
+	public SatPassTime(final Date startTime, final Date endTime,
+			final String polePassed, final int aos, final int los,
+			final double maxEl) {
+		this(startTime, endTime, new Date(
+				(startTime.getTime() + endTime.getTime()) / 2), polePassed,
+				aos, los, maxEl);
+	}
 
-    public SatPassTime(final Date startTime, final Date endTime, final Date tca, final String polePassed,
-            final int aosAzimuth, final int losAzimuth,
-            final double maxEl) {
-        this.startTime = new Date(startTime.getTime());
-        this.endTime = new Date(endTime.getTime());
-        this.polePassed = polePassed;
-        this.aos = aosAzimuth;
-        this.los = losAzimuth;
-        this.maxEl = maxEl;
-        this.tca = new Date(tca.getTime());
-    }
+	public SatPassTime(final Date startTime, final Date endTime,
+			final Date tca, final String polePassed, final int aosAzimuth,
+			final int losAzimuth, final double maxEl) {
+		this.startTime = new Date(startTime.getTime());
+		this.endTime = new Date(endTime.getTime());
+		this.polePassed = polePassed;
+		this.aos = aosAzimuth;
+		this.los = losAzimuth;
+		this.maxEl = maxEl;
+		this.tca = new Date(tca.getTime());
+	}
 
-    public final Date getStartTime() {
-        return new Date(startTime.getTime());
-    }
+	public final Date getStartTime() {
+		return new Date(startTime.getTime());
+	}
 
-    public final Date getEndTime() {
-        return new Date(endTime.getTime());
-    }
+	public final Date getEndTime() {
+		return new Date(endTime.getTime());
+	}
 
-    public final Date getTCA() {
-        return new Date(tca.getTime());
-    }
+	public final Date getTCA() {
+		return new Date(tca.getTime());
+	}
 
-    public final String getPolePassed() {
-        return polePassed;
-    }
+	public final String getPolePassed() {
+		return polePassed;
+	}
 
-    /**
-     * @return the aos azimuth
-     */
-    public final int getAosAzimuth() {
-        return aos;
-    }
+	/**
+	 * @return the aos azimuth
+	 */
+	public final int getAosAzimuth() {
+		return aos;
+	}
 
-    /**
-     * @return the los azimuth
-     */
-    public final int getLosAzimuth() {
-        return los;
-    }
+	/**
+	 * @return the los azimuth
+	 */
+	public final int getLosAzimuth() {
+		return los;
+	}
 
-    /**
-     * @return the maxEl
-     */
-    public final double getMaxEl() {
-        return maxEl;
-    }
+	/**
+	 * @return the maxEl
+	 */
+	public final double getMaxEl() {
+		return maxEl;
+	}
 
-    private synchronized static String formatDate(Date date) {
-        return DATE_FORMAT.format(date);
-    }
+	private synchronized static String formatDate(Date date) {
+		return DATE_FORMAT.format(date);
+	}
 
-    private synchronized static String formatTime(Date date) {
-        return TIME_FORMAT.format(date);
-    }
+	private synchronized static String formatTime(Date date) {
+		return TIME_FORMAT.format(date);
+	}
 
-    /**
-     * Returns a string representing the contents of the object.
-     */
-    @Override
-    public String toString() {
+	/**
+	 * Returns a string representing the contents of the object.
+	 */
+	@Override
+	public String toString() {
 
-        final double duration = (endTime.getTime() - startTime.getTime()) / 60000.0;
+		final double duration = (endTime.getTime() - startTime.getTime()) / 60000.0;
 
-        return "Date: " + formatDate(startTime)
-                + NEW_LINE
-                + "Start Time: "
-                + formatTime(startTime)
-                + NEW_LINE
-                +
-                // "End Time: " + mTimeFormatter.format(endDate_time) + "\n" +
-                String.format("Duration: %4.1f min.%n", duration)
-                + "AOS Azimuth: " + aos + DEG_NL
-                + String.format("Max Elevation: %4.1f deg.%n", maxEl)
-                + "LOS Azimuth: " + los + " deg.";
-    }
+		return "Date: " + formatDate(startTime) + NEW_LINE
+				+ "Start Time: "
+				+ formatTime(startTime)
+				+ NEW_LINE
+				+
+				// "End Time: " + mTimeFormatter.format(endDate_time) + "\n" +
+				String.format("Duration: %4.1f min.%n", duration)
+				+ "AOS Azimuth: " + aos + DEG_NL
+				+ String.format("Max Elevation: %4.1f deg.%n", maxEl)
+				+ "LOS Azimuth: " + los + " deg.";
+	}
 }
