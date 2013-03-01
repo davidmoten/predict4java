@@ -33,17 +33,13 @@ import static org.junit.Assert.fail;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
  * @author David A. B. Johnson, g4dpz
  * 
  */
-public class PassPredictorTest extends AbstractSatelliteTestBase {
+public final class PassPredictorTest extends AbstractSatelliteTestBase {
 
 	private static final String DATE_2009_01_05T04_30_00Z = "2009-01-05T04:30:00Z";
 	private static final String DATE_2009_01_05T04_32_15_0000 = "2009-01-05T04:32:15+0000";
@@ -82,7 +78,7 @@ public class PassPredictorTest extends AbstractSatelliteTestBase {
 	 * .
 	 */
 	@Test
-	public final void testNextSatPass() {
+	public void testNextSatPass() {
 
 		final TLE tle = new TLE(LEO_TLE);
 
@@ -161,7 +157,7 @@ public class PassPredictorTest extends AbstractSatelliteTestBase {
 	 * .
 	 */
 	@Test
-	public final void testNextSatPassWithWindBack() {
+	public void testNextSatPassWithWindBack() {
 
 		final TLE tle = new TLE(LEO_TLE);
 
@@ -220,7 +216,7 @@ public class PassPredictorTest extends AbstractSatelliteTestBase {
 	 * test to determine if the antenna would track through a pole during a pass
 	 */
 	@Test
-	public final void poleIsPassed() {
+	public void poleIsPassed() {
 		final TLE tle = new TLE(LEO_TLE);
 
 		assertTrue(!tle.isDeepspace());

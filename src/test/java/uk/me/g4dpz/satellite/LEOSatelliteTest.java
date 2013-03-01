@@ -31,17 +31,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
  * @author David A. B. Johnson, g4dpz
  * 
  */
-public class LEOSatelliteTest extends AbstractSatelliteTestBase {
+public final class LEOSatelliteTest extends AbstractSatelliteTestBase {
 
 	private static final String ECLIPSE_DEPTH = "-0.2353420";
 
@@ -79,7 +75,7 @@ public class LEOSatelliteTest extends AbstractSatelliteTestBase {
 	 * .
 	 */
 	@Test
-	public final void testLEOSatellite() {
+	public void testLEOSatellite() {
 
 		timeNow = new DateTime("2009-04-17T06:57:32Z");
 
@@ -127,14 +123,14 @@ public class LEOSatelliteTest extends AbstractSatelliteTestBase {
 	}
 
 	@Test(expected = RuntimeException.class)
-	public final void testDeepSpaceSatelliteThrowsExceptionOnCallOfCalculateSDP4Method() {
+	public void testDeepSpaceSatelliteThrowsExceptionOnCallOfCalculateSDP4Method() {
 
 		final TLE tle = new TLE(LEO_TLE);
 		new LEOSatellite(tle).calculateSDP4(0);
 	}
 
 	@Test
-	public final void testWeatherSatellite() {
+	public void testWeatherSatellite() {
 
 		timeNow = new DateTime(BASE_TIME);
 
@@ -175,7 +171,7 @@ public class LEOSatelliteTest extends AbstractSatelliteTestBase {
 	}
 
 	@Test
-	public final void testIvoAlgorithm() {
+	public void testIvoAlgorithm() {
 
 		timeNow = new DateTime(BASE_TIME);
 
@@ -221,7 +217,7 @@ public class LEOSatelliteTest extends AbstractSatelliteTestBase {
 	}
 
 	@Test
-	public final void testDeOrbitSatellite() {
+	public void testDeOrbitSatellite() {
 
 		timeNow = new DateTime(BASE_TIME);
 

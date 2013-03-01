@@ -33,7 +33,7 @@ import org.junit.Test;
 
 import uk.me.g4dpz.satellite.AbstractSatellite.Vector4;
 
-public class Vector4Test {
+public final class Vector4Test {
 
 	private static final double PRECISION = 0.00001;
 

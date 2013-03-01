@@ -32,17 +32,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.joda.time.DateTime;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
  * @author David A. B. Johnson, g4dpz
  * 
  */
-public class DeepSpaceSatelliteTest extends AbstractSatelliteTestBase {
+public final class DeepSpaceSatelliteTest extends AbstractSatelliteTestBase {
 
 	private static final String DATE_2009_12_26T00_00_00Z = "2009-12-26T00:00:00Z";
 	private static final String FORMAT_9_3F = "%9.3f";
@@ -59,7 +56,7 @@ public class DeepSpaceSatelliteTest extends AbstractSatelliteTestBase {
 	}
 
 	@Test
-	public final void testDeepSpaceSatellite() {
+	public void testDeepSpaceSatellite() {
 
 		final TLE tle = new TLE(DEEP_SPACE_TLE);
 
@@ -97,7 +94,7 @@ public class DeepSpaceSatelliteTest extends AbstractSatelliteTestBase {
 	}
 
 	@Test(expected = RuntimeException.class)
-	public final void testDeepSpaceSatelliteThrowsExceptionOnCallOfCalculateSGP4Method() {
+	public void testDeepSpaceSatelliteThrowsExceptionOnCallOfCalculateSGP4Method() {
 
 		final TLE tle = new TLE(DEEP_SPACE_TLE);
 		new DeepSpaceSatellite(tle).calculateSGP4(0);
@@ -122,7 +119,7 @@ public class DeepSpaceSatelliteTest extends AbstractSatelliteTestBase {
 	}
 
 	@Test
-	public final void testGeoSynchSatellite() {
+	public void testGeoSynchSatellite() {
 
 		timeNow = new DateTime(DATE_2009_12_26T00_00_00Z);
 
@@ -161,7 +158,7 @@ public class DeepSpaceSatelliteTest extends AbstractSatelliteTestBase {
 	}
 
 	@Test
-	public final void testMolniyaSatellite() {
+	public void testMolniyaSatellite() {
 
 		timeNow = new DateTime(DATE_2009_12_26T00_00_00Z);
 

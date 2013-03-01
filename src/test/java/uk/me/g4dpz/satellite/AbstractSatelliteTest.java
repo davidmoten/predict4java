@@ -30,7 +30,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class AbstractSatelliteTest {
+public final class AbstractSatelliteTest {
 
 	private static final double PRECISION = 0.00001;
 

@@ -38,7 +38,7 @@ import org.junit.Test;
  * @author David A. B. Johnson, g4dpz
  * 
  */
-public class SatelliteFactoryTest extends AbstractSatelliteTestBase {
+public final class SatelliteFactoryTest extends AbstractSatelliteTestBase {
 
 	private static final String SHOULD_HAVE_THROWN_ILLEGAL_ARGUMENT_EXCEPTION = "Should have thrown IllegalArgument Exception";
 

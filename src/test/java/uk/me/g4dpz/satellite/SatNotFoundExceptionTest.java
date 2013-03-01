@@ -28,7 +28,7 @@ package uk.me.g4dpz.satellite;
 
 import org.junit.Test;
 
-public class SatNotFoundExceptionTest {
+public final class SatNotFoundExceptionTest {
 
 	@Test
 	public void testInstantiation() {
