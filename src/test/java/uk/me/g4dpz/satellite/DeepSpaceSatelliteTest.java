@@ -51,39 +51,11 @@ public class DeepSpaceSatelliteTest extends AbstractSatelliteTestBase {
 	private DateTime timeNow;
 
 	/**
-	 * Default constructor.
-	 */
-	public DeepSpaceSatelliteTest() {
-
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
-	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
 		timeNow = new DateTime("2009-04-17T10:10:52Z");
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
 	}
 
 	@Test

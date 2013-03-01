@@ -40,12 +40,6 @@ public final class SatPassTimeTest {
 
 	private static final int PERIOD_MS = 1000;
 
-	/**
-	 * Default Constructor.
-	 */
-	public SatPassTimeTest() {
-	}
-
 	@Test
 	public void testSatPassTime() {
 		// Assert.assertTrue(TestUtil.verifyMutable(new SatPassTime(),

@@ -32,9 +32,6 @@ import org.junit.Test;
 
 public class IlluminationTest extends AbstractSatelliteTestBase {
 
-	public IlluminationTest() {
-	}
-
 	@Test
 	public void testCalculateSunVector() {
 

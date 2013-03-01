@@ -53,12 +53,6 @@ public final class TLETest extends AbstractSatelliteTestBase {
 	private static final String FORMAT_11_7F = "%11.7f";
 	private static final String AO_51_NAME = "AO-51 [+]";
 
-	/**
-	 * Default Constructor.
-	 */
-	public TLETest() {
-	}
-
 	@Test
 	public void testTLEReadLEO() {
 
@@ -83,8 +77,7 @@ public final class TLETest extends AbstractSatelliteTestBase {
 
 		final TLE tle = new TLE(theTLE);
 
-		assertTrue("Satellite should have been DeepSpace",
-				tle.isDeepspace());
+		assertTrue("Satellite should have been DeepSpace", tle.isDeepspace());
 	}
 
 	@Test
@@ -154,39 +147,25 @@ public final class TLETest extends AbstractSatelliteTestBase {
 		assertEquals(9, tle.getYear());
 		assertEquals("105.6639197",
 				String.format(FORMAT_11_7F, tle.getRefepoch()));
-		assertEquals("98.0551000",
-				String.format(FORMAT_10_7F, tle.getIncl()));
-		assertEquals("118.9086000",
-				String.format(FORMAT_11_7F, tle.getRaan()));
-		assertEquals(VALUE_0_0084159,
-				String.format(FORMAT_9_7F, tle.getEccn()));
+		assertEquals("98.0551000", String.format(FORMAT_10_7F, tle.getIncl()));
+		assertEquals("118.9086000", String.format(FORMAT_11_7F, tle.getRaan()));
+		assertEquals(VALUE_0_0084159, String.format(FORMAT_9_7F, tle.getEccn()));
 		assertEquals("315.8041000",
 				String.format(FORMAT_10_7F, tle.getArgper()));
 		assertEquals(" 43.6444000",
 				String.format(FORMAT_11_7F, tle.getMeanan()));
-		assertEquals("14.4063845",
-				String.format(FORMAT_10_7F, tle.getMeanmo()));
-		assertEquals(VALUE_0_0000,
-				String.format(FORMAT_6_4F, tle.getDrag()));
-		assertEquals(VALUE_0_0000,
-				String.format(FORMAT_6_4F, tle.getNddot6()));
-		assertEquals("0.0000138",
-				String.format(FORMAT_9_7F, tle.getBstar()));
+		assertEquals("14.4063845", String.format(FORMAT_10_7F, tle.getMeanmo()));
+		assertEquals(VALUE_0_0000, String.format(FORMAT_6_4F, tle.getDrag()));
+		assertEquals(VALUE_0_0000, String.format(FORMAT_6_4F, tle.getNddot6()));
+		assertEquals("0.0000138", String.format(FORMAT_9_7F, tle.getBstar()));
 		assertEquals(25195, tle.getOrbitnum());
-		assertEquals("9105.6639197",
-				String.format("%12.7f", tle.getEpoch()));
-		assertEquals("0.0000000",
-				String.format(FORMAT_9_7F, tle.getXndt2o()));
-		assertEquals("1.7113843",
-				String.format(FORMAT_9_7F, tle.getXincl()));
-		assertEquals("2.0753466",
-				String.format(FORMAT_9_7F, tle.getXnodeo()));
-		assertEquals(VALUE_0_0084159,
-				String.format(FORMAT_9_7F, tle.getEo()));
-		assertEquals("5.5118213",
-				String.format(FORMAT_9_7F, tle.getOmegao()));
-		assertEquals("0.7617385",
-				String.format(FORMAT_9_7F, tle.getXmo()));
+		assertEquals("9105.6639197", String.format("%12.7f", tle.getEpoch()));
+		assertEquals("0.0000000", String.format(FORMAT_9_7F, tle.getXndt2o()));
+		assertEquals("1.7113843", String.format(FORMAT_9_7F, tle.getXincl()));
+		assertEquals("2.0753466", String.format(FORMAT_9_7F, tle.getXnodeo()));
+		assertEquals(VALUE_0_0084159, String.format(FORMAT_9_7F, tle.getEo()));
+		assertEquals("5.5118213", String.format(FORMAT_9_7F, tle.getOmegao()));
+		assertEquals("0.7617385", String.format(FORMAT_9_7F, tle.getXmo()));
 		assertEquals("0.062860", String.format("%8.6f", tle.getXno()));
 		assertFalse(tle.isDeepspace());
 	}

@@ -41,12 +41,6 @@ public final class SatPosTest {
 
 	private static final double PRECISION = 0.00001;
 
-	/**
-	 * Default Constructor.
-	 */
-	public SatPosTest() {
-	}
-
 	@Test
 	public void testSatPos() {
 		// Assert.assertTrue(TestUtil.verifyMutable(new SatPos(),

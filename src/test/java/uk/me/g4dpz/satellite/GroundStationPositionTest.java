@@ -47,12 +47,10 @@ public final class GroundStationPositionTest {
 
 		final GroundStationPosition groundStationPosition = new GroundStationPosition(
 				LATITUDE, LONGITUDE, HEIGHT_AMSL);
-		assertTrue(Math.abs(LATITUDE
-				- groundStationPosition.getLatitude()) < 0.000001);
-		assertTrue(Math.abs(LONGITUDE
-				- groundStationPosition.getLongitude()) < 0.000001);
-		assertTrue(Math.abs(HEIGHT_AMSL
-				- groundStationPosition.getHeightAMSL()) < 0.000001);
+		assertTrue(Math.abs(LATITUDE - groundStationPosition.getLatitude()) < 0.000001);
+		assertTrue(Math.abs(LONGITUDE - groundStationPosition.getLongitude()) < 0.000001);
+		assertTrue(Math
+				.abs(HEIGHT_AMSL - groundStationPosition.getHeightAMSL()) < 0.000001);
 
 	}
 

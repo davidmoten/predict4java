@@ -42,9 +42,6 @@ public class SatelliteFactoryTest extends AbstractSatelliteTestBase {
 
 	private static final String SHOULD_HAVE_THROWN_ILLEGAL_ARGUMENT_EXCEPTION = "Should have thrown IllegalArgument Exception";
 
-	public SatelliteFactoryTest() {
-	}
-
 	@Test
 	public void testCreateLEOSatellite() {
 

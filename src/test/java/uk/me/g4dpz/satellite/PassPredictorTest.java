@@ -55,37 +55,6 @@ public class PassPredictorTest extends AbstractSatelliteTestBase {
 	private static final String SAT_NOT_FOUND_EXCEPTION_WAS_THROWN = "SatNotFoundException was thrown";
 	private static final String INVALID_TLE_EXCEPTION_WAS_NOT_THROWN = "InvalidTleException was not thrown";
 
-	public PassPredictorTest() {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	@Test
 	public void testIllegalArgumentsInConstructor() {
 
@@ -133,8 +102,7 @@ public class PassPredictorTest extends AbstractSatelliteTestBase {
 			assertEquals(NONE, passTime.getPolePassed());
 			assertEquals(52, passTime.getAosAzimuth());
 			assertEquals(84, passTime.getLosAzimuth());
-			assertEquals("0.9",
-					String.format("%3.1f", passTime.getMaxEl()));
+			assertEquals("0.9", String.format("%3.1f", passTime.getMaxEl()));
 			assertEquals(
 					Long.valueOf(436802379L),
 					passPredictor.getDownlinkFreq(436800000L,
@@ -162,8 +130,7 @@ public class PassPredictorTest extends AbstractSatelliteTestBase {
 			assertEquals(NORTH, passTime.getPolePassed());
 			assertEquals(11, passTime.getAosAzimuth());
 			assertEquals(207, passTime.getLosAzimuth());
-			assertEquals("62.19",
-					String.format("%5.2f", passTime.getMaxEl()));
+			assertEquals("62.19", String.format("%5.2f", passTime.getMaxEl()));
 
 			passTime = passPredictor.nextSatPass(passTime.getStartTime());
 			assertEquals("2009-01-05T09:22:05+0000",
@@ -240,10 +207,10 @@ public class PassPredictorTest extends AbstractSatelliteTestBase {
 			final SatPassTime passTime = passPredictor.nextSatPass(
 					cal.toDate(), true);
 
-			assertEquals("Date: January 5, 2009\n"
-					+ "Start Time: 4:28 AM\n" + "Duration:  4.1 min.\n"
-					+ "AOS Azimuth: 52 deg.\n" + "Max Elevation:  0.9 deg.\n"
-					+ "LOS Azimuth: 84 deg.", passTime.toString());
+			assertEquals("Date: January 5, 2009\n" + "Start Time: 4:28 AM\n"
+					+ "Duration:  4.1 min.\n" + "AOS Azimuth: 52 deg.\n"
+					+ "Max Elevation:  0.9 deg.\n" + "LOS Azimuth: 84 deg.",
+					passTime.toString());
 		} catch (final SatNotFoundException snfe) {
 			fail(SAT_NOT_FOUND_EXCEPTION_WAS_THROWN);
 		}

@@ -73,38 +73,6 @@ public class LEOSatelliteTest extends AbstractSatelliteTestBase {
 
 	private DateTime timeNow;
 
-	public LEOSatelliteTest() {
-
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-	}
-
 	/**
 	 * Test method for
 	 * {@link uk.me.g4dpz.satellite.LEOSatellite#LEOSatellite(uk.me.g4dpz.satellite.TLE)}
