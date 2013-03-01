@@ -26,11 +26,15 @@
  */
 package uk.me.g4dpz.satellite;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -79,7 +83,7 @@ public final class TLETest extends AbstractSatelliteTestBase {
 
 		final TLE tle = new TLE(theTLE);
 
-		Assert.assertTrue("Satellite should have been DeepSpace",
+		assertTrue("Satellite should have been DeepSpace",
 				tle.isDeepspace());
 	}
 
@@ -89,7 +93,7 @@ public final class TLETest extends AbstractSatelliteTestBase {
 			final String[] theTLE = { AO_51_NAME, null, TLELINE_3 };
 
 			new TLE(theTLE);
-			Assert.fail(ILLEGALARGUMENTEXCEPTION_SHOULDHAVEBEEN_THROWN);
+			fail(ILLEGALARGUMENTEXCEPTION_SHOULDHAVEBEEN_THROWN);
 		} catch (final IllegalArgumentException iae) {
 			// This is what we expected
 		}
@@ -101,7 +105,7 @@ public final class TLETest extends AbstractSatelliteTestBase {
 			final String[] theTLE = { AO_51_NAME, "", TLELINE_3 };
 
 			new TLE(theTLE);
-			Assert.fail(ILLEGALARGUMENTEXCEPTION_SHOULDHAVEBEEN_THROWN);
+			fail(ILLEGALARGUMENTEXCEPTION_SHOULDHAVEBEEN_THROWN);
 		} catch (final IllegalArgumentException iae) {
 			// This is what we expected
 		}
@@ -113,7 +117,7 @@ public final class TLETest extends AbstractSatelliteTestBase {
 			final String[] theTLE = new String[0];
 
 			new TLE(theTLE);
-			Assert.fail(ILLEGALARGUMENTEXCEPTION_SHOULDHAVEBEEN_THROWN);
+			fail(ILLEGALARGUMENTEXCEPTION_SHOULDHAVEBEEN_THROWN);
 		} catch (final IllegalArgumentException iae) {
 			// This is what we expected
 		}
@@ -128,11 +132,11 @@ public final class TLETest extends AbstractSatelliteTestBase {
 
 			final List<TLE> tles = TLE.importSat(is);
 
-			Assert.assertTrue(1 == tles.size());
+			assertTrue(1 == tles.size());
 
 			checkData(tles.get(0));
 		} catch (final IOException e) {
-			Assert.fail(e.getMessage());
+			fail(e.getMessage());
 		}
 	}
 
@@ -143,48 +147,48 @@ public final class TLETest extends AbstractSatelliteTestBase {
 
 	private void checkData(final TLE tle) {
 
-		Assert.assertEquals(AO_51_NAME, tle.getName());
-		Assert.assertEquals(AO_51_NAME, tle.toString());
-		Assert.assertEquals(28375, tle.getCatnum());
-		Assert.assertEquals(364, tle.getSetnum());
-		Assert.assertEquals(9, tle.getYear());
-		Assert.assertEquals("105.6639197",
+		assertEquals(AO_51_NAME, tle.getName());
+		assertEquals(AO_51_NAME, tle.toString());
+		assertEquals(28375, tle.getCatnum());
+		assertEquals(364, tle.getSetnum());
+		assertEquals(9, tle.getYear());
+		assertEquals("105.6639197",
 				String.format(FORMAT_11_7F, tle.getRefepoch()));
-		Assert.assertEquals("98.0551000",
+		assertEquals("98.0551000",
 				String.format(FORMAT_10_7F, tle.getIncl()));
-		Assert.assertEquals("118.9086000",
+		assertEquals("118.9086000",
 				String.format(FORMAT_11_7F, tle.getRaan()));
-		Assert.assertEquals(VALUE_0_0084159,
+		assertEquals(VALUE_0_0084159,
 				String.format(FORMAT_9_7F, tle.getEccn()));
-		Assert.assertEquals("315.8041000",
+		assertEquals("315.8041000",
 				String.format(FORMAT_10_7F, tle.getArgper()));
-		Assert.assertEquals(" 43.6444000",
+		assertEquals(" 43.6444000",
 				String.format(FORMAT_11_7F, tle.getMeanan()));
-		Assert.assertEquals("14.4063845",
+		assertEquals("14.4063845",
 				String.format(FORMAT_10_7F, tle.getMeanmo()));
-		Assert.assertEquals(VALUE_0_0000,
+		assertEquals(VALUE_0_0000,
 				String.format(FORMAT_6_4F, tle.getDrag()));
-		Assert.assertEquals(VALUE_0_0000,
+		assertEquals(VALUE_0_0000,
 				String.format(FORMAT_6_4F, tle.getNddot6()));
-		Assert.assertEquals("0.0000138",
+		assertEquals("0.0000138",
 				String.format(FORMAT_9_7F, tle.getBstar()));
-		Assert.assertEquals(25195, tle.getOrbitnum());
-		Assert.assertEquals("9105.6639197",
+		assertEquals(25195, tle.getOrbitnum());
+		assertEquals("9105.6639197",
 				String.format("%12.7f", tle.getEpoch()));
-		Assert.assertEquals("0.0000000",
+		assertEquals("0.0000000",
 				String.format(FORMAT_9_7F, tle.getXndt2o()));
-		Assert.assertEquals("1.7113843",
+		assertEquals("1.7113843",
 				String.format(FORMAT_9_7F, tle.getXincl()));
-		Assert.assertEquals("2.0753466",
+		assertEquals("2.0753466",
 				String.format(FORMAT_9_7F, tle.getXnodeo()));
-		Assert.assertEquals(VALUE_0_0084159,
+		assertEquals(VALUE_0_0084159,
 				String.format(FORMAT_9_7F, tle.getEo()));
-		Assert.assertEquals("5.5118213",
+		assertEquals("5.5118213",
 				String.format(FORMAT_9_7F, tle.getOmegao()));
-		Assert.assertEquals("0.7617385",
+		assertEquals("0.7617385",
 				String.format(FORMAT_9_7F, tle.getXmo()));
-		Assert.assertEquals("0.062860", String.format("%8.6f", tle.getXno()));
-		Assert.assertFalse(tle.isDeepspace());
+		assertEquals("0.062860", String.format("%8.6f", tle.getXno()));
+		assertFalse(tle.isDeepspace());
 	}
 
 }

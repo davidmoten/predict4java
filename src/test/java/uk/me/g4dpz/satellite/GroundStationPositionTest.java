@@ -27,8 +27,8 @@
 package uk.me.g4dpz.satellite;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -47,11 +47,11 @@ public final class GroundStationPositionTest {
 
 		final GroundStationPosition groundStationPosition = new GroundStationPosition(
 				LATITUDE, LONGITUDE, HEIGHT_AMSL);
-		Assert.assertTrue(Math.abs(LATITUDE
+		assertTrue(Math.abs(LATITUDE
 				- groundStationPosition.getLatitude()) < 0.000001);
-		Assert.assertTrue(Math.abs(LONGITUDE
+		assertTrue(Math.abs(LONGITUDE
 				- groundStationPosition.getLongitude()) < 0.000001);
-		Assert.assertTrue(Math.abs(HEIGHT_AMSL
+		assertTrue(Math.abs(HEIGHT_AMSL
 				- groundStationPosition.getHeightAMSL()) < 0.000001);
 
 	}
