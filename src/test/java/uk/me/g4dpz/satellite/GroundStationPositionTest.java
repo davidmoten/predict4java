@@ -40,7 +40,6 @@ public final class GroundStationPositionTest {
     private static final double HEIGHT_AMSL = 3.0;
     private static final double LONGITUDE = 2.0;
     private static final double LATITUDE = 1.0;
-    private static final double THETA = 4.0;
     private static final double PRECISION = 0.00001;
 
     @Test

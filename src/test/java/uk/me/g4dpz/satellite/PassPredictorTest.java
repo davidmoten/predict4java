@@ -49,7 +49,6 @@ public class PassPredictorTest extends AbstractSatelliteTestBase {
     private static final String NORTH = "north";
     private static final String STRING_PAIR = "%s, %s";
     private static final String NONE = "none";
-    private static final String INVALID_TLE_EXCEPTION_WAS_THROWN = "InvalidTleException was thrown";
     private static final String SAT_NOT_FOUND_EXCEPTION_WAS_THROWN = "SatNotFoundException was thrown";
     private static final String INVALID_TLE_EXCEPTION_WAS_NOT_THROWN = "InvalidTleException was not thrown";
 

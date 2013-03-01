@@ -26,11 +26,8 @@
  */
 package uk.me.g4dpz.satellite;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;

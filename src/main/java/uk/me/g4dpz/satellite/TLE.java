@@ -44,14 +44,13 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
 /**
  * TLE representation to aid SGP4 calculations. Instances of this class are
- * immutable.
+ * immutable and thus thread safe.
  */
 public class TLE implements Serializable {
 
