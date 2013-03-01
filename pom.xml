@@ -13,7 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<compiler.source.version>1.6</compiler.source.version>
 		<cobertura.version>2.5.2</cobertura.version>
-		<checkstyle.version>2.9.1</checkstyle.version>
+		<checkstyle.version>2.10</checkstyle.version>
 		<findbugs.version>2.5.2</findbugs.version>
 		<javadoc.version>2.9</javadoc.version>
 		<pmd.version>2.7.1</pmd.version>
