@@ -118,8 +118,6 @@ public class LEOSatellite extends AbstractSatellite {
 		/* values of S and QOMS2T are altered. */
 		setPerigee((aodp * (1.0 - eo) - 1.0) * EARTH_RADIUS_KM);
 
-		checkPerigee();
-
 		final double pinvsq = AbstractSatellite.invert(AbstractSatellite
 				.sqr(aodp) * AbstractSatellite.sqr(betao2));
 		final double tsi = AbstractSatellite.invert(aodp - getS4());
