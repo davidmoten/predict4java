@@ -93,12 +93,6 @@ public final class DeepSpaceSatelliteTest extends AbstractSatelliteTestBase {
 
 	}
 
-	@Test(expected = RuntimeException.class)
-	public void testDeepSpaceSatelliteThrowsExceptionOnCallOfCalculateSGP4Method() {
-
-		final TLE tle = new TLE(DEEP_SPACE_TLE);
-		new DeepSpaceSatellite(tle).calculateSGP4(0);
-	}
 
 	@Test
 	public void testToStringMethod() {

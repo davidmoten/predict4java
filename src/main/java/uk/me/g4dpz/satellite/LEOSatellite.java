@@ -206,7 +206,6 @@ public class LEOSatellite extends AbstractSatellite {
 		}
 	}
 
-	@Override
 	protected void calculateSGP4(final double tsince) {
 
 		synchronized (this) {
@@ -305,13 +304,6 @@ public class LEOSatellite extends AbstractSatellite {
 				* (x1mth2 * cos2u + 1.5 * x3thm1);
 
 		super.calculatePositionAndVelocity(rk, uk, xnodek, xinck, rdotk, rfdotk);
-	}
-
-	@Override
-	protected void calculateSDP4(double tsince) {
-		synchronized (this) {
-			throw new RuntimeException("should not be called");
-		}
 	}
 
 }

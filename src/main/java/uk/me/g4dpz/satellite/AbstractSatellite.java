@@ -107,10 +107,6 @@ public abstract class AbstractSatellite implements Satellite {
 		julEpoch = AbstractSatellite.juliandDateOfEpoch(tle.getEpoch());
 	}
 
-	abstract protected void calculateSGP4(final double tsince);
-
-	abstract protected void calculateSDP4(final double tsince);
-
 	@Override
 	public final synchronized TLE getTLE() {
 		return tle;
@@ -391,11 +387,7 @@ public abstract class AbstractSatellite implements Satellite {
 
 		final double tsince = (julUTC - julEpoch) * MINS_PER_DAY;
 
-		if (tle.isDeepspace()) {
-			calculateSDP4(tsince);
-		} else {
-			calculateSGP4(tsince);
-		}
+		calculateSDP4orSGP4(tsince);
 
 		/* Scale position and velocity vectors to km and km/sec */
 		AbstractSatellite.convertSatState(position, velocity);
@@ -421,6 +413,14 @@ public abstract class AbstractSatellite implements Satellite {
 		satPos.setEclipseDepth(eclipseDepth);
 
 		return satPos;
+	}
+
+	private void calculateSDP4orSGP4(final double tsince) {
+		if (tle.isDeepspace()) {
+			((DeepSpaceSatellite) this).calculateSDP4(tsince);
+		} else {
+			((LEOSatellite) this).calculateSGP4(tsince);
+		}
 	}
 
 	/**
@@ -824,12 +824,8 @@ public abstract class AbstractSatellite implements Satellite {
 
 		// Calculations of satellite position, no ground stations involved here
 		// yet
-		if (tle.isDeepspace()) {
-			calculateSDP4(tsince);
-		} else {
-			calculateSGP4(tsince);
-		}
-
+		calculateSDP4orSGP4(tsince);
+		
 		// Scale position and velocity vectors to km and km/s
 		AbstractSatellite.convertSatState(position, velocity);
 

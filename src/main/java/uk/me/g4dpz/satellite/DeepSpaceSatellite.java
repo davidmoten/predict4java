@@ -179,7 +179,6 @@ public class DeepSpaceSatellite extends AbstractSatellite {
 	 * @param satPos
 	 *            the position of the satellite
 	 */
-	@Override
 	protected void calculateSDP4(final double tsince) {
 		synchronized (this) {
 			final double[] temp = new double[12];
@@ -1150,13 +1149,6 @@ public class DeepSpaceSatellite extends AbstractSatellite {
 		 */
 		private DeepSpaceValueObject() {
 
-		}
-	}
-
-	@Override
-	protected void calculateSGP4(double tsince) {
-		synchronized (this) {
-			throw new RuntimeException("should not be called");
 		}
 	}
 

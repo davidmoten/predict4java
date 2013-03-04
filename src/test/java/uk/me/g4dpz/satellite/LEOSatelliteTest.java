@@ -122,13 +122,6 @@ public final class LEOSatelliteTest extends AbstractSatelliteTestBase {
 				rangeCircle[269][0], rangeCircle[269][1]));
 	}
 
-	@Test(expected = RuntimeException.class)
-	public void testDeepSpaceSatelliteThrowsExceptionOnCallOfCalculateSDP4Method() {
-
-		final TLE tle = new TLE(LEO_TLE);
-		new LEOSatellite(tle).calculateSDP4(0);
-	}
-
 	@Test
 	public void testWeatherSatellite() {
 
