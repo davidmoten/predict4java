@@ -100,8 +100,6 @@ public class DeepSpaceSatellite extends AbstractSatellite {
 		setPerigee((dsv.aodp * (1.0 - getTLE().getEo()) - 1.0)
 				* EARTH_RADIUS_KM);
 
-		checkPerigee();
-
 		final double pinvsq = AbstractSatellite.invert(dsv.aodp * dsv.aodp
 				* dsv.betao2 * dsv.betao2);
 		dsv.sing = Math.sin(getTLE().getOmegao());

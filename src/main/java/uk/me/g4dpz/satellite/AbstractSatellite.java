@@ -596,7 +596,7 @@ public abstract class AbstractSatellite implements Satellite {
 	/**
 	 * Checks and adjusts the calculation if the perigee is less tan 156KM.
 	 */
-	protected void checkPerigee() {
+	private void checkPerigee() {
 		s4 = S;
 		qoms24 = QOMS2T;
 
@@ -613,11 +613,14 @@ public abstract class AbstractSatellite implements Satellite {
 	}
 
 	/**
+	 * Sets perigee and checks and adjusts the calculation if the perigee is less tan 156KM.
+	 * 
 	 * @param perigee
 	 *            the perigee to set
 	 */
 	protected void setPerigee(final double perigee) {
 		this.perigee = perigee;
+		checkPerigee();
 	}
 
 	static class Vector4 {
@@ -825,7 +828,7 @@ public abstract class AbstractSatellite implements Satellite {
 		// Calculations of satellite position, no ground stations involved here
 		// yet
 		calculateSDP4orSGP4(tsince);
-		
+
 		// Scale position and velocity vectors to km and km/s
 		AbstractSatellite.convertSatState(position, velocity);
 
