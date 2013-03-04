@@ -68,7 +68,9 @@ public interface Satellite {
 	/**
 	 * Calculates the position and velocity vectors of the satellite. When
 	 * observations for many ground stations have to be made for one satellite,
-	 * this method can be used together with the calculateSatPosForGroundStation(..) method. This gives a performance improvement relative to using the all-in-one method getPosition(..).
+	 * this method can be used together with the
+	 * calculateSatPosForGroundStation(..) method. This gives a performance
+	 * improvement relative to using the all-in-one method getPosition(..).
 	 * 
 	 * @param date
 	 *            The date for the calculation the position and velocity vectors

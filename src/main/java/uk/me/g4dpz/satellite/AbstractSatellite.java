@@ -778,7 +778,7 @@ public abstract class AbstractSatellite implements Satellite {
 	 * Solves Keplers' Equation.
 	 * 
 	 * @param temp
-	 *            an array of temporary values we pass ariund as part of the
+	 *            an array of temporary values we pass around as part of the
 	 *            orbit calculation.
 	 * @param axn
 	 * @param ayn
