@@ -67,7 +67,7 @@ public class DeepSpaceSatellite extends AbstractSatellite {
 	 */
 	public DeepSpaceSatellite(final TLE tle) {
 		super(tle);
-		
+		this.dsv = new DeepSpaceValueObject();
 
 		// ////////////////////////////
 		// initSDP4
@@ -77,8 +77,7 @@ public class DeepSpaceSatellite extends AbstractSatellite {
 		/* semimajor axis (aodp) from input elements. */
 
 		// recoverMeanMotionAndSemiMajorAxis
-		
-		this.dsv = new DeepSpaceValueObject();
+
 		final double a1 = Math.pow(XKE / getTLE().getXno(), TWO_THIRDS);
 		dsv.cosio = Math.cos(getTLE().getXincl());
 		dsv.theta2 = dsv.cosio * dsv.cosio;
@@ -100,6 +99,8 @@ public class DeepSpaceSatellite extends AbstractSatellite {
 		/* of S and QOMS2T are altered. */
 		setPerigee((dsv.aodp * (1.0 - getTLE().getEo()) - 1.0)
 				* EARTH_RADIUS_KM);
+
+		checkPerigee();
 
 		final double pinvsq = AbstractSatellite.invert(dsv.aodp * dsv.aodp
 				* dsv.betao2 * dsv.betao2);
