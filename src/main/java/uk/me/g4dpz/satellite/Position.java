@@ -26,4 +26,9 @@ public class Position {
 		return lon;
 	}
 
+	@Override
+	public String toString() {
+		return "Position [lat=" + lat + ", lon=" + lon + "]";
+	}
+
 }

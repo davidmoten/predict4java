@@ -336,8 +336,7 @@ public abstract class AbstractSatellite implements Satellite {
 
 		do {
 			phi = satPos.getLatitude();
-			c = AbstractSatellite.invert(Math.sqrt(1.0 - e2
-					* AbstractSatellite.sqr(Math.sin(phi))));
+			c = invert(Math.sqrt(1.0 - e2 * sqr(Math.sin(phi))));
 			satPos.setLatitude(Math.atan2(position.getZ() + EARTH_RADIUS_KM * c
 					* e2 * Math.sin(phi), r));
 
@@ -613,7 +612,8 @@ public abstract class AbstractSatellite implements Satellite {
 	}
 
 	/**
-	 * Sets perigee and checks and adjusts the calculation if the perigee is less tan 156KM.
+	 * Sets perigee and checks and adjusts the calculation if the perigee is
+	 * less tan 156KM.
 	 * 
 	 * @param perigee
 	 *            the perigee to set

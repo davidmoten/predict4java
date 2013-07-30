@@ -52,7 +52,7 @@ public class SatPos {
 	private static final String DEG_CR = " deg.\n";
 
 	/* WGS 84 Earth radius km */
-	private static final double EARTH_RADIUS = 6.378137E3;
+	private static final double EARTH_RADIUS_KM = 6.378137E3;
 	private static final double R0 = 6378.16;
 
 	// the internal representation will be in radians
@@ -194,7 +194,7 @@ public class SatPos {
 	}
 
 	/**
-	 * @return the altitude
+	 * @return the altitude in km
 	 */
 	public final double getAltitude() {
 		return altitude;
@@ -368,12 +368,11 @@ public class SatPos {
 	private static List<Position> calculateRangeCirclePoints(final SatPos pos,
 			double incrementDegrees) {
 
-		final int dia = (int) (12756.33 * Math.acos(EARTH_RADIUS
-				/ (EARTH_RADIUS + pos.altitude)));
+		final double radiusKm = pos.getRangeCircleRadiusKm();
 
 		final double latitude = pos.latitude;
 		final double longitude = pos.longitude;
-		final double beta = (0.5 * dia) / R0;
+		final double beta = radiusKm / R0;
 		List<Position> result = new ArrayList<Position>();
 		for (int azi = 0; azi < 360; azi += incrementDegrees) {
 			final double azimuth = (azi / 360.0) * 2.0 * Math.PI;
@@ -428,6 +427,11 @@ public class SatPos {
 		}
 
 		return result;
+	}
+
+	public double getRangeCircleRadiusKm() {
+		return 0.5 * (12756.33 * Math.acos(EARTH_RADIUS_KM
+				/ (EARTH_RADIUS_KM + altitude)));
 	}
 
 }

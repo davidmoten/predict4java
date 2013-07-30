@@ -116,7 +116,7 @@ public final class LEOSatelliteTest extends AbstractSatelliteTestBase {
 		List<Position> rangeCircle = satellitePosition.getRangeCircle();
 		assertEquals("  59.9  355.6", String.format("%6.1f %6.1f", rangeCircle
 				.get(0).getLat(), rangeCircle.get(0).getLon()));
-		assertEquals("  28.8  323.8", String.format("%6.1f %6.1f", rangeCircle
+		assertEquals("  28.8  323.7", String.format("%6.1f %6.1f", rangeCircle
 				.get(89).getLat(), rangeCircle.get(89).getLon()));
 		assertEquals("   4.8  355.2", String.format("%6.1f %6.1f", rangeCircle
 				.get(179).getLat(), rangeCircle.get(179).getLon()));
