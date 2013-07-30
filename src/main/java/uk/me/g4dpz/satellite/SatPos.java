@@ -336,9 +336,12 @@ public class SatPos {
 
 	}
 
-	/*
-	 * Gets the range circle as an array of integers representing pairs of
-	 * latitude and longitude.
+	/**
+	 * Calculates the footprint range circle using the given increment. TODO
+	 * where is first point, give heading.
+	 * 
+	 * @param incrementDegrees
+	 * @return
 	 */
 	public final List<Position> getRangeCircle(double incrementDegrees) {
 
@@ -346,6 +349,12 @@ public class SatPos {
 
 	}
 
+	/**
+	 * Calculates the footprint range circle using an increment of 1.0 degrees.
+	 * 
+	 * @param pos
+	 * @return a list of {@link Position}
+	 */
 	public final List<Position> getRangeCircle() {
 		return getRangeCircle(1.0);
 	}
@@ -354,7 +363,7 @@ public class SatPos {
 	 * Calculates the footprint range circle using the given increment.
 	 * 
 	 * @param pos
-	 * @return double array of lat/long
+	 * @return a list of {@link Position}
 	 */
 	private static List<Position> calculateRangeCirclePoints(final SatPos pos,
 			double incrementDegrees) {
