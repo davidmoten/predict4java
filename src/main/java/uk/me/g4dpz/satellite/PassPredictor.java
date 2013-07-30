@@ -130,7 +130,7 @@ public class PassPredictor {
 		return (long) ((double) freq * (SPEED_OF_LIGHT - rangeRate * 1000.0) / SPEED_OF_LIGHT);
 	}
 
-	private SatPos getSatPos(final Date time) throws SatNotFoundException {
+	public SatPos getSatPos(final Date time) throws SatNotFoundException {
 		this.iterationCount++;
 		return sat.getPosition(qth, time);
 	}
