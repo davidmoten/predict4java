@@ -27,10 +27,12 @@
 package uk.me.g4dpz.satellite;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static uk.me.g4dpz.satellite.TestingUtil.eq;
 
 import java.util.Date;
+import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -40,6 +42,7 @@ import org.junit.Test;
 public final class SatPosTest {
 
 	private static final double PRECISION = 0.00001;
+	private static final double ROUNDING_PRECISION = 0.5;
 
 	@Test
 	public void testSatPos() {
@@ -53,28 +56,21 @@ public final class SatPosTest {
 		pos.setLatitude(0);
 		pos.setLongitude(0);
 		pos.setAltitude(1000);
-		double[][] rangeCircle = pos.getRangeCircle();
-		Assert.assertEquals("  30    0", String.format("%4.0f %4.0f",
-				rangeCircle[0][0], rangeCircle[0][1]));
-		Assert.assertEquals("   1  330", String.format("%4.0f %4.0f",
-				rangeCircle[89][0], rangeCircle[89][1]));
-		Assert.assertEquals(" -30  359", String.format("%4.0f %4.0f",
-				rangeCircle[179][0], rangeCircle[179][1]));
-		Assert.assertEquals("  -1   30", String.format("%4.0f %4.0f",
-				rangeCircle[269][0], rangeCircle[269][1]));
+		List<Position> rangeCircle = pos.getRangeCircle();
+		assertTrue(eq(rangeCircle.get(0), 30, 0, ROUNDING_PRECISION));
+		assertTrue(eq(rangeCircle.get(89), 1, 330, ROUNDING_PRECISION));
+		assertTrue(eq(rangeCircle.get(179), -30, 359, ROUNDING_PRECISION));
+		assertTrue(eq(rangeCircle.get(269), -1, 30, ROUNDING_PRECISION));
 
 		pos.setLatitude(10.0 / 360.0 * 2.0 * Math.PI);
 		pos.setLongitude(10.0 / 360.0 * 2.0 * Math.PI);
 		pos.setAltitude(1000);
 		rangeCircle = pos.getRangeCircle();
-		Assert.assertEquals("  40   10", String.format("%4.0f %4.0f",
-				rangeCircle[0][0], rangeCircle[0][1]));
-		Assert.assertEquals("   9  339", String.format("%4.0f %4.0f",
-				rangeCircle[89][0], rangeCircle[89][1]));
-		Assert.assertEquals(" -20    9", String.format("%4.0f %4.0f",
-				rangeCircle[179][0], rangeCircle[179][1]));
-		Assert.assertEquals("   8   41", String.format("%4.0f %4.0f",
-				rangeCircle[269][0], rangeCircle[269][1]));
+		assertTrue(eq(rangeCircle.get(0), 40, 10, ROUNDING_PRECISION));
+		assertTrue(eq(rangeCircle.get(89), 9, 339, ROUNDING_PRECISION));
+		assertTrue(eq(rangeCircle.get(179), -20, 9, ROUNDING_PRECISION));
+		assertTrue(eq(rangeCircle.get(269), 8, 41, ROUNDING_PRECISION));
+
 	}
 
 	@Test

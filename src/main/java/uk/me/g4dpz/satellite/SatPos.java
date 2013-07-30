@@ -38,7 +38,9 @@
 package uk.me.g4dpz.satellite;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 
@@ -338,19 +340,24 @@ public class SatPos {
 	 * Gets the range circle as an array of integers representing pairs of
 	 * latitude and longitude.
 	 */
-	public final double[][] getRangeCircle() {
+	public final List<Position> getRangeCircle(double incrementDegrees) {
 
-		return calculateRangeCirclePoints(this);
+		return calculateRangeCirclePoints(this, incrementDegrees);
 
 	}
 
+	public final List<Position> getRangeCircle() {
+		return getRangeCircle(1.0);
+	}
+
 	/**
-	 * Calculates the footprint range circle.
+	 * Calculates the footprint range circle using the given increment.
 	 * 
 	 * @param pos
 	 * @return double array of lat/long
 	 */
-	private static double[][] calculateRangeCirclePoints(final SatPos pos) {
+	private static List<Position> calculateRangeCirclePoints(final SatPos pos,
+			double incrementDegrees) {
 
 		final int dia = (int) (12756.33 * Math.acos(EARTH_RADIUS
 				/ (EARTH_RADIUS + pos.altitude)));
@@ -358,9 +365,8 @@ public class SatPos {
 		final double latitude = pos.latitude;
 		final double longitude = pos.longitude;
 		final double beta = (0.5 * dia) / R0;
-		final double[][] result = new double[360][2];
-
-		for (int azi = 0; azi < 360; azi++) {
+		List<Position> result = new ArrayList<Position>();
+		for (int azi = 0; azi < 360; azi += incrementDegrees) {
 			final double azimuth = (azi / 360.0) * 2.0 * Math.PI;
 			double rangelat = Math.asin(Math.sin(latitude) * Math.cos(beta)
 					+ Math.cos(azimuth) * Math.sin(beta) * Math.cos(latitude));
@@ -408,8 +414,7 @@ public class SatPos {
 			// rangelat = 180.0 - rangelat;
 			// }
 
-			result[azi][0] = rangelat;
-			result[azi][1] = rangelong;
+			result.add(new Position(rangelat, rangelong));
 
 		}
 

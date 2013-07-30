@@ -30,6 +30,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
 
@@ -111,15 +113,15 @@ public final class LEOSatelliteTest extends AbstractSatelliteTestBase {
 		assertFalse(satellitePosition.isEclipsed());
 		assertTrue(satellite.willBeSeen(GROUND_STATION));
 
-		double[][] rangeCircle = satellitePosition.getRangeCircle();
-		assertEquals("  59.9  355.6", String.format("%6.1f %6.1f",
-				rangeCircle[0][0], rangeCircle[0][1]));
-		assertEquals("  28.8  323.8", String.format("%6.1f %6.1f",
-				rangeCircle[89][0], rangeCircle[89][1]));
-		assertEquals("   4.8  355.2", String.format("%6.1f %6.1f",
-				rangeCircle[179][0], rangeCircle[179][1]));
-		assertEquals("  27.9   27.2", String.format("%6.1f %6.1f",
-				rangeCircle[269][0], rangeCircle[269][1]));
+		List<Position> rangeCircle = satellitePosition.getRangeCircle();
+		assertEquals("  59.9  355.6", String.format("%6.1f %6.1f", rangeCircle
+				.get(0).getLat(), rangeCircle.get(0).getLon()));
+		assertEquals("  28.8  323.8", String.format("%6.1f %6.1f", rangeCircle
+				.get(89).getLat(), rangeCircle.get(89).getLon()));
+		assertEquals("   4.8  355.2", String.format("%6.1f %6.1f", rangeCircle
+				.get(179).getLat(), rangeCircle.get(179).getLon()));
+		assertEquals("  27.9   27.2", String.format("%6.1f %6.1f", rangeCircle
+				.get(269).getLat(), rangeCircle.get(269).getLon()));
 	}
 
 	@Test
