@@ -364,7 +364,7 @@ public class PassPredictor {
 
 	/**
 	 * Calculates positions of satellite for a given point in time, time range
-	 * and step incremen.
+	 * and step increment.
 	 * 
 	 * @param referenceDate
 	 * @param incrementSeconds
