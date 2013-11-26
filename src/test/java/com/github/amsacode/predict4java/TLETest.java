@@ -32,8 +32,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author David A. B. Johnson, g4dpz
@@ -69,7 +68,7 @@ public final class TLETest extends AbstractSatelliteTestBase {
                 "1 26609U 00072B   00326.22269097 -.00000581  00000-0  00000+0 0    29",
                 "2 26609   6.4279 245.5626 7344055 179.5891 182.1915  2.03421959   104"};
         final TLE tle = new TLE(theTLE);
-        assertTrue("Satellite should have been DeepSpace", tle.isDeepspace());
+        assertThat(tle.isDeepspace()).isTrue();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -94,7 +93,7 @@ public final class TLETest extends AbstractSatelliteTestBase {
     public void testLoadFromResource() throws IOException {
         InputStream is = TLETest.class.getResourceAsStream("/LEO.txt");
         final List<TLE> tles = TLE.importSat(is);
-        assertThat(1 == tles.size()).isTrue();
+        assertThat(tles).hasSize(1);
         checkData(tles.get(0));
     }
 

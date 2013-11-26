@@ -28,8 +28,6 @@ package com.github.amsacode.predict4java;
 
 import org.junit.Test;
 
-import com.github.amsacode.predict4java.SatNotFoundException;
-
 public final class SatNotFoundExceptionTest {
 
 	@Test

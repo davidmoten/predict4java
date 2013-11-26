@@ -48,11 +48,11 @@ public final class SatPosTest {
     private static final Offset<Double> PRECISION = Offset.offset(0.00001);
     private static final double ROUNDING_PRECISION = 0.5;
 
-    @Test
-    public void testSatPos() {
-        // Assert.assertTrue(TestUtil.verifyMutable(new SatPos(),
-        // "./src/uk/me/g4dpz/satellite/SatPos.java", 0));
-    }
+//    @Test
+//    public void testSatPos() {
+//        // Assert.assertTrue(TestUtil.verifyMutable(new SatPos(),
+//        // "./src/uk/me/g4dpz/satellite/SatPos.java", 0));
+//    }
 
     @Test
     public void footprintCalculatedCorrectly() {
@@ -85,4 +85,5 @@ public final class SatPosTest {
         assertThat(pos.getElevation()).isEqualTo(2.0, PRECISION);
         assertThat(pos.getTime().getTime()).isEqualTo(now.getTime());
     }
+
 }

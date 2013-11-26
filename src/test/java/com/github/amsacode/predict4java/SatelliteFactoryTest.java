@@ -26,79 +26,47 @@
  */
 package com.github.amsacode.predict4java;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertFalse;
+import org.junit.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.github.amsacode.predict4java.DeepSpaceSatellite;
-import com.github.amsacode.predict4java.LEOSatellite;
-import com.github.amsacode.predict4java.Satellite;
-import com.github.amsacode.predict4java.SatelliteFactory;
-import com.github.amsacode.predict4java.TLE;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author David A. B. Johnson, g4dpz
- * 
  */
 public final class SatelliteFactoryTest extends AbstractSatelliteTestBase {
 
-	private static final String SHOULD_HAVE_THROWN_ILLEGAL_ARGUMENT_EXCEPTION = "Should have thrown IllegalArgument Exception";
+    @Test
+    public void testCreateLEOSatellite() {
+        final TLE tle = new TLE(LEO_TLE);
+        final Satellite satellite = SatelliteFactory.createSatellite(tle);
+        assertThat(satellite).isInstanceOf(LEOSatellite.class);
+    }
 
-	@Test
-	public void testCreateLEOSatellite() {
+    @Test
+    public void testCreateDeepSpaceSatellite() {
+        final TLE tle = new TLE(DEEP_SPACE_TLE);
+        final Satellite satellite = SatelliteFactory.createSatellite(tle);
+        assertThat(satellite).isInstanceOf(DeepSpaceSatellite.class);
+    }
 
-		final TLE tle = new TLE(LEO_TLE);
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullTLE() {
+        SatelliteFactory.createSatellite(null);
+    }
 
-		final Satellite satellite = SatelliteFactory.createSatellite(tle);
+    @Test(expected = IllegalArgumentException.class)
+    public void testTLEWithWrongNumberOfRows() {
+        final String[] theTLE = new String[0];
+        final TLE tle = new TLE(theTLE);
+        SatelliteFactory.createSatellite(tle);
+    }
 
-		Assert.assertTrue(satellite instanceof LEOSatellite);
-	}
-
-	@Test
-	public void testCreateDeepSpaceSatellite() {
-
-		final TLE tle = new TLE(DEEP_SPACE_TLE);
-
-		final Satellite satellite = SatelliteFactory.createSatellite(tle);
-
-		Assert.assertTrue(satellite instanceof DeepSpaceSatellite);
-	}
-
-	@Test
-	public void testNullTLE() {
-		try {
-			SatelliteFactory.createSatellite(null);
-			Assert.fail(SHOULD_HAVE_THROWN_ILLEGAL_ARGUMENT_EXCEPTION);
-		} catch (final IllegalArgumentException iae) {
-			// we expected this
-		}
-	}
-
-	@Test
-	public void testTLEWithWrongNumberOfRows() {
-		try {
-			final String[] theTLE = new String[0];
-
-			final TLE tle = new TLE(theTLE);
-
-			SatelliteFactory.createSatellite(tle);
-
-			Assert.fail(SHOULD_HAVE_THROWN_ILLEGAL_ARGUMENT_EXCEPTION);
-		} catch (final IllegalArgumentException iae) {
-			// we expected this
-		}
-	}
-
-	@Test
-	public void testPrivateConstructorForCoverage()
-			throws NoSuchMethodException, SecurityException,
-			InstantiationException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException {
+    @Test
+    public void testPrivateConstructorForCoverage() throws NoSuchMethodException, IllegalAccessException,
+            InvocationTargetException, InstantiationException {
         Constructor<SatelliteFactory> constructor = SatelliteFactory.class
                 .getDeclaredConstructor();
         assertThat(constructor.isAccessible()).isFalse();
