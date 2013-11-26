@@ -46,6 +46,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -435,7 +436,6 @@ public class TLE implements Serializable {
 
 	public static List<TLE> importSat(final InputStream fileIS)
 			throws IOException {
-
 		final List<TLE> importedSats = new ArrayList<TLE>();
 
 		final BufferedReader buf = new BufferedReader(new InputStreamReader(
@@ -471,5 +471,10 @@ public class TLE implements Serializable {
 	public String toString() {
 		return name;
 	}
+
+    public String toJson() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
 
 }
