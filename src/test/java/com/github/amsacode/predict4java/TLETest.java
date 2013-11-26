@@ -48,13 +48,6 @@ public final class TLETest extends AbstractSatelliteTestBase {
     private static final String FORMAT_11_7F = "%11.7f";
     private static final String AO_51_NAME = "AO-51 [+]";
 
-    private static final String JSON = "{\"catnum\":28375,\"name\":\"AO-51 [+]\",\"setnum\":364,\"year\":9," +
-            "\"refepoch\":105.6639197,\"incl\":98.0551,\"raan\":118.9086,\"eccn\":0.0084159,\"argper\":315.8041," +
-            "\"meanan\":43.6444,\"meanmo\":14.4063845,\"drag\":3.0E-8,\"nddot6\":0.0,\"bstar\":1.3761000000000001E-5," +
-            "\"orbitnum\":25195,\"epoch\":9105.6639197,\"xndt2o\":9.090256520803799E-14,\"xincl\":1.7113843433722922," +
-            "\"xnodeo\":2.07534657893693,\"eo\":0.0084159,\"omegao\":5.511821336297426,\"xmo\":0.7617384800574133," +
-            "\"xno\":0.06285971070831925,\"deepspace\":false}";
-
     @Test
     public void testTLEReadLEO() {
         final TLE tle = new TLE(LEO_TLE);
@@ -135,14 +128,6 @@ public final class TLETest extends AbstractSatelliteTestBase {
         assertThat(String.format(FORMAT_9_7F, tle.getXmo())).isEqualTo("0.7617385");
         assertThat(String.format("%8.6f", tle.getXno())).isEqualTo("0.062860");
         assertThat(tle.isDeepspace()).isFalse();
-    }
-
-    @Test
-    public void check_json_output() throws IOException {
-        InputStream is = TLETest.class.getResourceAsStream("/LEO.txt");
-        final List<TLE> tles = TLE.importSat(is);
-        TLE tle = tles.get(0);
-        assertThat(tle.toJson()).isEqualTo(JSON);
     }
 
 }
