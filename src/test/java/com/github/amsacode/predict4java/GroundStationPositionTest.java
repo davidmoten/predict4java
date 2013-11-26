@@ -26,42 +26,43 @@
  */
 package com.github.amsacode.predict4java;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.assertj.core.data.Offset;
 import org.junit.Test;
 
 import com.github.amsacode.predict4java.GroundStationPosition;
 
 /**
  * @author David A. B. Johnson, g4dpz
- * 
  */
 public final class GroundStationPositionTest {
 
-	private static final double HEIGHT_AMSL = 3.0;
-	private static final double LONGITUDE = 2.0;
-	private static final double LATITUDE = 1.0;
-	private static final double PRECISION = 0.00001;
+    private static final double HEIGHT_AMSL = 3.0;
+    private static final double LONGITUDE = 2.0;
+    private static final double LATITUDE = 1.0;
+    private static final Offset<Double> PRECISION = Offset.offset(0.00001);
 
-	@Test
-	public void testConstructionUsingAttributes() {
+    @Test
+    public void testConstructionUsingAttributes() {
 
-		final GroundStationPosition groundStationPosition = new GroundStationPosition(
-				LATITUDE, LONGITUDE, HEIGHT_AMSL);
-		assertTrue(Math.abs(LATITUDE - groundStationPosition.getLatitude()) < 0.000001);
-		assertTrue(Math.abs(LONGITUDE - groundStationPosition.getLongitude()) < 0.000001);
-		assertTrue(Math
-				.abs(HEIGHT_AMSL - groundStationPosition.getHeightAMSL()) < 0.000001);
+        final GroundStationPosition groundStationPosition = new GroundStationPosition(
+                LATITUDE, LONGITUDE, HEIGHT_AMSL);
+        assertThat(Math.abs(LATITUDE - groundStationPosition.getLatitude()) < 0.000001).isTrue();
+        assertThat(Math.abs(LONGITUDE - groundStationPosition.getLongitude()) < 0.000001).isTrue();
+        assertThat(Math
+                .abs(HEIGHT_AMSL - groundStationPosition.getHeightAMSL()) < 0.000001).isTrue();
 
-	}
+    }
 
-	@Test
-	public void testConstructor() {
-		GroundStationPosition g = new GroundStationPosition(10, 11, 12, "boo");
-		assertEquals(10.0, g.getLatitude(), PRECISION);
-		assertEquals(11.0, g.getLongitude(), PRECISION);
-		assertEquals(12.0, g.getHeightAMSL(), PRECISION);
-		assertEquals("boo", g.getName());
-	}
+    @Test
+    public void testConstructor() {
+        GroundStationPosition g = new GroundStationPosition(10, 11, 12, "boo");
+        assertThat(g.getLatitude()).isEqualTo(10.0, PRECISION);
+        assertThat(g.getLongitude()).isEqualTo(11.0, PRECISION);
+        assertThat(g.getHeightAMSL()).isEqualTo(12.0, PRECISION);
+        assertThat(g.getName()).isEqualTo("boo");
+    }
 }

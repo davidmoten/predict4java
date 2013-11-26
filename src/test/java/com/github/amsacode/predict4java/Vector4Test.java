@@ -26,9 +26,11 @@
  */
 package com.github.amsacode.predict4java;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.assertj.core.data.Offset;
 import org.junit.Test;
 
 import com.github.amsacode.predict4java.AbstractSatellite;
@@ -36,24 +38,24 @@ import com.github.amsacode.predict4java.AbstractSatellite.Vector4;
 
 public final class Vector4Test {
 
-	private static final double PRECISION = 0.00001;
+    private static final Offset<Double> PRECISION = Offset.offset(0.00001);
 
-	@Test
-	public void testSubtract() {
-		Vector4 v1 = new AbstractSatellite.Vector4(1, 2, 3, 4);
-		Vector4 v2 = new AbstractSatellite.Vector4(0.1, 0.2, 0.3, 0.4);
-		Vector4 v3 = v1.subtract(v2);
-		assertEquals(0.9, v3.getW(), PRECISION);
-		assertEquals(1.8, v3.getX(), PRECISION);
-		assertEquals(2.7, v3.getY(), PRECISION);
-		assertEquals(3.6, v3.getZ(), PRECISION);
+    @Test
+    public void testSubtract() {
+        Vector4 v1 = new Vector4(1, 2, 3, 4);
+        Vector4 v2 = new Vector4(0.1, 0.2, 0.3, 0.4);
+        Vector4 v3 = v1.subtract(v2);
+        assertThat(v3.getW()).isEqualTo(0.9, PRECISION);
+        assertThat(v3.getX()).isEqualTo(1.8, PRECISION);
+        assertThat(v3.getY()).isEqualTo(2.7, PRECISION);
+        assertThat(v3.getZ()).isEqualTo(3.6, PRECISION);
 
-	}
+    }
 
-	@Test
-	public void testToString() {
-		Vector4 v1 = new AbstractSatellite.Vector4(1, 2, 3, 4);
-		assertNotNull(v1.toString());
-	}
+    @Test
+    public void testToString() {
+        Vector4 v1 = new Vector4(1, 2, 3, 4);
+        assertThat(v1.toString()).isNotNull();
+    }
 
 }

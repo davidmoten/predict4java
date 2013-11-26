@@ -26,6 +26,7 @@
  */
 package com.github.amsacode.predict4java;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
@@ -50,9 +51,9 @@ public final class SatPassTimeTest {
 
 	@Test
 	public void testConstructor() {
-		Date start = new Date();
-		Date end = new Date(start.getTime() + PERIOD_MS);
-		SatPassTime s = new SatPassTime(start, end, "passed", 1, 2, 3.0);
-		assertEquals(start.getTime() + PERIOD_MS / 2, s.getTCA().getTime());
-	}
+        Date start = new Date();
+        Date end = new Date(start.getTime() + PERIOD_MS);
+        SatPassTime s = new SatPassTime(start, end, "passed", 1, 2, 3.0);
+        assertThat(s.getTCA().getTime()).isEqualTo(start.getTime() + PERIOD_MS / 2);
+    }
 }

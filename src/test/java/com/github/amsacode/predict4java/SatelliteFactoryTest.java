@@ -26,6 +26,7 @@
  */
 package com.github.amsacode.predict4java;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
 
 import java.lang.reflect.Constructor;
@@ -98,10 +99,10 @@ public final class SatelliteFactoryTest extends AbstractSatelliteTestBase {
 			throws NoSuchMethodException, SecurityException,
 			InstantiationException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException {
-		Constructor<SatelliteFactory> constructor = SatelliteFactory.class
-				.getDeclaredConstructor();
-		assertFalse(constructor.isAccessible());
-		constructor.setAccessible(true);
-		constructor.newInstance();
-	}
+        Constructor<SatelliteFactory> constructor = SatelliteFactory.class
+                .getDeclaredConstructor();
+        assertThat(constructor.isAccessible()).isFalse();
+        constructor.setAccessible(true);
+        constructor.newInstance();
+    }
 }
