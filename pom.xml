@@ -55,7 +55,14 @@
 			<version>2.1</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>1.5.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
@@ -75,7 +82,17 @@
 					<target>${compiler.source.version}</target>
 				</configuration>
 			</plugin>
-			<plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12</version>
+                <configuration>
+                    <argLine>-Duser.language=en</argLine>
+                </configuration>
+            </plugin>
+
+            <plugin>
 				<artifactId>maven-site-plugin</artifactId>
 				<version>${m3.site.version}</version>
 				<executions>

@@ -26,33 +26,31 @@
  */
 package com.github.amsacode.predict4java;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import java.util.Date;
 
-import org.junit.Test;
-
-import com.github.amsacode.predict4java.SatPassTime;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author David A. B. Johnson, g4dpz
- * 
  */
 public final class SatPassTimeTest {
 
-	private static final int PERIOD_MS = 1000;
+    private static final int PERIOD_MS = 1000;
 
-	@Test
-	public void testSatPassTime() {
-		// Assert.assertTrue(TestUtil.verifyMutable(new SatPassTime(),
-		// "./src/uk/me/g4dpz/satellite/SatPassTime.java", 0));
-	}
+//    @Test
+//    public void testSatPassTime() {
+//        // Assert.assertTrue(TestUtil.verifyMutable(new SatPassTime(),
+//        // "./src/uk/me/g4dpz/satellite/SatPassTime.java", 0));
+//    }
 
-	@Test
-	public void testConstructor() {
-		Date start = new Date();
-		Date end = new Date(start.getTime() + PERIOD_MS);
-		SatPassTime s = new SatPassTime(start, end, "passed", 1, 2, 3.0);
-		assertEquals(start.getTime() + PERIOD_MS / 2, s.getTCA().getTime());
-	}
+    @Test
+    public void testConstructor() {
+        Date start = new Date();
+        Date end = new Date(start.getTime() + PERIOD_MS);
+        SatPassTime s = new SatPassTime(start, end, "passed", 1, 2, 3.0);
+        assertThat(s.getTCA().getTime()).isEqualTo(start.getTime() + PERIOD_MS / 2);
+    }
+
 }

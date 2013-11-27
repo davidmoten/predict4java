@@ -27,12 +27,14 @@
 package com.github.amsacode.predict4java;
 
 import static com.github.amsacode.predict4java.TestingUtil.eq;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.List;
 
+import org.assertj.core.data.Offset;
 import org.junit.Test;
 
 import com.github.amsacode.predict4java.Position;
@@ -40,48 +42,48 @@ import com.github.amsacode.predict4java.SatPos;
 
 /**
  * @author David A. B. Johnson, g4dpz
- * 
  */
 public final class SatPosTest {
 
-	private static final double PRECISION = 0.00001;
-	private static final double ROUNDING_PRECISION = 0.5;
+    private static final Offset<Double> PRECISION = Offset.offset(0.00001);
+    private static final double ROUNDING_PRECISION = 0.5;
 
-	@Test
-	public void testSatPos() {
-		// Assert.assertTrue(TestUtil.verifyMutable(new SatPos(),
-		// "./src/uk/me/g4dpz/satellite/SatPos.java", 0));
-	}
+//    @Test
+//    public void testSatPos() {
+//        // Assert.assertTrue(TestUtil.verifyMutable(new SatPos(),
+//        // "./src/uk/me/g4dpz/satellite/SatPos.java", 0));
+//    }
 
-	@Test
-	public void footprintCalculatedCorrectly() {
-		final SatPos pos = new SatPos();
-		pos.setLatitude(0);
-		pos.setLongitude(0);
-		pos.setAltitude(1000);
-		List<Position> rangeCircle = pos.getRangeCircle();
-		assertTrue(eq(rangeCircle.get(0), 30, 0, ROUNDING_PRECISION));
-		assertTrue(eq(rangeCircle.get(89), 1, 330, ROUNDING_PRECISION));
-		assertTrue(eq(rangeCircle.get(179), -30, 359, ROUNDING_PRECISION));
-		assertTrue(eq(rangeCircle.get(269), -1, 30, ROUNDING_PRECISION));
+    @Test
+    public void footprintCalculatedCorrectly() {
+        final SatPos pos = new SatPos();
+        pos.setLatitude(0);
+        pos.setLongitude(0);
+        pos.setAltitude(1000);
+        List<Position> rangeCircle = pos.getRangeCircle();
+        assertThat(eq(rangeCircle.get(0), 30, 0, ROUNDING_PRECISION)).isTrue();
+        assertThat(eq(rangeCircle.get(89), 1, 330, ROUNDING_PRECISION)).isTrue();
+        assertThat(eq(rangeCircle.get(179), -30, 359, ROUNDING_PRECISION)).isTrue();
+        assertThat(eq(rangeCircle.get(269), -1, 30, ROUNDING_PRECISION)).isTrue();
 
-		pos.setLatitude(10.0 / 360.0 * 2.0 * Math.PI);
-		pos.setLongitude(10.0 / 360.0 * 2.0 * Math.PI);
-		pos.setAltitude(1000);
-		rangeCircle = pos.getRangeCircle();
-		assertTrue(eq(rangeCircle.get(0), 40, 10, ROUNDING_PRECISION));
-		assertTrue(eq(rangeCircle.get(89), 9, 339, ROUNDING_PRECISION));
-		assertTrue(eq(rangeCircle.get(179), -20, 9, ROUNDING_PRECISION));
-		assertTrue(eq(rangeCircle.get(269), 8, 41, ROUNDING_PRECISION));
+        pos.setLatitude(10.0 / 360.0 * 2.0 * Math.PI);
+        pos.setLongitude(10.0 / 360.0 * 2.0 * Math.PI);
+        pos.setAltitude(1000);
+        rangeCircle = pos.getRangeCircle();
+        assertThat(eq(rangeCircle.get(0), 40, 10, ROUNDING_PRECISION)).isTrue();
+        assertThat(eq(rangeCircle.get(89), 9, 339, ROUNDING_PRECISION)).isTrue();
+        assertThat(eq(rangeCircle.get(179), -20, 9, ROUNDING_PRECISION)).isTrue();
+        assertThat(eq(rangeCircle.get(269), 8, 41, ROUNDING_PRECISION)).isTrue();
 
-	}
+    }
 
-	@Test
-	public void testSatPosConstructor() {
-		Date now = new Date();
-		SatPos pos = new SatPos(1, 2, now);
-		assertEquals(1.0, pos.getAzimuth(), PRECISION);
-		assertEquals(2.0, pos.getElevation(), PRECISION);
-		assertEquals(now.getTime(), pos.getTime().getTime());
-	}
+    @Test
+    public void testSatPosConstructor() {
+        Date now = new Date();
+        SatPos pos = new SatPos(1, 2, now);
+        assertThat(pos.getAzimuth()).isEqualTo(1.0, PRECISION);
+        assertThat(pos.getElevation()).isEqualTo(2.0, PRECISION);
+        assertThat(pos.getTime().getTime()).isEqualTo(now.getTime());
+    }
+
 }

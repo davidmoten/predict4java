@@ -26,150 +26,108 @@
  */
 package com.github.amsacode.predict4java;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.junit.Test;
-
-import com.github.amsacode.predict4java.TLE;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author David A. B. Johnson, g4dpz
- * 
  */
 public final class TLETest extends AbstractSatelliteTestBase {
 
-	private static final String VALUE_0_0000 = "0.0000";
-	private static final String VALUE_0_0084159 = "0.0084159";
-	private static final String FORMAT_6_4F = "%6.4f";
-	private static final String ILLEGALARGUMENTEXCEPTION_SHOULDHAVEBEEN_THROWN = "IllegalArgumentException should have been thrown";
-	private static final String TLELINE_3 = "2 28375  98.0821 101.6821 0084935  88.2048 272.8868 14.40599338194363";
-	private static final String FORMAT_9_7F = "%9.7f";
-	private static final String FORMAT_10_7F = "%10.7f";
-	private static final String FORMAT_11_7F = "%11.7f";
-	private static final String AO_51_NAME = "AO-51 [+]";
+    private static final String VALUE_0_0000 = "0.0000";
+    private static final String VALUE_0_0084159 = "0.0084159";
+    private static final String FORMAT_6_4F = "%6.4f";
+    private static final String TLELINE_3 = "2 28375  98.0821 101.6821 0084935  88.2048 272.8868 14.40599338194363";
+    private static final String FORMAT_9_7F = "%9.7f";
+    private static final String FORMAT_10_7F = "%10.7f";
+    private static final String FORMAT_11_7F = "%11.7f";
+    private static final String AO_51_NAME = "AO-51 [+]";
 
-	@Test
-	public void testTLEReadLEO() {
+    @Test
+    public void testTLEReadLEO() {
+        final TLE tle = new TLE(LEO_TLE);
+        checkData(tle);
+    }
 
-		final TLE tle = new TLE(LEO_TLE);
-		checkData(tle);
-	}
+    @Test
+    public void testCopyConstructor() {
+        final TLE tle = new TLE(LEO_TLE);
+        final TLE tleCopy = new TLE(tle);
+        checkData(tleCopy);
+    }
 
-	@Test
-	public void testCopyConstructor() {
+    @Test
+    public void testTLEReadDeepSpace() {
+        final String[] theTLE = {
+                "AO-40",
+                "1 26609U 00072B   00326.22269097 -.00000581  00000-0  00000+0 0    29",
+                "2 26609   6.4279 245.5626 7344055 179.5891 182.1915  2.03421959   104"};
+        final TLE tle = new TLE(theTLE);
+        assertThat(tle.isDeepspace()).isTrue();
+    }
 
-		final TLE tle = new TLE(LEO_TLE);
-		final TLE tleCopy = new TLE(tle);
-		checkData(tleCopy);
-	}
+    @Test(expected = IllegalArgumentException.class)
+    public void testForNullDataInTLE() {
+        final String[] theTLE = {AO_51_NAME, null, TLELINE_3};
+        new TLE(theTLE);
+    }
 
-	@Test
-	public void testTLEReadDeepSpace() {
-		final String[] theTLE = {
-				"AO-40",
-				"1 26609U 00072B   00326.22269097 -.00000581  00000-0  00000+0 0    29",
-				"2 26609   6.4279 245.5626 7344055 179.5891 182.1915  2.03421959   104" };
+    @Test(expected = IllegalArgumentException.class)
+    public void testForBlankDataInTLE() {
+        final String[] theTLE = {AO_51_NAME, "", TLELINE_3};
+        new TLE(theTLE);
+    }
 
-		final TLE tle = new TLE(theTLE);
+    @Test(expected = IllegalArgumentException.class)
+    public void testForNoDataInTLE() {
+        final String[] theTLE = new String[0];
+        new TLE(theTLE);
+    }
 
-		assertTrue("Satellite should have been DeepSpace", tle.isDeepspace());
-	}
+    @Test
+    public void testLoadFromResource() throws IOException {
+        InputStream is = TLETest.class.getResourceAsStream("/LEO.txt");
+        final List<TLE> tles = TLE.importSat(is);
+        assertThat(tles).hasSize(1);
+        checkData(tles.get(0));
+    }
 
-	@Test
-	public void testForNullDataInTLE() {
-		try {
-			final String[] theTLE = { AO_51_NAME, null, TLELINE_3 };
+    @Test(expected = IllegalArgumentException.class)
+    public void testNullArrayPassedToTLEConstructorThrowsIllegalArgumentException() {
+        new TLE((String[]) null);
+    }
 
-			new TLE(theTLE);
-			fail(ILLEGALARGUMENTEXCEPTION_SHOULDHAVEBEEN_THROWN);
-		} catch (final IllegalArgumentException iae) {
-			// This is what we expected
-		}
-	}
-
-	@Test
-	public void testForBlankDataInTLE() {
-		try {
-			final String[] theTLE = { AO_51_NAME, "", TLELINE_3 };
-
-			new TLE(theTLE);
-			fail(ILLEGALARGUMENTEXCEPTION_SHOULDHAVEBEEN_THROWN);
-		} catch (final IllegalArgumentException iae) {
-			// This is what we expected
-		}
-	}
-
-	@Test
-	public void testForNoDataInTLE() {
-		try {
-			final String[] theTLE = new String[0];
-
-			new TLE(theTLE);
-			fail(ILLEGALARGUMENTEXCEPTION_SHOULDHAVEBEEN_THROWN);
-		} catch (final IllegalArgumentException iae) {
-			// This is what we expected
-		}
-	}
-
-	@Test
-	public void testLoadFromResource() {
-
-		InputStream is;
-		try {
-			is = TLETest.class.getResourceAsStream("/LEO.txt");
-
-			final List<TLE> tles = TLE.importSat(is);
-
-			assertTrue(1 == tles.size());
-
-			checkData(tles.get(0));
-		} catch (final IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testNullArrayPassedToTLEConstructorThrowsIllegalArgumentException() {
-		new TLE((String[]) null);
-	}
-
-	private void checkData(final TLE tle) {
-
-		assertEquals(AO_51_NAME, tle.getName());
-		assertEquals(AO_51_NAME, tle.toString());
-		assertEquals(28375, tle.getCatnum());
-		assertEquals(364, tle.getSetnum());
-		assertEquals(9, tle.getYear());
-		assertEquals("105.6639197",
-				String.format(FORMAT_11_7F, tle.getRefepoch()));
-		assertEquals("98.0551000", String.format(FORMAT_10_7F, tle.getIncl()));
-		assertEquals("118.9086000", String.format(FORMAT_11_7F, tle.getRaan()));
-		assertEquals(VALUE_0_0084159, String.format(FORMAT_9_7F, tle.getEccn()));
-		assertEquals("315.8041000",
-				String.format(FORMAT_10_7F, tle.getArgper()));
-		assertEquals(" 43.6444000",
-				String.format(FORMAT_11_7F, tle.getMeanan()));
-		assertEquals("14.4063845", String.format(FORMAT_10_7F, tle.getMeanmo()));
-		assertEquals(VALUE_0_0000, String.format(FORMAT_6_4F, tle.getDrag()));
-		assertEquals(VALUE_0_0000, String.format(FORMAT_6_4F, tle.getNddot6()));
-		assertEquals("0.0000138", String.format(FORMAT_9_7F, tle.getBstar()));
-		assertEquals(25195, tle.getOrbitnum());
-		assertEquals("9105.6639197", String.format("%12.7f", tle.getEpoch()));
-		assertEquals("0.0000000", String.format(FORMAT_9_7F, tle.getXndt2o()));
-		assertEquals("1.7113843", String.format(FORMAT_9_7F, tle.getXincl()));
-		assertEquals("2.0753466", String.format(FORMAT_9_7F, tle.getXnodeo()));
-		assertEquals(VALUE_0_0084159, String.format(FORMAT_9_7F, tle.getEo()));
-		assertEquals("5.5118213", String.format(FORMAT_9_7F, tle.getOmegao()));
-		assertEquals("0.7617385", String.format(FORMAT_9_7F, tle.getXmo()));
-		assertEquals("0.062860", String.format("%8.6f", tle.getXno()));
-		assertFalse(tle.isDeepspace());
-	}
+    private void checkData(final TLE tle) {
+        assertThat(tle.getName()).isEqualTo(AO_51_NAME);
+        assertThat(tle.toString()).isEqualTo(AO_51_NAME);
+        assertThat(tle.getCatnum()).isEqualTo(28375);
+        assertThat(tle.getSetnum()).isEqualTo(364);
+        assertThat(tle.getYear()).isEqualTo(9);
+        assertThat(String.format(FORMAT_11_7F, tle.getRefepoch())).isEqualTo("105.6639197");
+        assertThat(String.format(FORMAT_10_7F, tle.getIncl())).isEqualTo("98.0551000");
+        assertThat(String.format(FORMAT_11_7F, tle.getRaan())).isEqualTo("118.9086000");
+        assertThat(String.format(FORMAT_9_7F, tle.getEccn())).isEqualTo(VALUE_0_0084159);
+        assertThat(String.format(FORMAT_10_7F, tle.getArgper())).isEqualTo("315.8041000");
+        assertThat(String.format(FORMAT_11_7F, tle.getMeanan())).isEqualTo(" 43.6444000");
+        assertThat(String.format(FORMAT_10_7F, tle.getMeanmo())).isEqualTo("14.4063845");
+        assertThat(String.format(FORMAT_6_4F, tle.getDrag())).isEqualTo(VALUE_0_0000);
+        assertThat(String.format(FORMAT_6_4F, tle.getNddot6())).isEqualTo(VALUE_0_0000);
+        assertThat(String.format(FORMAT_9_7F, tle.getBstar())).isEqualTo("0.0000138");
+        assertThat(tle.getOrbitnum()).isEqualTo(25195);
+        assertThat(String.format("%12.7f", tle.getEpoch())).isEqualTo("9105.6639197");
+        assertThat(String.format(FORMAT_9_7F, tle.getXndt2o())).isEqualTo("0.0000000");
+        assertThat(String.format(FORMAT_9_7F, tle.getXincl())).isEqualTo("1.7113843");
+        assertThat(String.format(FORMAT_9_7F, tle.getXnodeo())).isEqualTo("2.0753466");
+        assertThat(String.format(FORMAT_9_7F, tle.getEo())).isEqualTo(VALUE_0_0084159);
+        assertThat(String.format(FORMAT_9_7F, tle.getOmegao())).isEqualTo("5.5118213");
+        assertThat(String.format(FORMAT_9_7F, tle.getXmo())).isEqualTo("0.7617385");
+        assertThat(String.format("%8.6f", tle.getXno())).isEqualTo("0.062860");
+        assertThat(tle.isDeepspace()).isFalse();
+    }
 
 }
