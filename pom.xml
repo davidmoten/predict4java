@@ -27,6 +27,7 @@
         <jxr.version>2.3</jxr.version>
         <taglist.version>2.4</taglist.version>
         <m3.site.version>3.7.1</m3.site.version>
+        <scm.url>scm:git:https://github.com/davidmoten/predict4java.git</scm.url>
     </properties>
 
     <licenses>
@@ -37,9 +38,10 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:git@github.com:davidmoten/predict4java.git</connection>
-        <url>scm:git:git@github.com:davidmoten/predict4java.git</url>
-        <developerConnection>scm:git:git@github.com:davidmoten/predict4java.git</developerConnection>
+        <connection>${scm.url}</connection>
+        <url>${scm.url}</url>
+        <developerConnection>${scm.url}</developerConnection>
+        <tag>HEAD</tag>
     </scm>
 
     <dependencies>
