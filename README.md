@@ -1,7 +1,7 @@
 predict4java
 ============
 
-Status: *production*
+Status: *deployed to Maven Central*
 
 mavenized fork of http://code.google.com/p/predict4java/
 
@@ -31,6 +31,18 @@ During the mavenizing process the following minor changes to the original projec
 * checkstyle configuration is included in the source but is not referenced yet by the maven checkstyle plugin
 
 More enhancements to the original codebase have been performed since the original mavenization and are indicated in the commit history.
+
+Getting started
+------------------
+Add this dependency to your pom.xml:
+
+```xml
+<dependency>
+    <groupId>com.github.davidmoten</groupId>
+    <artifactId>predict4java</artifactId>
+    <version>VERSION_HERE</version>
+</dependency>
+```
 
 Build instructions
 -------------------
