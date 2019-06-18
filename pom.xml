@@ -103,8 +103,11 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<reportPlugins>
+			</plugin>
+		</plugins>
+	</build>
+<reporting>
+<plugins>
 						<!-- this one should go first so that it is available to other plugins 
 							when they run -->
 						<plugin>
@@ -173,10 +176,8 @@
 							<artifactId>maven-javadoc-plugin</artifactId>
 							<version>${javadoc.version}</version>
 						</plugin>
-					</reportPlugins>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+					</plugins>
+
+</reporting>
 </project>
 
