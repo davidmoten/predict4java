@@ -37,6 +37,8 @@
  */
 package com.github.amsacode.predict4java;
 
+import java.util.Arrays;
+
 /**
  * The location of the Satellite Ground Station. Instances of this class are
  * immutable and thus thread safe.
@@ -111,12 +113,7 @@ public class GroundStationPosition {
 	 * @return the horizonElevations
 	 */
 	public final int[] getHorizonElevations() {
-		final int[] horizonElevationsCopy = new int[horizonElevations.length];
-
-		System.arraycopy(horizonElevationsCopy, 0, horizonElevations, 0,
-				horizonElevations.length);
-
-		return horizonElevationsCopy;
+		return Arrays.copyOf(horizonElevations, horizonElevations.length);
 	}
 
 	public String getName() {
