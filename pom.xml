@@ -1,60 +1,61 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.amsacode</groupId>
-	<artifactId>predict4java</artifactId>
-	<version>1.2.0.8-SNAPSHOT</version>
-	<name>${project.artifactId}</name>
-	<description>predict4java provides real-time satellite tracking and orbital prediction information</description>
-	<prerequisites>
-		<maven>3.0.1</maven>
-	</prerequisites>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<compiler.source.version>1.6</compiler.source.version>
-		<cobertura.version>2.5.2</cobertura.version>
-		<checkstyle.version>2.10</checkstyle.version>
-		<findbugs.version>2.5.2</findbugs.version>
-		<javadoc.version>2.9</javadoc.version>
-		<pmd.version>2.7.1</pmd.version>
-		<jdepend.version>2.0-beta-2</jdepend.version>
-		<javancss.version>2.0</javancss.version>
-		<project.info.version>2.5</project.info.version>
-		<jxr.version>2.3</jxr.version>
-		<taglist.version>2.4</taglist.version>
-		<m3.site.version>3.2</m3.site.version>
-	</properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.amsacode</groupId>
+    <artifactId>predict4java</artifactId>
+    <version>1.2.0.8-SNAPSHOT</version>
+    <name>${project.artifactId}</name>
+    <description>predict4java provides real-time satellite tracking and orbital prediction information</description>
+    <prerequisites>
+        <maven>3.0.1</maven>
+    </prerequisites>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <compiler.source.version>1.6</compiler.source.version>
+        <cobertura.version>2.5.2</cobertura.version>
+        <checkstyle.version>2.10</checkstyle.version>
+        <findbugs.version>2.5.2</findbugs.version>
+        <javadoc.version>2.9</javadoc.version>
+        <pmd.version>2.7.1</pmd.version>
+        <jdepend.version>2.0-beta-2</jdepend.version>
+        <javancss.version>2.0</javancss.version>
+        <project.info.version>2.5</project.info.version>
+        <jxr.version>2.3</jxr.version>
+        <taglist.version>2.4</taglist.version>
+        <m3.site.version>3.2</m3.site.version>
+    </properties>
 
-	<licenses>
-		<license>
-			<name>GNU General Public License (GPL) version 2.0</name>
-			<url>http://www.gnu.org/licenses/gpl-2.0.html</url>
-		</license>
-	</licenses>
+    <licenses>
+        <license>
+            <name>GNU General Public License (GPL) version 2.0</name>
+            <url>http://www.gnu.org/licenses/gpl-2.0.html</url>
+        </license>
+    </licenses>
 
-	<scm>
-		<connection>scm:git:git@github.com:davidmoten/predict4java.git</connection>
-		<url>scm:git:git@github.com:davidmoten/predict4java.git</url>
-		<developerConnection>scm:git:git@github.com:davidmoten/predict4java.git</developerConnection>
-	</scm>
+    <scm>
+        <connection>scm:git:git@github.com:davidmoten/predict4java.git</connection>
+        <url>scm:git:git@github.com:davidmoten/predict4java.git</url>
+        <developerConnection>scm:git:git@github.com:davidmoten/predict4java.git</developerConnection>
+    </scm>
 
-	<dependencies>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>2.1</version>
-			<scope>test</scope>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.1</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
@@ -63,25 +64,25 @@
         </dependency>
 
         <dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
-				<configuration>
-					<verbose>true</verbose>
-					<fork>true</fork>
-					<source>${compiler.source.version}</source>
-					<target>${compiler.source.version}</target>
-				</configuration>
-			</plugin>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <verbose>true</verbose>
+                    <fork>true</fork>
+                    <source>${compiler.source.version}</source>
+                    <target>${compiler.source.version}</target>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -93,91 +94,90 @@
             </plugin>
 
             <plugin>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>${m3.site.version}</version>
-				<executions>
-					<execution>
-						<id>attach-descriptor</id>
-						<goals>
-							<goal>attach-descriptor</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-<reporting>
-<plugins>
-						<!-- this one should go first so that it is available to other plugins 
-							when they run -->
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-jxr-plugin</artifactId>
-							<version>${jxr.version}</version>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>cobertura-maven-plugin</artifactId>
-							<version>${cobertura.version}</version>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-checkstyle-plugin</artifactId>
-							<version>${checkstyle.version}</version>
-							<configuration>
-								<!--<configLocation>/checkstyle.xml</configLocation> -->
-								<includeTestSourceDirectory>true</includeTestSourceDirectory>
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-pmd-plugin</artifactId>
-							<version>${pmd.version}</version>
-							<configuration>
-								<targetJdk>${compiler.source.version}</targetJdk>
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>findbugs-maven-plugin</artifactId>
-							<version>${findbugs.version}</version>
-							<configuration>
-								<xmlOutput>true</xmlOutput>
-								<effort>Max</effort>
-								<!--<excludeFilterFile>findbugs-exclude-filter-amsa.xml</excludeFilterFile> -->
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>jdepend-maven-plugin</artifactId>
-							<version>${jdepend.version}</version>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>javancss-maven-plugin</artifactId>
-							<version>${javancss.version}</version>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-project-info-reports-plugin</artifactId>
-							<version>${project.info.version}</version>
-							<configuration>
-								<dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-								<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>taglist-maven-plugin</artifactId>
-							<version>${taglist.version}</version>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-javadoc-plugin</artifactId>
-							<version>${javadoc.version}</version>
-						</plugin>
-					</plugins>
-
-</reporting>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${m3.site.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-descriptor</id>
+                        <goals>
+                            <goal>attach-descriptor</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <reporting>
+        <plugins>
+            <!-- this one should go first so that it is available to other 
+                plugins when they run -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>${jxr.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>${cobertura.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${checkstyle.version}</version>
+                <configuration>
+                    <!--<configLocation>/checkstyle.xml</configLocation> -->
+                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${pmd.version}</version>
+                <configuration>
+                    <targetJdk>${compiler.source.version}</targetJdk>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs.version}</version>
+                <configuration>
+                    <xmlOutput>true</xmlOutput>
+                    <effort>Max</effort>
+                    <!--<excludeFilterFile>findbugs-exclude-filter-amsa.xml</excludeFilterFile> -->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+                <version>${jdepend.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>javancss-maven-plugin</artifactId>
+                <version>${javancss.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${project.info.version}</version>
+                <configuration>
+                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>taglist-maven-plugin</artifactId>
+                <version>${taglist.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${javadoc.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
 
