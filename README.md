@@ -1,5 +1,8 @@
 predict4java
 ============
+<a href="https://travis-ci.org/davidmoten/predict4java"><img src="https://travis-ci.org/davidmoten/predict4java.svg"/></a><br/>
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.davidmoten/predict4java/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.github.davidmoten/predict4java)<br/>
+[![codecov](https://codecov.io/gh/davidmoten/predict4java/branch/master/graph/badge.svg)](https://codecov.io/gh/davidmoten/predict4java)<br/>
 
 Status: *deployed to Maven Central*
 
