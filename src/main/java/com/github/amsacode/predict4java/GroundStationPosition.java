@@ -46,10 +46,11 @@ import java.util.Arrays;
  * @author g4dpz
  */
 public class GroundStationPosition {
-	private double latitude;
+	private static final int NUM_SECTORS = 360 /10; //each sector is 10 degrees
+    private double latitude;
 	private double longitude;
 	private double heightAMSL;
-	private final int[] horizonElevations = new int[36];
+	private final int[] horizonElevations = new int[NUM_SECTORS];
 	private final String name;
 
 	/**
