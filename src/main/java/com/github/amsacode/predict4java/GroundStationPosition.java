@@ -39,6 +39,8 @@ package com.github.amsacode.predict4java;
 
 import java.util.Arrays;
 
+import com.github.davidmoten.guavamini.Preconditions;
+
 /**
  * The location of the Satellite Ground Station. Instances of this class are
  * immutable and thus thread safe.
@@ -46,46 +48,72 @@ import java.util.Arrays;
  * @author g4dpz
  */
 public class GroundStationPosition {
-	private static final int NUM_SECTORS = 360 /10; //each sector is 10 degrees
-    private double latitude;
-	private double longitude;
-	private double heightAMSL;
-	private final int[] horizonElevations = new int[NUM_SECTORS];
+	private static final int NUM_SECTORS = 36; //each sector is 10 degrees
+	
+    private final double latitude;
+	private final double longitude;
+	private final double heightAMSL;
+	private final int[] horizonElevations;
 	private final String name;
 
+    /**
+     * @param latitude
+     *            the latitude of the ground station in degrees, North: positive
+     * @param longitude
+     *            the longitude of the ground station in degrees, East: positive
+     * @param heightAMSL
+     *            the height of the ground station above mean sea level, in metres
+     * @param name
+     *            the name of the ground station. If null passed then an empty
+     *            string is used for the name
+     * @param horizonElevations
+     *            the elevations of the horizon in degrees from the ground station
+     *            by 10 degree sectors. If null is passed then 0 is assumed for all
+     *            sectors.
+     */
+    public GroundStationPosition(final double latitude, final double longitude, final double heightAMSL, String name,
+            int[] horizonElevations) {
+        Preconditions.checkArgument(horizonElevations == null || horizonElevations.length == NUM_SECTORS,
+                "horizonElevations array must have length 36 corresponding to 10 degree sectors");
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.heightAMSL = heightAMSL;
+        this.name = name == null ? "" : name;
+        // Note that a copy of horizon elevations is made to honour the thread-safety
+        // claim of this class
+        this.horizonElevations = horizonElevations == null ? new int[NUM_SECTORS]
+                : Arrays.copyOf(horizonElevations, horizonElevations.length);
+    }
+	
 	/**
-	 * @param latitude
-	 *            the latitue of the ground station in degrees, North: positive
-	 * @param longitude
-	 *            the longitude of the ground station in degrees, East: positive
-	 * @param heightAMSL
-	 *            the height of te ground station above mean sea level, in
-	 *            metres
-	 */
-	public GroundStationPosition(final double latitude, final double longitude,
-			final double heightAMSL) {
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.heightAMSL = heightAMSL;
-		this.name = "";
-	}
+     * @param latitude
+     *            the latitude of the ground station in degrees, North: positive
+     * @param longitude
+     *            the longitude of the ground station in degrees, East: positive
+     * @param heightAMSL
+     *            the height of the ground station above mean sea level, in
+     *            metres
+     */
+    public GroundStationPosition(final double latitude, final double longitude,
+            final double heightAMSL) {
+        this(latitude, longitude, heightAMSL, null, null);
+    }
+    
+    /**
+     * @param latitude
+     *            the latitude of the ground station in degrees, North: positive
+     * @param longitude
+     *            the longitude of the ground station in degrees, East: positive
+     * @param heightAMSL
+     *            the height of the ground station above mean sea level, in metres
+     * @param name
+     *            the name of the ground station. If null passed then an empty
+     *            string is used for the name
+     */
+    public GroundStationPosition(final double latitude, final double longitude, final double heightAMSL, String name) {
+        this(latitude, longitude, heightAMSL, name, null);
+    }
 
-	/**
-	 * @param latitude
-	 *            the latitue of the ground station in degrees, North: positive
-	 * @param longitude
-	 *            the longitude of the ground station in degrees, East: positive
-	 * @param heightAMSL
-	 *            the height of te ground station above mean sea level, in
-	 *            metres
-	 */
-	public GroundStationPosition(final double latitude, final double longitude,
-			final double heightAMSL, String name) {
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.heightAMSL = heightAMSL;
-		this.name = name;
-	}
 
 	/**
 	 * @return latitude
@@ -109,12 +137,12 @@ public class GroundStationPosition {
 	}
 
 	/**
-	 * Returns a copy of the horizon elevations.
+	 * Returns the horizon elevation in degrees by 10 degree sector.
 	 * 
-	 * @return the horizonElevations
+	 * @return the horizonElevation in degrees.
 	 */
-	public final int[] getHorizonElevations() {
-		return Arrays.copyOf(horizonElevations, horizonElevations.length);
+	public final int getHorizonElevations(int sector) {
+		return horizonElevations[sector];
 	}
 
 	public String getName() {

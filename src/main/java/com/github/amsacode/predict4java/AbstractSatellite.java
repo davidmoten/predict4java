@@ -553,7 +553,7 @@ public abstract class AbstractSatellite implements Satellite {
 			elevation = 180 - elevation;
 		}
 
-		satPos.setAboveHorizon((elevation - gsPos.getHorizonElevations()[sector]) > EPSILON);
+		satPos.setAboveHorizon((elevation - gsPos.getHorizonElevations(sector)) > EPSILON);
 	}
 
 	@Override
