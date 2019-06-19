@@ -141,7 +141,7 @@ public class GroundStationPosition {
 	 * 
 	 * @return the horizonElevation in degrees.
 	 */
-	public final int getHorizonElevations(int sector) {
+	public final int getHorizonElevation(int sector) {
 		return horizonElevations[sector];
 	}
 
