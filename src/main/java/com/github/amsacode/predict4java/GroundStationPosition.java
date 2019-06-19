@@ -48,13 +48,13 @@ import com.github.davidmoten.guavamini.Preconditions;
  * @author g4dpz
  */
 public class GroundStationPosition {
-	private static final int NUM_SECTORS = 36; //each sector is 10 degrees
-	
+    private static final int NUM_SECTORS = 36; //each sector is 10 degrees
+
     private final double latitude;
-	private final double longitude;
-	private final double heightAMSL;
-	private final int[] horizonElevations;
-	private final String name;
+    private final double longitude;
+    private final double heightAMSL;
+    private final int[] horizonElevations;
+    private final String name;
 
     /**
      * @param latitude
@@ -84,8 +84,8 @@ public class GroundStationPosition {
         this.horizonElevations = horizonElevations == null ? new int[NUM_SECTORS]
                 : Arrays.copyOf(horizonElevations, horizonElevations.length);
     }
-	
-	/**
+    
+    /**
      * @param latitude
      *            the latitude of the ground station in degrees, North: positive
      * @param longitude
@@ -115,38 +115,38 @@ public class GroundStationPosition {
     }
 
 
-	/**
-	 * @return latitude
-	 */
-	public double getLatitude() {
-		return latitude;
-	}
+    /**
+     * @return latitude
+     */
+    public double getLatitude() {
+        return latitude;
+    }
 
-	/**
-	 * @return longitude
-	 */
-	public double getLongitude() {
-		return longitude;
-	}
+    /**
+     * @return longitude
+     */
+    public double getLongitude() {
+        return longitude;
+    }
 
-	/**
-	 * @return elevation
-	 */
-	public double getHeightAMSL() {
-		return heightAMSL;
-	}
+    /**
+     * @return elevation
+     */
+    public double getHeightAMSL() {
+        return heightAMSL;
+    }
 
-	/**
-	 * Returns the horizon elevation in degrees by 10 degree sector.
-	 * 
-	 * @return the horizonElevation in degrees.
-	 */
-	public final int getHorizonElevation(int sector) {
-		return horizonElevations[sector];
-	}
+    /**
+     * Returns the horizon elevation in degrees by 10 degree sector.
+     * 
+     * @return the horizonElevation in degrees.
+     */
+    public final int getHorizonElevation(int sector) {
+        return horizonElevations[sector];
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
 }
