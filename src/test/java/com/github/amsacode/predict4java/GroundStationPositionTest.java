@@ -65,4 +65,20 @@ public final class GroundStationPositionTest {
         assertThat(g.getHeightAMSL()).isEqualTo(12.0, PRECISION);
         assertThat(g.getName()).isEqualTo("boo");
     }
+    
+    @Test
+    public void testConstructorWithHorizonElevations() {
+        int[] horizonElevations = new int[36];
+        horizonElevations[0]=12;
+        horizonElevations[1]=14;
+        horizonElevations[35]=16;
+        GroundStationPosition g = new GroundStationPosition(10, 11, 12, "boo", horizonElevations);
+        assertThat(g.getLatitude()).isEqualTo(10.0, PRECISION);
+        assertThat(g.getLongitude()).isEqualTo(11.0, PRECISION);
+        assertThat(g.getHeightAMSL()).isEqualTo(12.0, PRECISION);
+        assertThat(g.getName()).isEqualTo("boo");
+        assertThat(g.getHorizonElevation(0)).isEqualTo(12);
+        assertThat(g.getHorizonElevation(1)).isEqualTo(14);
+        assertThat(g.getHorizonElevation(35)).isEqualTo(16);
+    }
 }
