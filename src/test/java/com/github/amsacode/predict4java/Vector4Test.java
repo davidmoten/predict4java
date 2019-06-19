@@ -26,11 +26,12 @@
  */
 package com.github.amsacode.predict4java;
 
-import com.github.amsacode.predict4java.AbstractSatellite.Vector4;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.core.data.Offset;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.github.amsacode.predict4java.AbstractSatellite.Vector4;
 
 public final class Vector4Test {
 

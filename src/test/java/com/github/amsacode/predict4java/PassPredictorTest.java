@@ -26,14 +26,13 @@
  */
 package com.github.amsacode.predict4java;
 
-import org.joda.time.DateTime;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import org.joda.time.DateTime;
+import org.junit.Test;
 
 /**
  * @author David A. B. Johnson, g4dpz

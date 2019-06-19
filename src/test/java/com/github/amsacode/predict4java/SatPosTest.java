@@ -28,17 +28,12 @@ package com.github.amsacode.predict4java;
 
 import static com.github.amsacode.predict4java.TestingUtil.eq;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.List;
 
 import org.assertj.core.data.Offset;
 import org.junit.Test;
-
-import com.github.amsacode.predict4java.Position;
-import com.github.amsacode.predict4java.SatPos;
 
 /**
  * @author David A. B. Johnson, g4dpz

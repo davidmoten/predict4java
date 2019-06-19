@@ -30,11 +30,6 @@ import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.amsacode.predict4java.SatPos;
-import com.github.amsacode.predict4java.Satellite;
-import com.github.amsacode.predict4java.SatelliteFactory;
-import com.github.amsacode.predict4java.TLE;
-
 public class IlluminationTest extends AbstractSatelliteTestBase {
 
 	@Test

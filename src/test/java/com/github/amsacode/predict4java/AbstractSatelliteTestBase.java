@@ -29,8 +29,6 @@ package com.github.amsacode.predict4java;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
-import com.github.amsacode.predict4java.GroundStationPosition;
-
 /**
  * @author David A. B. Johnson, g4dpz
  * 

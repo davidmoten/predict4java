@@ -26,12 +26,12 @@
  */
 package com.github.amsacode.predict4java;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
 
 /**
  * @author David A. B. Johnson, g4dpz

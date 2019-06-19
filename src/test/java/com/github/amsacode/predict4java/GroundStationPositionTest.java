@@ -27,13 +27,9 @@
 package com.github.amsacode.predict4java;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.assertj.core.data.Offset;
 import org.junit.Test;
-
-import com.github.amsacode.predict4java.GroundStationPosition;
 
 /**
  * @author David A. B. Johnson, g4dpz

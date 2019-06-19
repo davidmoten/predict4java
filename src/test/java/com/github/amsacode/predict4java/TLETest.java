@@ -26,13 +26,13 @@
  */
 package com.github.amsacode.predict4java;
 
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Test;
 
 /**
  * @author David A. B. Johnson, g4dpz

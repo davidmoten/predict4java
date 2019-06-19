@@ -27,19 +27,10 @@
 package com.github.amsacode.predict4java;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.github.amsacode.predict4java.SatPos;
-import com.github.amsacode.predict4java.Satellite;
-import com.github.amsacode.predict4java.SatelliteFactory;
-import com.github.amsacode.predict4java.TLE;
 
 /**
  * @author David A. B. Johnson, g4dpz

@@ -26,10 +26,10 @@
  */
 package com.github.amsacode.predict4java;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.core.data.Offset;
 import org.junit.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public final class AbstractSatelliteTest {
 
