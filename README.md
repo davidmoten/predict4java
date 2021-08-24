@@ -4,6 +4,8 @@ predict4java
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.davidmoten/predict4java/badge.svg?style=flat)](https://maven-badges.herokuapp.com/maven-central/com.github.davidmoten/predict4java)<br/>
 [![codecov](https://codecov.io/gh/davidmoten/predict4java/branch/master/graph/badge.svg)](https://codecov.io/gh/davidmoten/predict4java)<br/>
 
+*predict4java* provides real-time satellite tracking and orbital prediction information.
+
 Status: *deployed to Maven Central*
 
 mavenized fork of http://code.google.com/p/predict4java/
